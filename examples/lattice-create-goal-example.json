@@ -1,0 +1,45 @@
+{
+  "request": {
+    "name": "Complete HRIS Integration with Okta",
+    "description": "Integrate Lattice HRIS with Okta SCIM provisioning for automated user lifecycle management.",
+    "startDate": "2025-10-01",
+    "dueDate": "2025-12-31",
+    "ownerIds": ["user_ABC123", "user_DEF456"],
+    "priority": 2,
+    "private": false,
+    "okrType": "objective",
+    "amountType": null,
+    "companyGoal": false,
+    "departmentId": "dept_ITSEC789",
+    "departmentsVisibleToIds": [],
+    "goalCycleId": null,
+    "tagNames": ["integration", "hris"],
+    "isDraft": false,
+    "parentId": null
+  },
+  "response": {
+    "entityId": "goal_03K0ZB5M4R6OPSS7XYAV8CDEF",
+    "name": "Complete HRIS Integration with Okta",
+    "description": "Integrate Lattice HRIS with Okta SCIM provisioning for automated user lifecycle management.",
+    "startDate": "2025-10-01",
+    "dueDate": "2025-12-31",
+    "ownerIds": ["user_ABC123", "user_DEF456"],
+    "priority": 2,
+    "private": false,
+    "okrType": "objective",
+    "amountType": null,
+    "companyGoal": false,
+    "departmentId": "dept_ITSEC789",
+    "departmentsVisibleToIds": [],
+    "goalCycleId": null,
+    "isDraft": false,
+    "parentId": null,
+    "tags": [
+      { "id": "tag_INT001", "name": "integration" },
+      { "id": "tag_HRI002", "name": "hris" }
+    ],
+    "childGoals": [],
+    "addedTags": ["integration", "hris"],
+    "removedTags": []
+  }
+}

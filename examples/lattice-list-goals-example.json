@@ -1,0 +1,91 @@
+{
+  "object": "list",
+  "hasMore": false,
+  "endingCursor": null,
+  "data": [
+    {
+      "id": "goal_01H8XZ3K2P4MNQR5VWYT6ABCD",
+      "object": "goal",
+      "url": "https://api.latticehq.com/v1/goal/goal_01H8XZ3K2P4MNQR5VWYT6ABCD",
+      "name": "Increase Q3 ARR by 20%",
+      "description": "Grow Annual Recurring Revenue through new logo acquisition and expansion.",
+      "state": "Active",
+      "status": "OnTrack",
+      "goalType": "Company",
+      "okrType": "objective",
+      "isPrivate": false,
+      "priority": 1,
+      "amountType": "Percent",
+      "startingAmount": 0,
+      "endingAmount": 20,
+      "currentAmount": 12.5,
+      "startDate": "2025-07-01",
+      "dueDate": "2025-09-30",
+      "createdAt": 1751234567,
+      "updatedAt": 1751890123,
+      "publishedAt": 1751234600,
+      "completedAt": null,
+      "archivedAt": null,
+      "owners": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_01H8XZ3K2P4MNQR5VWYT6ABCD/owners"
+      },
+      "department": null,
+      "parentGoal": null,
+      "childGoals": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_01H8XZ3K2P4MNQR5VWYT6ABCD/childGoals"
+      },
+      "tags": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_01H8XZ3K2P4MNQR5VWYT6ABCD/tags"
+      }
+    },
+    {
+      "id": "goal_02J9YA4L3Q5NORR6WXZU7BCDE",
+      "object": "goal",
+      "url": "https://api.latticehq.com/v1/goal/goal_02J9YA4L3Q5NORR6WXZU7BCDE",
+      "name": "Launch new product feature by September 15",
+      "description": "Ship the advanced analytics dashboard to all enterprise customers.",
+      "state": "Active",
+      "status": "Progressing",
+      "goalType": "Department",
+      "okrType": "key_result",
+      "isPrivate": false,
+      "priority": 2,
+      "amountType": "Binary",
+      "startingAmount": null,
+      "endingAmount": null,
+      "currentAmount": null,
+      "startDate": "2025-07-01",
+      "dueDate": "2025-09-15",
+      "createdAt": 1751234800,
+      "updatedAt": 1751891000,
+      "publishedAt": 1751234900,
+      "completedAt": null,
+      "archivedAt": null,
+      "owners": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_02J9YA4L3Q5NORR6WXZU7BCDE/owners"
+      },
+      "department": {
+        "id": "dept_ENG123",
+        "object": "department",
+        "url": "https://api.latticehq.com/v1/department/dept_ENG123"
+      },
+      "parentGoal": {
+        "id": "goal_01H8XZ3K2P4MNQR5VWYT6ABCD",
+        "object": "goal",
+        "url": "https://api.latticehq.com/v1/goal/goal_01H8XZ3K2P4MNQR5VWYT6ABCD"
+      },
+      "childGoals": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_02J9YA4L3Q5NORR6WXZU7BCDE/childGoals"
+      },
+      "tags": {
+        "object": "list",
+        "url": "https://api.latticehq.com/v1/goal/goal_02J9YA4L3Q5NORR6WXZU7BCDE/tags"
+      }
+    }
+  ]
+}

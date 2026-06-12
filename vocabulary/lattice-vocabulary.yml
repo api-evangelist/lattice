@@ -1,0 +1,213 @@
+vocabulary:
+  name: Lattice API Vocabulary
+  description: >
+    Domain terms and concepts used across the Lattice Talent and HRIS APIs,
+    covering people management, performance reviews, goals, OKRs, and HR data.
+  version: "1.0"
+  source: https://developers.lattice.com
+  updated: 2026-06-12
+
+terms:
+
+  - term: Goal
+    definition: >
+      A structured objective created in Lattice that tracks desired outcomes for
+      individuals, departments, or the entire company. Goals have a state
+      (Draft, Active, Ended, Archived) and a status (OnTrack, Progressing,
+      OffTrack, NotUpdated).
+    type: resource
+    relatedTerms: [OKR, KeyResult, GoalCycle, GoalUpdate, Tag]
+
+  - term: OKR
+    definition: >
+      Objectives and Key Results — a goal-setting framework supported in Lattice.
+      An Objective describes a qualitative desired outcome; Key Results are
+      measurable milestones. OKR type is tracked on every goal via the okrType
+      field (objective or key_result).
+    type: concept
+    relatedTerms: [Goal, KeyResult]
+
+  - term: KeyResult
+    definition: >
+      A measurable step toward achieving an Objective. In Lattice, a key result
+      goal has an amountType (Percent, Dollar, Digit, Binary) and tracks
+      startingAmount, endingAmount, and currentAmount.
+    type: concept
+    relatedTerms: [Goal, OKR]
+
+  - term: GoalCycle
+    definition: >
+      A defined time period within which goals are tracked and evaluated.
+      Goals can be linked to a goal cycle via goalCycleId.
+    type: resource
+    relatedTerms: [Goal]
+
+  - term: GoalUpdate
+    definition: >
+      A progress update posted on a goal, recording the author, an optional
+      comment, and the currentAmount at the time of the update.
+    type: resource
+    relatedTerms: [Goal]
+
+  - term: ReviewCycle
+    definition: >
+      A performance review campaign in Lattice that progresses through stages:
+      Draft, PreLaunch, Launching, PeerSelection, CollectingReviews,
+      Calibration, and Ended. A cycle contains reviewees and associated reviews.
+    type: resource
+    relatedTerms: [Reviewee, Review, ReviewStage]
+
+  - term: ReviewStage
+    definition: >
+      The current phase of a review cycle. Stages are: Draft, PreLaunch,
+      Launching, PeerSelection, CollectingReviews, Calibration, Ended.
+    type: enumeration
+    values: [Draft, PreLaunch, Launching, PeerSelection, CollectingReviews, Calibration, Ended]
+    relatedTerms: [ReviewCycle]
+
+  - term: Reviewee
+    definition: >
+      An employee who is the subject of evaluation within a review cycle.
+      A Reviewee record links a User to a ReviewCycle and carries metadata
+      such as weightedScore, PDF URLs, and closure timestamps.
+    type: resource
+    relatedTerms: [ReviewCycle, Review, User]
+
+  - term: Review
+    definition: >
+      A single performance evaluation written by a reviewer about a specific
+      reviewee. Reviews have a direction (self, peer, downward, upward) and a
+      state (unstarted, drafted, submitted, rejected, shared).
+    type: resource
+    relatedTerms: [Reviewee, ReviewCycle, ReviewDirection, ReviewState]
+
+  - term: ReviewDirection
+    definition: >
+      Indicates the relationship between reviewer and reviewee in a review.
+      Values: downward (manager reviews report), self, peer, upward (report
+      reviews manager).
+    type: enumeration
+    values: [downward, self, peer, upward]
+    relatedTerms: [Review]
+
+  - term: ReviewState
+    definition: >
+      The current completion state of a review.
+      Values: unstarted, drafted, submitted, rejected, shared.
+    type: enumeration
+    values: [unstarted, drafted, submitted, rejected, shared]
+    relatedTerms: [Review]
+
+  - term: QuestionRevision
+    definition: >
+      A versioned snapshot of a review question used at a point in time.
+      Responses in a draft review are linked to questionRevisionId to ensure
+      answers are tied to the exact question wording shown to the reviewer.
+    type: resource
+    relatedTerms: [Review]
+
+  - term: WeightedScore
+    definition: >
+      A numeric performance score associated with a Reviewee, with fields for
+      manual and auto-calculated values. Used when weightedScoresEnabled is
+      true on a ReviewCycle.
+    type: concept
+    relatedTerms: [Reviewee, ReviewCycle]
+
+  - term: Feedback
+    definition: >
+      Continuous (non-review-cycle) feedback submitted from one Lattice user
+      to one or more others. Feedback may be public (visible company-wide) or
+      private. Feedback can be solicited (linked to a feedbackRequest) or
+      unsolicited.
+    type: resource
+    relatedTerms: [User, Competency]
+
+  - term: Competency
+    definition: >
+      A skill or behavioral capability defined in Lattice, which can be
+      associated with feedback to categorize the type of behavior being
+      recognized or developed.
+    type: resource
+    relatedTerms: [Feedback]
+
+  - term: Department
+    definition: >
+      An organizational unit within Lattice. Users belong to one department;
+      goals can be scoped to a department.
+    type: resource
+    relatedTerms: [User, Goal]
+
+  - term: Tag
+    definition: >
+      A label that can be applied to goals (up to 5 per goal) to enable
+      filtering and categorization.
+    type: resource
+    relatedTerms: [Goal]
+
+  - term: CustomAttribute
+    definition: >
+      An admin-defined attribute that extends the User object with
+      organization-specific fields (e.g., cost center, employee type).
+    type: resource
+    relatedTerms: [User, CustomAttributeValue]
+
+  - term: CustomAttributeValue
+    definition: >
+      The value of a CustomAttribute for a specific User.
+    type: resource
+    relatedTerms: [CustomAttribute, User]
+
+  - term: Task
+    definition: >
+      An action item assigned to a user in Lattice, tracked via the tasks
+      ListReference on the User object.
+    type: resource
+    relatedTerms: [User]
+
+  - term: ObjectReference
+    definition: >
+      A lightweight pointer to another Lattice resource containing id, object
+      type, and url fields. Used in place of fully expanded objects to reduce
+      payload size. Objects can be expanded using the expand query parameter.
+    type: concept
+    relatedTerms: [ListReference]
+
+  - term: ListReference
+    definition: >
+      A pointer to a paginated list of related resources, containing an object
+      field (always "list") and a url for fetching the full list.
+    type: concept
+    relatedTerms: [ObjectReference]
+
+  - term: CursorPagination
+    definition: >
+      The pagination strategy used by Lattice APIs. Responses include a
+      hasMore boolean and an endingCursor string. Pass endingCursor as the
+      startingAfter query parameter to fetch the next page.
+    type: concept
+    relatedTerms: [ListReference]
+
+  - term: BearerAuth
+    definition: >
+      The authentication mechanism used by both Lattice APIs. An API key is
+      passed as a bearer token in the Authorization header of every request.
+      Keys are created and managed in the Lattice admin dashboard and inherit
+      the permissions of their creator.
+    type: concept
+
+  - term: HRIS
+    definition: >
+      Human Resources Information System. The Lattice HRIS API (v2) provides
+      employee records and organizational data, designed for integrations
+      with external HR systems and identity providers such as Okta via SCIM.
+    type: concept
+    relatedTerms: [SCIM, User]
+
+  - term: SCIM
+    definition: >
+      System for Cross-domain Identity Management. Lattice supports SCIM
+      provisioning via Okta for automated user lifecycle management (create,
+      update, deactivate) synchronized from the identity provider.
+    type: concept
+    relatedTerms: [HRIS]

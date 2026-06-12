@@ -1,0 +1,56 @@
+{
+  "request": {
+    "reviewId": "review_A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
+    "responses": [
+      {
+        "questionRevisionId": "qrev_11111111-2222-3333-4444-555555555555",
+        "comment": "Jane consistently delivers high-quality work ahead of schedule and proactively communicates blockers.",
+        "rating": null,
+        "choices": null
+      },
+      {
+        "questionRevisionId": "qrev_66666666-7777-8888-9999-AAAAAAAAAAAA",
+        "comment": null,
+        "rating": "Exceeds Expectations",
+        "choices": null
+      },
+      {
+        "questionRevisionId": "qrev_BBBBBBBB-CCCC-DDDD-EEEE-FFFFFFFFFFFF",
+        "comment": null,
+        "rating": null,
+        "choices": ["Leadership", "Communication", "Technical Excellence"]
+      }
+    ]
+  },
+  "response": {
+    "data": {
+      "id": "review_A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
+      "revieweeId": "user_ABC123",
+      "cycleId": "cycle_Q3-2025-PERF",
+      "direction": "downward",
+      "state": "drafted",
+      "responses": [
+        {
+          "questionRevisionId": "qrev_11111111-2222-3333-4444-555555555555",
+          "comment": "Jane consistently delivers high-quality work ahead of schedule and proactively communicates blockers.",
+          "rating": null,
+          "choices": null
+        },
+        {
+          "questionRevisionId": "qrev_66666666-7777-8888-9999-AAAAAAAAAAAA",
+          "comment": null,
+          "rating": "Exceeds Expectations",
+          "choices": null
+        },
+        {
+          "questionRevisionId": "qrev_BBBBBBBB-CCCC-DDDD-EEEE-FFFFFFFFFFFF",
+          "comment": null,
+          "rating": null,
+          "choices": ["Leadership", "Communication", "Technical Excellence"]
+        }
+      ],
+      "updatedAt": "2025-10-15T14:30:00Z",
+      "submittedAt": null
+    }
+  }
+}

@@ -5,6 +5,7 @@ image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/lattice/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
+
 specificationVersion: "0.19"
 description: >
   Lattice is a people management platform used by over 5,000 companies to run
@@ -49,7 +50,7 @@ apis:
       - type: Documentation
         url: https://developers.lattice.com/reference/introduction
       - type: OpenAPI
-        url: https://developers.lattice.com/llms.txt
+        url: openapi/lattice-talent-openapi.yml
 
   - name: Lattice HRIS API
     description: >
@@ -67,6 +68,8 @@ apis:
     properties:
       - type: Documentation
         url: https://developers.lattice.com
+      - type: OpenAPI
+        url: openapi/lattice-hris-openapi.yml
 
 common:
 
@@ -99,6 +102,30 @@ common:
 
   - type: FinOps
     url: finops/lattice-finops.yml
+
+  - type: JSONSchema
+    url: json-schema/lattice-goal.json
+
+  - type: JSONSchema
+    url: json-schema/lattice-user.json
+
+  - type: JSONSchema
+    url: json-schema/lattice-review-cycle.json
+
+  - type: JSONLDContext
+    url: json-ld/lattice-context.jsonld
+
+  - type: Vocabulary
+    url: vocabulary/lattice-vocabulary.yml
+
+  - type: Examples
+    url: examples/lattice-list-goals-example.json
+
+  - type: Examples
+    url: examples/lattice-create-goal-example.json
+
+  - type: Examples
+    url: examples/lattice-create-draft-review-example.json
 
 maintainers:
   - FN: Kin Lane

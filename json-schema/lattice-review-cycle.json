@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.latticehq.com/schemas/review-cycle",
+  "title": "ReviewCycle",
+  "description": "A Lattice performance review cycle.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "object": { "type": "string", "const": "reviewCycle" },
+    "url": { "type": "string", "format": "uri" },
+    "name": { "type": "string" },
+    "stage": {
+      "type": "string",
+      "enum": ["Draft", "PreLaunch", "Launching", "PeerSelection", "CollectingReviews", "Calibration", "Ended"]
+    },
+    "creator": {
+      "type": "object",
+      "description": "ObjectReference to review cycle creator"
+    },
+    "reviewees": {
+      "type": "object",
+      "description": "ListReference to reviewees"
+    },
+    "reviews": {
+      "type": "object",
+      "description": "ListReference to reviews"
+    },
+    "calibrationEnabled": { "type": "boolean" },
+    "weightedScoresEnabled": { "type": "boolean" },
+    "autocalculatedWeightedScoresEnabled": { "type": "boolean" },
+    "peerSelectionStartedAt": { "type": ["integer", "null"] },
+    "reviewsStartedAt": { "type": ["integer", "null"] },
+    "reviewsEndedAt": { "type": ["integer", "null"] },
+    "calibrationEndedAt": { "type": ["integer", "null"] },
+    "weightedScoresEndedAt": { "type": ["integer", "null"] },
+    "createdAt": { "type": "integer" },
+    "updatedAt": { "type": "integer" }
+  },
+  "required": ["id", "object", "url", "name", "stage", "creator", "reviewees", "reviews", "calibrationEnabled", "weightedScoresEnabled", "autocalculatedWeightedScoresEnabled", "createdAt", "updatedAt"]
+}

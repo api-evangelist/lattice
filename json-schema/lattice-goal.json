@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.latticehq.com/schemas/goal",
+  "title": "Goal",
+  "description": "A Lattice goal or OKR created by or assigned to one or more users.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Unique API identifier" },
+    "object": { "type": "string", "const": "goal" },
+    "url": { "type": "string", "format": "uri" },
+    "name": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "state": {
+      "type": "string",
+      "enum": ["Draft", "Active", "Ended", "Archived"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["NotUpdated", "OnTrack", "Progressing", "OffTrack"]
+    },
+    "goalType": {
+      "type": "string",
+      "enum": ["Company", "Department", "Group", "Individual"]
+    },
+    "okrType": {
+      "type": "string",
+      "enum": ["objective", "key_result"]
+    },
+    "isPrivate": { "type": "boolean" },
+    "priority": { "type": ["integer", "null"], "minimum": 1, "maximum": 10 },
+    "amountType": {
+      "type": ["string", "null"],
+      "enum": ["Percent", "Dollar", "Digit", "Binary", null]
+    },
+    "startingAmount": { "type": ["number", "null"] },
+    "endingAmount": { "type": ["number", "null"] },
+    "currentAmount": { "type": ["number", "null"] },
+    "startDate": { "type": ["string", "null"], "format": "date" },
+    "dueDate": { "type": ["string", "null"], "format": "date" },
+    "createdAt": { "type": "integer", "description": "Unix timestamp" },
+    "updatedAt": { "type": "integer", "description": "Unix timestamp" },
+    "publishedAt": { "type": ["integer", "null"] },
+    "completedAt": { "type": ["integer", "null"] },
+    "archivedAt": { "type": ["integer", "null"] },
+    "owners": {
+      "type": "object",
+      "description": "ListReference to goal owners"
+    },
+    "department": {
+      "type": ["object", "null"],
+      "description": "ObjectReference to associated department"
+    },
+    "parentGoal": {
+      "type": ["object", "null"],
+      "description": "ObjectReference to parent goal"
+    },
+    "childGoals": {
+      "type": "object",
+      "description": "ListReference to child goals"
+    },
+    "tags": {
+      "type": "object",
+      "description": "ListReference to goal tags"
+    }
+  },
+  "required": ["id", "object", "url", "name", "state", "status", "goalType", "okrType", "isPrivate", "owners", "childGoals", "tags", "createdAt", "updatedAt"]
+}

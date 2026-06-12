@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.latticehq.com/schemas/user",
+  "title": "User",
+  "description": "A Lattice user (employee) record.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "object": { "type": "string", "const": "user" },
+    "url": { "type": "string", "format": "uri" },
+    "name": { "type": ["string", "null"] },
+    "preferredName": { "type": ["string", "null"] },
+    "email": { "type": "string", "format": "email" },
+    "title": { "type": ["string", "null"] },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "INVITED", "CREATED", "DEACTIVATED"]
+    },
+    "isAdmin": { "type": "boolean" },
+    "externalUserId": { "type": ["string", "null"] },
+    "manager": {
+      "type": ["object", "null"],
+      "description": "ObjectReference to manager"
+    },
+    "department": {
+      "type": ["object", "null"],
+      "description": "ObjectReference to department"
+    },
+    "directReports": {
+      "type": "object",
+      "description": "ListReference to direct reports"
+    },
+    "tasks": {
+      "type": "object",
+      "description": "ListReference to tasks"
+    },
+    "customAttributes": {
+      "type": "object",
+      "description": "ListReference to custom attributes"
+    },
+    "timezone": { "type": ["string", "null"] },
+    "startDate": { "type": ["string", "null"], "format": "date" },
+    "birthDate": { "type": ["string", "null"], "format": "date" },
+    "gender": { "type": ["string", "null"] },
+    "jobFunction": { "type": ["string", "null"] },
+    "jobLevel": { "type": ["string", "null"] },
+    "jobType": { "type": ["string", "null"] },
+    "createdAt": { "type": "integer", "description": "Unix timestamp" },
+    "updatedAt": { "type": "integer", "description": "Unix timestamp" }
+  },
+  "required": ["id", "object", "url", "email", "status", "isAdmin", "directReports", "tasks", "customAttributes"]
+}
