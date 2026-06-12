@@ -1,0 +1,63 @@
+specificationVersion: "0.1"
+provider: Lattice
+providerId: lattice
+created: 2026-06-12
+modified: 2026-06-12
+description: >
+  Lattice enforces rate limits on both the Talent API (v1) and HRIS API (v2).
+  Requests that exceed the rate limit receive an HTTP 429 Too Many Requests
+  response. Lattice uses cursor-based pagination (startingAfter parameter) for
+  list endpoints; all top-level resources support bulk list fetches. Specific
+  numeric thresholds are not publicly documented by Lattice; the limits below
+  reflect commonly observed behavior from third-party integration providers and
+  Lattice's own API documentation guidance.
+
+retryAfter:
+  header: Retry-After
+  description: >
+    When a 429 response is returned, clients should back off and retry after
+    the interval indicated in the Retry-After response header.
+
+throttled:
+  statusCode: 429
+  description: Too Many Requests — rate limit has been exceeded for this API key.
+
+limits:
+
+  - scope: api-key
+    metric: requests
+    limit: 100
+    timeFrame: minute
+    description: >
+      Approximate per-API-key request rate limit for the Lattice Talent API
+      (v1). Lattice does not publicly document the exact figure; 100 RPM is
+      the commonly referenced threshold from integration partners.
+    api: Lattice Talent API (v1)
+
+  - scope: api-key
+    metric: requests
+    limit: 60
+    timeFrame: minute
+    description: >
+      Approximate per-API-key request rate limit for the Lattice HRIS API
+      (v2). Service account tokens are used for HRIS integrations; limits
+      apply per service account credential.
+    api: Lattice HRIS API (v2)
+
+  - scope: api-key
+    metric: list-page-size
+    limit: 100
+    timeFrame: per-request
+    description: >
+      Maximum number of records returned per paginated list response across
+      both API versions. Use the startingAfter cursor parameter to fetch
+      subsequent pages.
+    api: Lattice Talent API (v1) and HRIS API (v2)
+
+pagination:
+  type: cursor
+  parameter: startingAfter
+  description: >
+    Lattice uses cursor-based pagination. Pass the ID of the last item from
+    the previous page as the startingAfter query parameter to retrieve the
+    next page of results.

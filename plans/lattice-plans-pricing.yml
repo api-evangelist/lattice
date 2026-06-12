@@ -1,0 +1,193 @@
+specificationVersion: "0.1"
+provider: Lattice
+providerId: lattice
+created: 2026-06-12
+modified: 2026-06-12
+reconciled: true
+description: >
+  Lattice uses a modular, per-employee-per-month (PEPM) pricing model billed
+  annually. Customers purchase a base platform and add individual modules
+  (Performance, Goals/OKRs, Engagement, Compensation, HRIS) as needed. There
+  is no free tier; all plans require a minimum annual contract of approximately
+  $4,000. API access is available with paid plans and is included for
+  Performance Management subscribers.
+
+plans:
+
+  - name: Performance Management
+    type: paid
+    description: >
+      Core performance review workflows including review cycles, 1:1s,
+      continuous feedback, and manager/peer reviews. API access to the Lattice
+      Talent API (v1) is included.
+    pricing:
+      model: per-seat
+      unit: employee/month
+      billedAnnually: true
+      minimumContract: 4000
+      priceRange:
+        low: 11
+        high: 14
+        currency: USD
+    features:
+      - type: boolean
+        name: API Access (Talent API v1)
+        value: true
+      - type: boolean
+        name: Performance Reviews
+        value: true
+      - type: boolean
+        name: Continuous Feedback
+        value: true
+      - type: boolean
+        name: 1:1 Meetings
+        value: true
+      - type: boolean
+        name: Manager Reviews
+        value: true
+
+  - name: Goals and OKRs
+    type: paid
+    description: >
+      OKR and goal-setting module that can be purchased as a standalone add-on
+      or bundled with Performance Management. Includes access to Goals API
+      endpoints.
+    pricing:
+      model: per-seat
+      unit: employee/month
+      billedAnnually: true
+      priceRange:
+        low: 8
+        high: 11
+        currency: USD
+    features:
+      - type: boolean
+        name: OKR / Goals API Access
+        value: true
+      - type: boolean
+        name: Company-level Goals
+        value: true
+      - type: boolean
+        name: Individual Goals
+        value: true
+      - type: boolean
+        name: Progress Tracking
+        value: true
+
+  - name: Engagement
+    type: paid
+    description: >
+      Employee engagement survey module covering eNPS, pulse surveys, and
+      engagement drivers analytics.
+    pricing:
+      model: per-seat
+      unit: employee/month
+      billedAnnually: true
+      priceRange:
+        low: 4
+        high: 6
+        currency: USD
+    features:
+      - type: boolean
+        name: Engagement Surveys
+        value: true
+      - type: boolean
+        name: eNPS
+        value: true
+      - type: boolean
+        name: Pulse Surveys
+        value: true
+      - type: boolean
+        name: Engagement Analytics
+        value: true
+
+  - name: Compensation
+    type: paid
+    description: >
+      Compensation management module for merit cycles, bands, and pay equity
+      analysis. Typically bundled with Performance for compensation review
+      workflows.
+    pricing:
+      model: per-seat
+      unit: employee/month
+      billedAnnually: true
+      priceRange:
+        low: 6
+        high: 9
+        currency: USD
+    features:
+      - type: boolean
+        name: Merit Cycles
+        value: true
+      - type: boolean
+        name: Pay Bands
+        value: true
+      - type: boolean
+        name: Compensation Reviews
+        value: true
+
+  - name: HRIS
+    type: paid
+    description: >
+      Core HR (HRIS) module for employee records, org chart, time off,
+      onboarding/offboarding, and SCIM provisioning. Includes access to the
+      Lattice HRIS API (v2) and service account authentication.
+    pricing:
+      model: per-seat
+      unit: employee/month
+      billedAnnually: true
+      priceRange:
+        low: 10
+        high: 16
+        currency: USD
+    features:
+      - type: boolean
+        name: HRIS API Access (v2)
+        value: true
+      - type: boolean
+        name: Employee Records
+        value: true
+      - type: boolean
+        name: Org Chart
+        value: true
+      - type: boolean
+        name: Time Off Management
+        value: true
+      - type: boolean
+        name: Onboarding / Offboarding
+        value: true
+      - type: boolean
+        name: SCIM Provisioning
+        value: true
+      - type: boolean
+        name: Okta Integration
+        value: true
+
+  - name: Enterprise
+    type: enterprise
+    description: >
+      Full platform bundle with all modules, dedicated CSM, advanced analytics,
+      custom integrations, and SLA guarantees. Custom pricing negotiated
+      directly with Lattice.
+    pricing:
+      model: custom
+      currency: USD
+    features:
+      - type: boolean
+        name: All Modules Included
+        value: true
+      - type: boolean
+        name: Dedicated Customer Success Manager
+        value: true
+      - type: boolean
+        name: Custom Integrations
+        value: true
+      - type: boolean
+        name: Advanced Analytics
+        value: true
+      - type: boolean
+        name: SLA Guarantees
+        value: true
+      - type: boolean
+        name: SSO / SAML
+        value: true

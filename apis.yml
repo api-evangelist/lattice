@@ -1,0 +1,105 @@
+aid: lattice
+name: Lattice
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/lattice/refs/heads/main/apis.yml
+created: 2026-06-12
+modified: 2026-06-12
+specificationVersion: "0.19"
+description: >
+  Lattice is a people management platform used by over 5,000 companies to run
+  performance reviews, track OKRs and goals, collect employee engagement survey
+  data, manage compensation, and handle core HR (HRIS) workflows. The platform
+  exposes two public REST APIs: the Lattice Talent API (v1) for performance,
+  goals, feedback, and review data, and the Lattice HRIS API (v2) for employee
+  records and organizational data. Both APIs use API-key authentication and are
+  documented on the Lattice Developer Hub at developers.lattice.com. Lattice
+  integrates with Slack, Gmail, Microsoft Teams, Salesforce, BambooHR, Okta, and
+  other enterprise tools, and supports SCIM provisioning for identity management.
+tags:
+  - HR
+  - People Management
+  - Performance Management
+  - OKRs
+  - Goals
+  - Employee Engagement
+  - HRIS
+  - Compensation
+  - Feedback
+  - Surveys
+
+apis:
+
+  - name: Lattice Talent API
+    description: >
+      REST API for Lattice's Talent product suite covering users, goals, OKRs,
+      performance review cycles, continuous feedback, competencies, tasks, and
+      organizational departments. Uses cursor-based pagination and API key
+      authentication. The base URL is https://api.latticehq.com/v1/.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developers.lattice.com/reference/introduction
+    baseURL: https://api.latticehq.com/v1
+    tags:
+      - Performance Management
+      - Goals
+      - OKRs
+      - Feedback
+      - Reviews
+    properties:
+      - type: Documentation
+        url: https://developers.lattice.com/reference/introduction
+      - type: OpenAPI
+        url: https://developers.lattice.com/llms.txt
+
+  - name: Lattice HRIS API
+    description: >
+      REST API (v2) for Lattice's HRIS product covering employee records,
+      organizational hierarchy, and HR core data. Supports service account
+      authentication and is designed for HR system integrations including
+      Okta SCIM provisioning.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developers.lattice.com
+    baseURL: https://api.latticehq.com/v2
+    tags:
+      - HRIS
+      - Employees
+      - Organizational Data
+    properties:
+      - type: Documentation
+        url: https://developers.lattice.com
+
+common:
+
+  - type: Website
+    url: https://lattice.com
+
+  - type: Documentation
+    url: https://developers.lattice.com
+
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/lattice-hq
+
+  - type: X
+    url: https://x.com/latticehq
+
+  - type: Blog
+    url: https://lattice.com/blog
+
+  - type: Pricing
+    url: https://lattice.com/pricing
+
+  - type: StatusPage
+    url: https://status.latticehq.com
+
+  - type: Plans
+    url: plans/lattice-plans-pricing.yml
+
+  - type: RateLimits
+    url: rate-limits/lattice-rate-limits.yml
+
+  - type: FinOps
+    url: finops/lattice-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

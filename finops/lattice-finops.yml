@@ -1,0 +1,109 @@
+specificationVersion: "1.0"
+framework: FinOps Framework
+focusVersion: "1.0"
+provider: Lattice
+providerId: lattice
+created: 2026-06-12
+modified: 2026-06-12
+description: >
+  FinOps profile for Lattice, a people management SaaS platform with modular
+  per-employee-per-month (PEPM) pricing billed annually. Cost drivers are
+  headcount (active employees on platform), module selection, and contract
+  tier. There are no usage-based API charges; API access is included with
+  the corresponding product module subscription.
+
+billingModel:
+  type: subscription
+  cadence: annual
+  unit: employee/month
+  notes: >
+    Lattice bills annually based on employee headcount at contract signing.
+    Mid-year headcount changes (additions) are typically billed at a prorated
+    rate for the remainder of the contract term.
+
+focusColumns:
+  - column: ChargeCategory
+    value: Recurring
+    description: Monthly subscription fees billed as a flat annual payment.
+  - column: ChargeFrequency
+    value: Monthly
+    description: Costs accrue monthly but are invoiced annually upfront.
+  - column: BilledCurrency
+    value: USD
+  - column: PricingQuantity
+    description: Number of active employees provisioned on the platform.
+  - column: PricingUnit
+    value: employee/month
+  - column: ServiceName
+    description: >
+      Maps to Lattice module: Performance Management, Goals/OKRs, Engagement,
+      Compensation, or HRIS.
+  - column: SkuId
+    description: Lattice module identifier as specified in order form.
+
+meters:
+
+  - name: Active Employees
+    description: >
+      Count of active employee seats provisioned in the Lattice platform.
+      This is the primary billing meter for all modules. Reduce costs by
+      deprovisioning terminated or inactive employees promptly.
+    unit: employee
+    billingImpact: direct
+    optimizationTip: >
+      Audit active vs. terminated employee records monthly. Lattice typically
+      does not auto-deprovision offboarded employees; timely removal avoids
+      overpayment at renewal.
+
+  - name: Module Count
+    description: >
+      Number of Lattice product modules enabled (Performance, Goals/OKRs,
+      Engagement, Compensation, HRIS). Each module carries its own PEPM rate.
+    unit: module
+    billingImpact: direct
+    optimizationTip: >
+      Evaluate module utilization before renewal. Unused modules (e.g.,
+      Engagement purchased but surveys never launched) should be negotiated
+      out of the renewal contract.
+
+  - name: API Calls
+    description: >
+      API usage is not separately metered or billed. API access is bundled
+      with the corresponding module subscription (Talent API with Performance;
+      HRIS API with HRIS module).
+    unit: requests
+    billingImpact: none
+    optimizationTip: >
+      No direct cost associated with API call volume within documented rate
+      limits. Integration costs are borne by engineering time, not by call
+      charges.
+
+principles:
+
+  Visibility:
+    description: >
+      Allocate Lattice spend to cost centers by mapping each employee seat to
+      a department. Lattice's department and team data (accessible via API)
+      can be used to tag costs in FinOps tooling for showback/chargeback.
+    actions:
+      - >-
+        Pull department and team data via the departments API endpoint to
+        build a cost allocation mapping.
+      - Tag annual contract value by department headcount ratio in your FinOps platform.
+      - Review module utilization reports in Lattice Admin to identify low-engagement modules before renewal.
+
+  Optimization:
+    description: >
+      Key levers for reducing Lattice spend are headcount hygiene, module
+      rationalization, and multi-year contract negotiation.
+    actions:
+      - >-
+        Automate employee deprovisioning on termination via HRIS API (v2)
+        or SCIM integration with Okta to prevent ghost seats at renewal.
+      - >-
+        Consolidate module purchases - Performance + Goals/OKRs bundle
+        typically has a lower combined PEPM than purchasing separately.
+      - Negotiate volume discounts at 500+ and 1000+ employee tiers.
+      - >-
+        Evaluate bundled Enterprise pricing if using 3+ modules, as it
+        often provides better per-employee economics than modular pricing.
