@@ -1,0 +1,959 @@
+"""
+Lattice GraphQL Schema
+Conceptual schema derived from the Lattice Talent API v1 and HRIS API v2.
+Provider: Lattice (latticehq.com)
+Docs: https://developers.lattice.com
+"""
+
+scalar DateTime
+scalar Date
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum GoalStatus {
+  ON_TRACK
+  AT_RISK
+  BEHIND
+  COMPLETED
+  CANCELLED
+  DRAFT
+}
+
+enum ReviewStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  SHARED
+  CANCELLED
+}
+
+enum FeedbackVisibility {
+  PUBLIC
+  PRIVATE
+  MANAGER_ONLY
+}
+
+enum SurveyStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+  ARCHIVED
+}
+
+enum PermissionLevel {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+  READ_ONLY
+}
+
+enum IntegrationType {
+  HRIS
+  SLACK
+  CALENDAR
+  SSO
+  SCIM
+  CUSTOM
+}
+
+enum WebhookEvent {
+  EMPLOYEE_CREATED
+  EMPLOYEE_UPDATED
+  REVIEW_COMPLETED
+  GOAL_UPDATED
+  FEEDBACK_GIVEN
+  SURVEY_CLOSED
+  CHECKIN_COMPLETED
+}
+
+# ---------------------------------------------------------------------------
+# Interfaces
+# ---------------------------------------------------------------------------
+
+"""Base interface for all Lattice nodes."""
+interface Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Base interface for all feedback types."""
+interface FeedbackBase {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  visibility: FeedbackVisibility!
+  createdAt: DateTime!
+}
+
+"""Base interface for survey types."""
+interface SurveyBase {
+  id: ID!
+  title: String!
+  status: SurveyStatus!
+  startsAt: DateTime
+  endsAt: DateTime
+  createdAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# People & Org Types
+# ---------------------------------------------------------------------------
+
+"""Represents a Lattice employee record (HRIS API v2)."""
+type Employee implements Node {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  displayName: String!
+  email: String!
+  title: String
+  startDate: Date
+  endDate: Date
+  isActive: Boolean!
+  employeeNumber: String
+  profile: EmployeeProfile
+  manager: Manager
+  directReports: [DirectReport!]!
+  department: Department
+  team: Team
+  user: User
+  goals: [Goal!]!
+  okrs: [OKR!]!
+  reviews: [Review!]!
+  feedbackReceived: [Feedback!]!
+  feedbackGiven: [Feedback!]!
+  checkIns: [CheckIn!]!
+  oneOnOnes: [OneOnOne!]!
+  developmentPlan: DevelopmentPlan
+  compensation: Compensation
+  badges: [Badge!]!
+  achievements: [Achievement!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended profile data for an employee."""
+type EmployeeProfile implements Node {
+  id: ID!
+  employee: Employee!
+  bio: String
+  pronouns: String
+  location: String
+  timezone: String
+  linkedinUrl: String
+  growthAreas: [GrowthArea!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A manager relationship record."""
+type Manager implements Node {
+  id: ID!
+  employee: Employee!
+  manages: [Employee!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A direct report relationship record."""
+type DirectReport implements Node {
+  id: ID!
+  employee: Employee!
+  reportTo: Manager!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An organizational team within Lattice."""
+type Team implements Node {
+  id: ID!
+  name: String!
+  description: String
+  lead: Employee
+  members: [Employee!]!
+  department: Department
+  goals: [Goal!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An organizational department within Lattice."""
+type Department implements Node {
+  id: ID!
+  name: String!
+  description: String
+  head: Employee
+  employees: [Employee!]!
+  teams: [Team!]!
+  parent: Department
+  children: [Department!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Goals & OKRs
+# ---------------------------------------------------------------------------
+
+"""An OKR container grouping an objective with its key results."""
+type OKR implements Node {
+  id: ID!
+  title: String!
+  description: String
+  owner: Employee!
+  objective: Objective!
+  keyResults: [KeyResult!]!
+  progress: Float
+  status: GoalStatus!
+  startDate: Date
+  dueDate: Date
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A top-level objective within an OKR."""
+type Objective implements Node {
+  id: ID!
+  title: String!
+  description: String
+  owner: Employee!
+  okr: OKR!
+  keyResults: [KeyResult!]!
+  progress: Float
+  status: GoalStatus!
+  startDate: Date
+  dueDate: Date
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A measurable key result under an objective."""
+type KeyResult implements Node {
+  id: ID!
+  title: String!
+  description: String
+  objective: Objective!
+  owner: Employee!
+  targetValue: Float
+  currentValue: Float
+  unit: String
+  progress: Float
+  status: GoalStatus!
+  dueDate: Date
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A standalone goal in Lattice (Talent API v1 /goals)."""
+type Goal implements Node {
+  id: ID!
+  title: String!
+  description: String
+  owner: Employee!
+  team: Team
+  department: Department
+  status: GoalStatus!
+  progress: Float
+  dueDate: Date
+  updates: [GoalUpdate!]!
+  parentGoal: Goal
+  childGoals: [Goal!]!
+  comments: CommentThread
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A progress update on a goal."""
+type GoalUpdate implements Node {
+  id: ID!
+  goal: Goal!
+  author: User!
+  body: String!
+  previousProgress: Float
+  newProgress: Float
+  previousStatus: GoalStatus
+  newStatus: GoalStatus
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Performance Reviews
+# ---------------------------------------------------------------------------
+
+"""A single performance review instance for one employee in a cycle."""
+type Review implements Node {
+  id: ID!
+  reviewee: Employee!
+  reviewCycle: ReviewCycle!
+  status: ReviewStatus!
+  answers: [ReviewAnswer!]!
+  requests: [ReviewRequest!]!
+  sharedAt: DateTime
+  completedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A named review cycle (e.g., Q4 2025 Mid-Year Review)."""
+type ReviewCycle implements Node {
+  id: ID!
+  name: String!
+  description: String
+  status: ReviewStatus!
+  questions: [ReviewQuestion!]!
+  reviews: [Review!]!
+  startDate: Date!
+  endDate: Date!
+  shareDate: Date
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A question in a review cycle."""
+type ReviewQuestion implements Node {
+  id: ID!
+  reviewCycle: ReviewCycle!
+  body: String!
+  questionType: String!
+  required: Boolean!
+  order: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A reviewer's answer to a review question."""
+type ReviewAnswer implements Node {
+  id: ID!
+  review: Review!
+  question: ReviewQuestion!
+  reviewer: Employee!
+  body: String
+  rating: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A request for a peer or upward review."""
+type ReviewRequest implements Node {
+  id: ID!
+  review: Review!
+  requester: Employee!
+  requestee: Employee!
+  status: ReviewStatus!
+  completedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Continuous Feedback
+# ---------------------------------------------------------------------------
+
+"""A check-in record between a manager and a direct report."""
+type CheckIn implements Node {
+  id: ID!
+  employee: Employee!
+  manager: Manager!
+  date: Date!
+  notes: String
+  agenda: [String!]!
+  actionItems: [String!]!
+  comments: CommentThread
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A one-on-one meeting record."""
+type OneOnOne implements Node {
+  id: ID!
+  employee: Employee!
+  manager: Manager!
+  scheduledAt: DateTime!
+  completedAt: DateTime
+  agenda: [String!]!
+  notes: String
+  actionItems: [String!]!
+  comments: CommentThread
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Abstract feedback record (resolved as a union in practice)."""
+type Feedback implements Node & FeedbackBase {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  visibility: FeedbackVisibility!
+  tags: [String!]!
+  comments: CommentThread
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Publicly visible feedback."""
+type PublicFeedback implements Node & FeedbackBase {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  visibility: FeedbackVisibility!
+  isPraise: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Private feedback visible only to manager and recipient."""
+type PrivateFeedback implements Node & FeedbackBase {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  visibility: FeedbackVisibility!
+  reason: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Feedback given in response to an explicit request."""
+type RequestedFeedback implements Node & FeedbackBase {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  requester: Employee!
+  visibility: FeedbackVisibility!
+  question: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Public recognition (praise) given to an employee."""
+type Praise implements Node {
+  id: ID!
+  body: String!
+  author: User!
+  recipient: Employee!
+  badgeAwarded: Badge
+  comments: CommentThread
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Nominations
+# ---------------------------------------------------------------------------
+
+"""A nomination for a recognition round or award."""
+type Nomination implements Node {
+  id: ID!
+  round: NominationRound!
+  nominator: Employee!
+  nominee: Employee!
+  reason: String!
+  status: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A nomination round grouping nominations for a given period."""
+type NominationRound implements Node {
+  id: ID!
+  title: String!
+  description: String
+  nominations: [Nomination!]!
+  startsAt: DateTime!
+  endsAt: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Engagement Surveys
+# ---------------------------------------------------------------------------
+
+"""A full engagement survey deployed to employees."""
+type EngagementSurvey implements Node & SurveyBase {
+  id: ID!
+  title: String!
+  description: String
+  status: SurveyStatus!
+  questions: [SurveyQuestion!]!
+  responses: [SurveyResponse!]!
+  audienceSize: Int
+  responseCount: Int
+  startsAt: DateTime
+  endsAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A question within a survey."""
+type SurveyQuestion implements Node {
+  id: ID!
+  survey: EngagementSurvey
+  pulseCheck: PulseCheck
+  body: String!
+  questionType: String!
+  required: Boolean!
+  order: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An employee's response to a survey."""
+type SurveyResponse implements Node {
+  id: ID!
+  survey: EngagementSurvey
+  pulseCheck: PulseCheck
+  respondent: Employee!
+  answers: JSON
+  submittedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A lightweight pulse check survey (eNPS or short-form)."""
+type PulseCheck implements Node & SurveyBase {
+  id: ID!
+  title: String!
+  status: SurveyStatus!
+  questions: [SurveyQuestion!]!
+  responses: [SurveyResponse!]!
+  startsAt: DateTime
+  endsAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Growth & Development
+# ---------------------------------------------------------------------------
+
+"""A growth area identified for an employee."""
+type GrowthArea implements Node {
+  id: ID!
+  employee: Employee!
+  title: String!
+  description: String
+  developmentPlan: DevelopmentPlan
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A development plan for an employee."""
+type DevelopmentPlan implements Node {
+  id: ID!
+  employee: Employee!
+  growthAreas: [GrowthArea!]!
+  goals: [Goal!]!
+  notes: String
+  reviewedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An achievement milestone recorded for an employee."""
+type Achievement implements Node {
+  id: ID!
+  employee: Employee!
+  title: String!
+  description: String
+  awardedAt: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A recognition badge that can be awarded to employees."""
+type Badge implements Node {
+  id: ID!
+  name: String!
+  description: String
+  iconUrl: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Collaboration
+# ---------------------------------------------------------------------------
+
+"""A thread of comments attached to a Lattice object."""
+type CommentThread implements Node {
+  id: ID!
+  comments: [Comment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A single comment in a comment thread."""
+type Comment implements Node {
+  id: ID!
+  thread: CommentThread!
+  author: User!
+  body: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A notification delivered to a Lattice user."""
+type Notification implements Node {
+  id: ID!
+  recipient: User!
+  title: String!
+  body: String!
+  readAt: DateTime
+  actionUrl: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Compensation
+# ---------------------------------------------------------------------------
+
+"""An employee's compensation record."""
+type Compensation implements Node {
+  id: ID!
+  employee: Employee!
+  baseSalary: Float
+  currency: String
+  effectiveDate: Date
+  band: CompensationBand
+  range: Range
+  market: Market
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A compensation band grouping roles at similar pay levels."""
+type CompensationBand implements Node {
+  id: ID!
+  name: String!
+  description: String
+  level: String
+  ranges: [Range!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Market benchmark data for a role or band."""
+type Market implements Node {
+  id: ID!
+  name: String!
+  description: String
+  p25: Float
+  p50: Float
+  p75: Float
+  p90: Float
+  currency: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A compensation range (min/mid/max) within a band."""
+type Range implements Node {
+  id: ID!
+  band: CompensationBand!
+  minimum: Float!
+  midpoint: Float
+  maximum: Float!
+  currency: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Platform & Auth
+# ---------------------------------------------------------------------------
+
+"""A Lattice platform user (may or may not be a current employee)."""
+type User implements Node {
+  id: ID!
+  email: String!
+  displayName: String!
+  employee: Employee
+  permissions: [Permission!]!
+  isAdmin: Boolean!
+  lastActiveAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A permission grant for a user."""
+type Permission implements Node {
+  id: ID!
+  user: User!
+  level: PermissionLevel!
+  scope: String
+  grantedBy: Admin
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An admin user record."""
+type Admin implements Node {
+  id: ID!
+  user: User!
+  isSuperAdmin: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An API key for authenticating against the Lattice API."""
+type APIKey implements Node {
+  id: ID!
+  name: String!
+  preview: String!
+  owner: User!
+  lastUsedAt: DateTime
+  expiresAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A registered webhook endpoint for Lattice events."""
+type Webhook implements Node {
+  id: ID!
+  url: String!
+  events: [WebhookEvent!]!
+  isActive: Boolean!
+  secret: String
+  lastTriggeredAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A generic integration record."""
+type Integration implements Node {
+  id: ID!
+  name: String!
+  type: IntegrationType!
+  isActive: Boolean!
+  connectedAt: DateTime
+  metadata: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""An HRIS integration (e.g., BambooHR, Workday, ADP)."""
+type HRIS implements Node {
+  id: ID!
+  provider: String!
+  isActive: Boolean!
+  syncedAt: DateTime
+  employeeCount: Int
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A Slack integration for notifications and feedback."""
+type Slack implements Node {
+  id: ID!
+  workspaceName: String!
+  workspaceId: String!
+  isActive: Boolean!
+  connectedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A calendar integration (Google Calendar or Microsoft Outlook)."""
+type Calendar implements Node {
+  id: ID!
+  provider: String!
+  isActive: Boolean!
+  connectedAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Pagination types
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type EmployeeEdge {
+  node: Employee!
+  cursor: String!
+}
+
+type EmployeeConnection {
+  edges: [EmployeeEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type GoalEdge {
+  node: Goal!
+  cursor: String!
+}
+
+type GoalConnection {
+  edges: [GoalEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+# ---------------------------------------------------------------------------
+# Root Query
+# ---------------------------------------------------------------------------
+
+type Query {
+  node(id: ID!): Node
+
+  employee(id: ID!): Employee
+  employees(first: Int, after: String, departmentId: ID, teamId: ID, isActive: Boolean): EmployeeConnection!
+
+  department(id: ID!): Department
+  departments(first: Int, after: String): [Department!]!
+
+  team(id: ID!): Team
+  teams(first: Int, after: String, departmentId: ID): [Team!]!
+
+  goal(id: ID!): Goal
+  goals(first: Int, after: String, ownerId: ID, status: GoalStatus): GoalConnection!
+
+  okr(id: ID!): OKR
+  okrs(first: Int, after: String, ownerId: ID): [OKR!]!
+
+  objective(id: ID!): Objective
+  keyResult(id: ID!): KeyResult
+
+  reviewCycle(id: ID!): ReviewCycle
+  reviewCycles(first: Int, after: String): [ReviewCycle!]!
+
+  review(id: ID!): Review
+  reviews(first: Int, after: String, reviewCycleId: ID, revieweeId: ID): [Review!]!
+
+  feedback(id: ID!): Feedback
+  feedbacks(first: Int, after: String, recipientId: ID, authorId: ID): [Feedback!]!
+
+  engagementSurvey(id: ID!): EngagementSurvey
+  engagementSurveys(first: Int, after: String, status: SurveyStatus): [EngagementSurvey!]!
+
+  pulseCheck(id: ID!): PulseCheck
+  pulseChecks(first: Int, after: String): [PulseCheck!]!
+
+  user(id: ID!): User
+  me: User
+
+  webhook(id: ID!): Webhook
+  webhooks: [Webhook!]!
+
+  integration(id: ID!): Integration
+  integrations(type: IntegrationType): [Integration!]!
+
+  nominationRound(id: ID!): NominationRound
+  nominationRounds(first: Int, after: String): [NominationRound!]!
+}
+
+# ---------------------------------------------------------------------------
+# Mutations
+# ---------------------------------------------------------------------------
+
+input CreateGoalInput {
+  title: String!
+  description: String
+  ownerId: ID!
+  teamId: ID
+  departmentId: ID
+  dueDate: Date
+  parentGoalId: ID
+}
+
+type CreateGoalPayload {
+  goal: Goal
+  errors: [String!]!
+}
+
+input UpdateGoalInput {
+  id: ID!
+  title: String
+  description: String
+  status: GoalStatus
+  progress: Float
+  dueDate: Date
+}
+
+type UpdateGoalPayload {
+  goal: Goal
+  errors: [String!]!
+}
+
+input CreateGoalUpdateInput {
+  goalId: ID!
+  body: String!
+  newProgress: Float
+  newStatus: GoalStatus
+}
+
+type CreateGoalUpdatePayload {
+  goalUpdate: GoalUpdate
+  errors: [String!]!
+}
+
+input GiveFeedbackInput {
+  recipientId: ID!
+  body: String!
+  visibility: FeedbackVisibility!
+  tags: [String!]
+}
+
+type GiveFeedbackPayload {
+  feedback: Feedback
+  errors: [String!]!
+}
+
+input GivePraiseInput {
+  recipientId: ID!
+  body: String!
+  badgeId: ID
+}
+
+type GivePraisePayload {
+  praise: Praise
+  errors: [String!]!
+}
+
+input CreateWebhookInput {
+  url: String!
+  events: [WebhookEvent!]!
+  secret: String
+}
+
+type CreateWebhookPayload {
+  webhook: Webhook
+  errors: [String!]!
+}
+
+input DeleteWebhookInput {
+  id: ID!
+}
+
+type DeleteWebhookPayload {
+  deletedId: ID
+  errors: [String!]!
+}
+
+type Mutation {
+  createGoal(input: CreateGoalInput!): CreateGoalPayload!
+  updateGoal(input: UpdateGoalInput!): UpdateGoalPayload!
+  createGoalUpdate(input: CreateGoalUpdateInput!): CreateGoalUpdatePayload!
+  giveFeedback(input: GiveFeedbackInput!): GiveFeedbackPayload!
+  givePraise(input: GivePraiseInput!): GivePraisePayload!
+  createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  deleteWebhook(input: DeleteWebhookInput!): DeleteWebhookPayload!
+}
