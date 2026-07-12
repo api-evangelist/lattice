@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lattice-hris-openapi.yml, openapi/lattice-talent-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: 'Service account API key passed as a Bearer token in the Authorization header.
+    Example: Authorization: Bearer <your-api-key>'
+  sources:
+  - openapi/lattice-hris-openapi.yml
+  - openapi/lattice-talent-openapi.yml
