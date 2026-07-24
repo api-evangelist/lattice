@@ -1,0 +1,249 @@
+openapi: 3.0.3
+info:
+  title: Lattice HRIS Competencies Goal Updates API
+  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
+
+    '
+  version: v2
+  contact:
+    name: Lattice Developer Support
+    email: customercare@lattice.com
+    url: https://developers.lattice.com
+  termsOfService: https://lattice.com/legal/terms-of-service
+  license:
+    name: Proprietary
+    url: https://lattice.com/legal/terms-of-service
+servers:
+- url: https://api.latticehq.com/v2
+  description: Lattice HRIS API v2 production server
+security:
+- BearerAuth: []
+tags:
+- name: Goal Updates
+  description: Create and retrieve goal progress updates
+paths:
+  /goal/{id}/updates:
+    get:
+      summary: List goal updates for a goal
+      operationId: getGoalUpdates
+      tags:
+      - Goal Updates
+      description: Returns paginated progress updates for a specific goal.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The goal identifier
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of goal updates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalUpdateList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      summary: Create goal update
+      operationId: createGoalUpdate
+      tags:
+      - Goal Updates
+      description: Creates a progress update for a specific goal.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The goal identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalUpdateCreate'
+      responses:
+        '200':
+          description: Created goal update object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalUpdateItem'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /goalUpdates:
+    get:
+      summary: List all goal updates
+      operationId: getAllGoalUpdates
+      tags:
+      - Goal Updates
+      description: Returns a paginated list of all goal updates across all goals.
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of all goal updates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalUpdateList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type: string
+          nullable: true
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    GoalUpdateList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/GoalUpdateItem'
+        required:
+        - data
+    GoalUpdateCreate:
+      type: object
+      properties:
+        comment:
+          type: string
+        currentAmount:
+          type: number
+          nullable: true
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+    GoalUpdateItem:
+      type: object
+      description: A progress update for a goal
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        goal:
+          $ref: '#/components/schemas/ObjectReference'
+        author:
+          $ref: '#/components/schemas/ObjectReference'
+        comment:
+          type: string
+          nullable: true
+        currentAmount:
+          type: number
+          format: float
+          nullable: true
+        createdAt:
+          type: integer
+          description: Unix timestamp
+      required:
+      - id
+      - object
+      - url
+      - goal
+      - author
+      - createdAt
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+  parameters:
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+
+        '

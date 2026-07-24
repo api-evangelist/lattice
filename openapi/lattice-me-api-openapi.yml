@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: Lattice HRIS Competencies Me API
+  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
+
+    '
+  version: v2
+  contact:
+    name: Lattice Developer Support
+    email: customercare@lattice.com
+    url: https://developers.lattice.com
+  termsOfService: https://lattice.com/legal/terms-of-service
+  license:
+    name: Proprietary
+    url: https://lattice.com/legal/terms-of-service
+servers:
+- url: https://api.latticehq.com/v2
+  description: Lattice HRIS API v2 production server
+security:
+- BearerAuth: []
+tags:
+- name: Me
+  description: Retrieve information about the authenticated user
+paths:
+  /me:
+    get:
+      summary: Get authenticated user
+      operationId: getMe
+      tags:
+      - Me
+      description: Returns information about the current user associated with the provided API token.
+      responses:
+        '200':
+          description: Authenticated user object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        name:
+          type: string
+          nullable: true
+        preferredName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+        title:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - INVITED
+          - CREATED
+          - DEACTIVATED
+        isAdmin:
+          type: boolean
+        externalUserId:
+          type: string
+          nullable: true
+        manager:
+          $ref: '#/components/schemas/ObjectReference'
+          nullable: true
+        department:
+          $ref: '#/components/schemas/ObjectReference'
+          nullable: true
+        directReports:
+          $ref: '#/components/schemas/ListReference'
+        tasks:
+          $ref: '#/components/schemas/ListReference'
+        customAttributes:
+          $ref: '#/components/schemas/ListReference'
+        timezone:
+          type: string
+          nullable: true
+        startDate:
+          type: string
+          format: date
+          nullable: true
+        birthDate:
+          type: string
+          format: date
+          nullable: true
+        gender:
+          type: string
+          nullable: true
+        jobFunction:
+          type: string
+          nullable: true
+        jobLevel:
+          type: string
+          nullable: true
+        jobType:
+          type: string
+          nullable: true
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
+      required:
+      - id
+      - object
+      - url
+      - email
+      - status
+      - isAdmin
+      - directReports
+      - tasks
+      - customAttributes
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+
+        '

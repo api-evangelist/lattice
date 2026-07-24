@@ -1,0 +1,549 @@
+openapi: 3.0.3
+info:
+  title: Lattice HRIS Competencies Reviews API
+  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
+
+    '
+  version: v2
+  contact:
+    name: Lattice Developer Support
+    email: customercare@lattice.com
+    url: https://developers.lattice.com
+  termsOfService: https://lattice.com/legal/terms-of-service
+  license:
+    name: Proprietary
+    url: https://lattice.com/legal/terms-of-service
+servers:
+- url: https://api.latticehq.com/v2
+  description: Lattice HRIS API v2 production server
+security:
+- BearerAuth: []
+tags:
+- name: Reviews
+  description: Create, update, and submit performance reviews (v2)
+paths:
+  /reviews/draft:
+    post:
+      summary: Create a draft review
+      operationId: createDraftReview
+      tags:
+      - Reviews
+      description: 'Saves initial responses for a review as a draft. The review must exist and the caller must have permission to complete it.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDraftReviewRequest'
+      responses:
+        '201':
+          description: Draft review created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftReviewResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /reviews/{id}/submit:
+    post:
+      summary: Submit a review
+      operationId: submitReview
+      tags:
+      - Reviews
+      description: 'Submits a drafted review. The review must be in drafted state and all required questions must have valid responses.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: The review entity ID
+      responses:
+        '200':
+          description: Review submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitReviewResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /reviews/{id}/draft:
+    put:
+      summary: Update a draft review
+      operationId: updateDraftReview
+      tags:
+      - Reviews
+      description: 'Updates existing draft responses for a review. The review must be in drafted state.
+
+        '
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: The review entity ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDraftReviewRequest'
+      responses:
+        '200':
+          description: Draft review updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DraftReviewResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /reviewCycle/{id}/reviews:
+    get:
+      summary: List reviews in a review cycle
+      operationId: listReviewCycleReviews
+      tags:
+      - Reviews
+      description: Returns a paginated list of all reviews in a review cycle.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The review cycle identifier
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewList'
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError_2'
+  /reviewee/{id}/reviews:
+    get:
+      summary: List reviews for a reviewee
+      operationId: listRevieweeReviews
+      tags:
+      - Reviews
+      description: Returns a paginated list of all reviews for a specific reviewee.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The reviewee identifier
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of reviews
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewList'
+        '400':
+          $ref: '#/components/responses/BadRequest_2'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError_2'
+components:
+  responses:
+    BadRequest:
+      description: Bad request - validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    NotFound:
+      description: Not found - the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    BadRequest_2:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError_2:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized - missing or invalid bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    Forbidden:
+      description: Forbidden - caller lacks required permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    DraftReviewResponseDto:
+      type: object
+      description: Review data returned after creating or updating a draft
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Review ID
+        revieweeId:
+          type: string
+          format: uuid
+          description: Employee being reviewed
+        cycleId:
+          type: string
+          format: uuid
+          description: Associated review cycle ID
+        direction:
+          type: string
+          enum:
+          - downward
+          - self
+          - peer
+          - upward
+          description: Direction of the review
+        state:
+          type: string
+          enum:
+          - unstarted
+          - drafted
+          - submitted
+          - rejected
+          - shared
+          description: Current state of the review
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/SavedReviewResponse'
+          description: Saved review responses
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp of last update
+        submittedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 UTC timestamp of submission
+      required:
+      - id
+      - revieweeId
+      - cycleId
+      - direction
+      - state
+      - responses
+      - updatedAt
+    CreateDraftReviewRequest:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          format: uuid
+          description: The entity ID of the review (review request)
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewResponseItem'
+          minItems: 1
+          description: Collection of review answers
+      required:
+      - reviewId
+      - responses
+    SavedReviewResponse:
+      type: object
+      properties:
+        questionRevisionId:
+          type: string
+          format: uuid
+        comment:
+          type: string
+          nullable: true
+        rating:
+          type: string
+          nullable: true
+        choices:
+          type: array
+          items:
+            type: string
+          nullable: true
+      required:
+      - questionRevisionId
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        revieweeId:
+          type: string
+          format: uuid
+        cycleId:
+          type: string
+          format: uuid
+        direction:
+          $ref: '#/components/schemas/ReviewDirectionEnum'
+        state:
+          $ref: '#/components/schemas/ReviewStateEnum'
+        updatedAt:
+          type: string
+          format: date-time
+        submittedAt:
+          type: string
+          format: date-time
+          nullable: true
+      required:
+      - id
+      - revieweeId
+      - cycleId
+      - direction
+      - state
+      - updatedAt
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type: string
+          nullable: true
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    UpdateDraftReviewRequest:
+      type: object
+      properties:
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewResponseItem'
+          minItems: 1
+          description: Updated collection of review answers
+      required:
+      - responses
+    SubmitReviewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubmitReviewData'
+      required:
+      - data
+    DraftReviewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DraftReviewResponseDto'
+      required:
+      - data
+    ReviewStateEnum:
+      type: string
+      enum:
+      - unstarted
+      - drafted
+      - submitted
+      - rejected
+      - shared
+    SubmitReviewData:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Review UUID
+        revieweeId:
+          type: string
+          format: uuid
+          description: Employee UUID
+        cycleId:
+          type: string
+          format: uuid
+          description: Cycle UUID
+        direction:
+          type: string
+          enum:
+          - downward
+          - self
+          - peer
+          - upward
+        state:
+          type: string
+          enum:
+          - submitted
+          description: Always "submitted" after successful submission
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp
+        submittedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp
+      required:
+      - id
+      - revieweeId
+      - cycleId
+      - direction
+      - state
+      - updatedAt
+      - submittedAt
+    ReviewResponseItem:
+      type: object
+      description: A single answer to a review question
+      properties:
+        questionRevisionId:
+          type: string
+          format: uuid
+          description: The entity ID of the question revision being answered
+        comment:
+          type: string
+          nullable: true
+          description: Free-form text response for free-text questions
+        rating:
+          type: string
+          nullable: true
+          description: Rating value for rated questions
+        choices:
+          type: array
+          items:
+            type: string
+          nullable: true
+          description: Selected choices for multiple-select questions
+      required:
+      - questionRevisionId
+    ReviewList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Review'
+        required:
+        - data
+    ReviewDirectionEnum:
+      type: string
+      enum:
+      - downward
+      - self
+      - peer
+      - upward
+    ErrorResponseDto:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error summary
+        detail:
+          type: string
+          description: Specific explanation of the error
+        errors:
+          type: array
+          items:
+            type: string
+          description: Optional array of field-level validation errors
+      required:
+      - status
+      - title
+      - detail
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+
+        '

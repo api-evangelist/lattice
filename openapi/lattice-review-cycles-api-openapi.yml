@@ -1,0 +1,264 @@
+openapi: 3.0.3
+info:
+  title: Lattice HRIS Competencies Review Cycles API
+  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
+
+    '
+  version: v2
+  contact:
+    name: Lattice Developer Support
+    email: customercare@lattice.com
+    url: https://developers.lattice.com
+  termsOfService: https://lattice.com/legal/terms-of-service
+  license:
+    name: Proprietary
+    url: https://lattice.com/legal/terms-of-service
+servers:
+- url: https://api.latticehq.com/v2
+  description: Lattice HRIS API v2 production server
+security:
+- BearerAuth: []
+tags:
+- name: Review Cycles
+  description: Manage performance review cycles
+paths:
+  /reviewCycles:
+    get:
+      summary: List review cycles
+      operationId: listReviewCycles
+      tags:
+      - Review Cycles
+      description: Returns a paginated list of all review cycles in Lattice.
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of review cycles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewCycleList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /reviewCycle/{id}:
+    get:
+      summary: Get review cycle by ID
+      operationId: getReviewCycle
+      tags:
+      - Review Cycles
+      description: Returns a review cycle with the given id. If cannot find review cycle, returns a 404.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The review cycle identifier
+      responses:
+        '200':
+          description: Review cycle object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReviewCycle'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type: string
+          nullable: true
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    ReviewCycleList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReviewCycle'
+        required:
+        - data
+    ReviewCycleStageEnum:
+      type: string
+      enum:
+      - Draft
+      - PreLaunch
+      - Launching
+      - PeerSelection
+      - CollectingReviews
+      - Calibration
+      - Ended
+    ReviewCycle:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        name:
+          type: string
+        stage:
+          $ref: '#/components/schemas/ReviewCycleStageEnum'
+        creator:
+          $ref: '#/components/schemas/ObjectReference'
+        reviewees:
+          $ref: '#/components/schemas/ListReference'
+        reviews:
+          $ref: '#/components/schemas/ListReference'
+        calibrationEnabled:
+          type: boolean
+        weightedScoresEnabled:
+          type: boolean
+        autocalculatedWeightedScoresEnabled:
+          type: boolean
+        peerSelectionStartedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        reviewsStartedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        reviewsEndedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        calibrationEndedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        weightedScoresEndedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
+      required:
+      - id
+      - object
+      - url
+      - name
+      - stage
+      - creator
+      - reviewees
+      - reviews
+      - calibrationEnabled
+      - weightedScoresEnabled
+      - autocalculatedWeightedScoresEnabled
+      - createdAt
+      - updatedAt
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+  parameters:
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+
+        '

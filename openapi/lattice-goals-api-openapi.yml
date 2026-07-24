@@ -1,0 +1,579 @@
+openapi: 3.0.3
+info:
+  title: Lattice HRIS Competencies Goals API
+  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
+
+    '
+  version: v2
+  contact:
+    name: Lattice Developer Support
+    email: customercare@lattice.com
+    url: https://developers.lattice.com
+  termsOfService: https://lattice.com/legal/terms-of-service
+  license:
+    name: Proprietary
+    url: https://lattice.com/legal/terms-of-service
+servers:
+- url: https://api.latticehq.com/v2
+  description: Lattice HRIS API v2 production server
+security:
+- BearerAuth: []
+tags:
+- name: Goals
+  description: Create, read, and update goals and OKRs
+paths:
+  /goals:
+    get:
+      summary: List goals
+      operationId: listGoals
+      tags:
+      - Goals
+      description: Returns a paginated list of goals in Lattice.
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      - name: state
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/GoalStateEnum'
+        description: Filter by goal state
+      responses:
+        '200':
+          description: Paginated list of goals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      summary: Create goal
+      operationId: createGoal
+      tags:
+      - Goals
+      description: Creates a new goal in Lattice.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalCreate'
+      responses:
+        '200':
+          description: Created goal object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /goal/{id}:
+    get:
+      summary: Get goal by ID
+      operationId: getGoal
+      tags:
+      - Goals
+      description: Returns a goal with the given id. If cannot find goal, returns a 404.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The goal identifier
+      responses:
+        '200':
+          description: Goal object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /goals/{id}:
+    put:
+      summary: Update goal
+      operationId: updateGoal
+      tags:
+      - Goals
+      description: Updates an existing goal with the provided information.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: The unique identifier of the goal to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoalUpdate'
+      responses:
+        '200':
+          description: Updated goal object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Goal'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /user/{id}/goals:
+    get:
+      summary: List goals for a user
+      operationId: listUserGoals
+      tags:
+      - Goals
+      description: Returns a paginated list of goals for a specific user.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: The user identifier
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/startingAfter'
+      responses:
+        '200':
+          description: Paginated list of goals
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    GoalCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        startDate:
+          type: string
+          format: date
+        dueDate:
+          type: string
+          format: date
+        ownerIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+          minItems: 1
+        description:
+          type: string
+        priority:
+          type: number
+          minimum: 1
+          maximum: 10
+        private:
+          type: boolean
+          default: false
+        okrType:
+          $ref: '#/components/schemas/OkrTypeEnum'
+        amountType:
+          type: string
+          enum:
+          - percent
+          - dollar
+          - digit
+          - binary
+          nullable: true
+        startingAmount:
+          type: number
+          nullable: true
+        goalAmount:
+          type: number
+          nullable: true
+        companyGoal:
+          type: boolean
+          default: false
+        departmentId:
+          type: string
+          format: uuid
+          nullable: true
+        departmentsVisibleToIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        goalCycleId:
+          type: string
+          format: uuid
+          nullable: true
+        tagNames:
+          type: array
+          items:
+            type: string
+          maxItems: 5
+        isDraft:
+          type: boolean
+          default: false
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - name
+      - startDate
+      - dueDate
+      - ownerIds
+    GoalList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Goal'
+        required:
+        - data
+    GoalStateEnum:
+      type: string
+      enum:
+      - Draft
+      - Active
+      - Ended
+      - Archived
+    OkrTypeEnum:
+      type: string
+      enum:
+      - objective
+      - key_result
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type: string
+          nullable: true
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    AmountTypeEnum:
+      type: string
+      enum:
+      - Percent
+      - Dollar
+      - Digit
+      - Binary
+    GoalStatusEnum:
+      type: string
+      enum:
+      - NotUpdated
+      - OnTrack
+      - Progressing
+      - OffTrack
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+    Goal:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+          description: Markdown-formatted description
+        state:
+          $ref: '#/components/schemas/GoalStateEnum'
+        status:
+          $ref: '#/components/schemas/GoalStatusEnum'
+        goalType:
+          $ref: '#/components/schemas/GoalTypeEnum'
+        okrType:
+          $ref: '#/components/schemas/OkrTypeEnum'
+        isPrivate:
+          type: boolean
+        priority:
+          type: integer
+          nullable: true
+        amountType:
+          $ref: '#/components/schemas/AmountTypeEnum'
+          nullable: true
+        startingAmount:
+          type: number
+          format: float
+          nullable: true
+        endingAmount:
+          type: number
+          format: float
+          nullable: true
+        currentAmount:
+          type: number
+          format: float
+          nullable: true
+        startDate:
+          type: string
+          format: date
+          nullable: true
+        dueDate:
+          type: string
+          format: date
+          nullable: true
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
+        publishedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        completedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        archivedAt:
+          type: integer
+          nullable: true
+          description: Unix timestamp
+        owners:
+          $ref: '#/components/schemas/ListReference'
+        department:
+          $ref: '#/components/schemas/ObjectReference'
+          nullable: true
+        parentGoal:
+          $ref: '#/components/schemas/ObjectReference'
+          nullable: true
+        childGoals:
+          $ref: '#/components/schemas/ListReference'
+        tags:
+          $ref: '#/components/schemas/ListReference'
+      required:
+      - id
+      - object
+      - url
+      - name
+      - state
+      - status
+      - goalType
+      - okrType
+      - isPrivate
+      - owners
+      - childGoals
+      - tags
+      - createdAt
+      - updatedAt
+    GoalUpdate:
+      allOf:
+      - $ref: '#/components/schemas/GoalCreate'
+      - type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          startDate:
+            type: string
+            format: date
+          dueDate:
+            type: string
+            format: date
+          priority:
+            type: number
+            minimum: 1
+            maximum: 10
+          private:
+            type: boolean
+          ownerIds:
+            type: array
+            items:
+              type: string
+              format: uuid
+            minItems: 1
+          okrType:
+            $ref: '#/components/schemas/OkrTypeEnum'
+          amountType:
+            type: string
+            enum:
+            - percent
+            - dollar
+            - digit
+            - binary
+            nullable: true
+          startingAmount:
+            type: number
+            nullable: true
+          goalAmount:
+            type: number
+            nullable: true
+          companyGoal:
+            type: boolean
+          departmentId:
+            type: string
+            format: uuid
+            nullable: true
+          departmentsVisibleToIds:
+            type: array
+            items:
+              type: string
+              format: uuid
+          goalCycleId:
+            type: string
+            format: uuid
+            nullable: true
+          tagNames:
+            type: array
+            items:
+              type: string
+            maxItems: 5
+          isDraft:
+            type: boolean
+          parentId:
+            type: string
+            format: uuid
+            nullable: true
+        required:
+        - name
+        - description
+        - startDate
+        - dueDate
+        - priority
+        - private
+        - ownerIds
+        - okrType
+        - amountType
+        - startingAmount
+        - goalAmount
+        - companyGoal
+        - departmentId
+        - departmentsVisibleToIds
+        - goalCycleId
+        - tagNames
+        - isDraft
+        - parentId
+    GoalTypeEnum:
+      type: string
+      enum:
+      - Company
+      - Department
+      - Group
+      - Individual
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+
+        '
