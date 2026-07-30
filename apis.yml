@@ -1,7 +1,20 @@
 aid: lattice
 name: Lattice
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lattice.png
 url: https://raw.githubusercontent.com/api-evangelist/lattice/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -29,47 +42,182 @@ tags:
 - Feedback
 - Surveys
 apis:
-- name: Lattice Talent API
-  description: 'REST API for Lattice''s Talent product suite covering users, goals,
-    OKRs, performance review cycles, continuous feedback, competencies, tasks, and
-    organizational departments. Uses cursor-based pagination and API key authentication.
-    The base URL is https://api.latticehq.com/v1/.
-
-    '
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: lattice:lattice-competencies-api
+  name: Lattice Competencies API
+  description: Retrieve competencies
   humanURL: https://developers.lattice.com/reference/introduction
   baseURL: https://api.latticehq.com/v1
   tags:
-  - Performance Management
-  - Goals
-  - OKRs
-  - Feedback
-  - Reviews
+  - Competencies
   properties:
+  - type: OpenAPI
+    url: openapi/lattice-competencies-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: OpenAPI
-    url: openapi/lattice-talent-openapi.yml
-  - url: graphql/lattice-graphql.md
-    type: GraphQL
-- name: Lattice HRIS API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records,
-    organizational hierarchy, and HR core data. Supports service account authentication
-    and is designed for HR system integrations including Okta SCIM provisioning.
-
-    '
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developers.lattice.com
-  baseURL: https://api.latticehq.com/v2
-  tags:
-  - HRIS
-  - Employees
-  - Organizational Data
-  properties:
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
+- aid: lattice:lattice-departments-api
+  name: Lattice Departments API
+  description: Manage and retrieve department records
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Departments
+  properties:
   - type: OpenAPI
-    url: openapi/lattice-hris-openapi.yml
+    url: openapi/lattice-departments-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-feedbacks-api
+  name: Lattice Feedbacks API
+  description: Retrieve continuous feedback
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Feedbacks
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-feedbacks-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-goal-updates-api
+  name: Lattice Goal Updates API
+  description: Create and retrieve goal progress updates
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Goal Updates
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-goal-updates-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-goals-api
+  name: Lattice Goals API
+  description: Create, read, and update goals and OKRs
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Goals
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-goals-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-me-api
+  name: Lattice Me API
+  description: Retrieve information about the authenticated user
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Me
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-me-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-review-cycles-api
+  name: Lattice Review Cycles API
+  description: Manage performance review cycles
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Review Cycles
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-review-cycles-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-reviewees-api
+  name: Lattice Reviewees API
+  description: Manage reviewees within a review cycle
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Reviewees
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-reviewees-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-reviews-api
+  name: Lattice Reviews API
+  description: Create, update, and submit performance reviews (v2)
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-reviews-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-tags-api
+  name: Lattice Tags API
+  description: Retrieve tags used across goals and feedback
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-tags-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
+- aid: lattice:lattice-users-api
+  name: Lattice Users API
+  description: Manage and retrieve user records
+  humanURL: https://developers.lattice.com/reference/introduction
+  baseURL: https://api.latticehq.com/v1
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/lattice-users-api-openapi.yml
+  - type: Documentation
+    url: https://developers.lattice.com/reference/introduction
+  - type: GraphQL
+    url: graphql/lattice-graphql.md
+  - type: Documentation
+    url: https://developers.lattice.com
 common:
 - type: AgenticAccess
   url: agentic-access/lattice-agentic-access.yml
