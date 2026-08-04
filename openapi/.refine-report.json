@@ -1,0 +1,34 @@
+{
+  "provider": "lattice",
+  "sources": [
+    "lattice-competencies-api-openapi.yml",
+    "lattice-departments-api-openapi.yml",
+    "lattice-feedbacks-api-openapi.yml",
+    "lattice-goal-updates-api-openapi.yml",
+    "lattice-goals-api-openapi.yml",
+    "lattice-me-api-openapi.yml",
+    "lattice-review-cycles-api-openapi.yml",
+    "lattice-reviewees-api-openapi.yml",
+    "lattice-reviews-api-openapi.yml",
+    "lattice-tags-api-openapi.yml",
+    "lattice-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "lattice-competencies-api-openapi.yml",
+    "lattice-departments-api-openapi.yml",
+    "lattice-feedbacks-api-openapi.yml",
+    "lattice-goal-updates-api-openapi.yml",
+    "lattice-goals-api-openapi.yml",
+    "lattice-me-api-openapi.yml",
+    "lattice-review-cycles-api-openapi.yml",
+    "lattice-reviewees-api-openapi.yml",
+    "lattice-reviews-api-openapi.yml",
+    "lattice-tags-api-openapi.yml",
+    "lattice-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
