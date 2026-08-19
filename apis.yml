@@ -18,7 +18,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lattice.pn
 url: https://raw.githubusercontent.com/api-evangelist/lattice/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 description: 'Lattice is a people management platform used by over 5,000 companies
   to run performance reviews, track OKRs and goals, collect employee engagement survey
   data, manage compensation, and handle core HR (HRIS) workflows. The platform exposes
