@@ -1,0 +1,1600 @@
+{
+  "item": [
+    {
+      "id": "5f297fd2-7caa-458a-be5a-a33bc1c4d90a",
+      "name": "Goals",
+      "description": {
+        "content": "Create, read, and update goals and OKRs",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "027150f9-1f2a-4d5b-9077-6b348d4d3c3c",
+          "name": "List goals",
+          "request": {
+            "name": "List goals",
+            "description": {
+              "content": "Returns a paginated list of goals in Lattice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "startingAfter",
+                  "value": "<string>",
+                  "description": "Cursor for fetching the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "Filter by goal state"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db956f82-965b-4414-ba91-54a63244cf1a",
+              "name": "Paginated list of goals",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"<string>\",\n      \"status\": \"Progressing\",\n      \"goalType\": \"Department\",\n      \"okrType\": \"objective\",\n      \"isPrivate\": true,\n      \"owners\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"childGoals\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"tags\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"createdAt\": 466,\n      \"updatedAt\": 5565,\n      \"description\": \"string\",\n      \"priority\": 8744,\n      \"amountType\": \"Digit\",\n      \"startingAmount\": 3386.8192901899884,\n      \"endingAmount\": 929.8972434171349,\n      \"currentAmount\": 3581.4512832215896,\n      \"startDate\": \"2014-04-26\",\n      \"dueDate\": \"2020-06-07\",\n      \"publishedAt\": 1191,\n      \"completedAt\": 8074,\n      \"archivedAt\": 5652,\n      \"department\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"parentGoal\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"<string>\",\n      \"status\": \"OnTrack\",\n      \"goalType\": \"Group\",\n      \"okrType\": \"key_result\",\n      \"isPrivate\": true,\n      \"owners\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"childGoals\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"tags\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"createdAt\": 6748,\n      \"updatedAt\": 8540,\n      \"description\": \"string\",\n      \"priority\": 1294,\n      \"amountType\": \"Binary\",\n      \"startingAmount\": 9873.528310723988,\n      \"endingAmount\": 6625.463597789808,\n      \"currentAmount\": 2118.9291047407687,\n      \"startDate\": \"1957-07-27\",\n      \"dueDate\": \"1992-02-25\",\n      \"publishedAt\": 1580,\n      \"completedAt\": 9174,\n      \"archivedAt\": 8040,\n      \"department\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"parentGoal\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    }\n  ],\n  \"hasMore\": true,\n  \"object\": \"list\",\n  \"endingCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a9f309bb-f581-4c6b-9369-4e04d0a7dd5a",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d7c9fb0-eb82-47e3-a59b-8cd821cc119c",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dff69d69-1b17-48b2-9ba0-a2494cd00114",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93ef0b21-e566-45de-b495-c75ef6500f4d",
+          "name": "Create goal",
+          "request": {
+            "name": "Create goal",
+            "description": {
+              "content": "Creates a new goal in Lattice.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"dueDate\": \"<date>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"okrType\": \"<string>\",\n  \"amountType\": \"<string>\",\n  \"startingAmount\": \"<number>\",\n  \"goalAmount\": \"<number>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"goalCycleId\": \"<uuid>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDraft\": false,\n  \"parentId\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "10f1167c-aac4-4d46-8854-ef6d9202ee28",
+              "name": "Created goal object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"dueDate\": \"<date>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"okrType\": \"<string>\",\n  \"amountType\": \"<string>\",\n  \"startingAmount\": \"<number>\",\n  \"goalAmount\": \"<number>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"goalCycleId\": \"<uuid>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDraft\": false,\n  \"parentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"name\": \"string\",\n  \"state\": \"<string>\",\n  \"status\": \"OnTrack\",\n  \"goalType\": \"Group\",\n  \"okrType\": \"<string>\",\n  \"isPrivate\": false,\n  \"owners\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"childGoals\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"tags\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"createdAt\": 4053,\n  \"updatedAt\": 1350,\n  \"description\": \"string\",\n  \"priority\": 9684,\n  \"amountType\": \"Digit\",\n  \"startingAmount\": 1714.300150028668,\n  \"endingAmount\": 9983.033823226455,\n  \"currentAmount\": 8293.380397268029,\n  \"startDate\": \"2013-06-18\",\n  \"dueDate\": \"1962-12-10\",\n  \"publishedAt\": 3167,\n  \"completedAt\": 9343,\n  \"archivedAt\": 4202,\n  \"department\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"parentGoal\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b820e29c-1f49-40ab-99e4-81eea8b852df",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"dueDate\": \"<date>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"okrType\": \"<string>\",\n  \"amountType\": \"<string>\",\n  \"startingAmount\": \"<number>\",\n  \"goalAmount\": \"<number>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"goalCycleId\": \"<uuid>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDraft\": false,\n  \"parentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf89426b-bd09-4119-a28a-49fc9b0bed45",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"dueDate\": \"<date>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"okrType\": \"<string>\",\n  \"amountType\": \"<string>\",\n  \"startingAmount\": \"<number>\",\n  \"goalAmount\": \"<number>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"goalCycleId\": \"<uuid>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDraft\": false,\n  \"parentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e0e22af-2c31-41ff-b3bc-627b6befc029",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"startDate\": \"<date>\",\n  \"dueDate\": \"<date>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"okrType\": \"<string>\",\n  \"amountType\": \"<string>\",\n  \"startingAmount\": \"<number>\",\n  \"goalAmount\": \"<number>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"goalCycleId\": \"<uuid>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDraft\": false,\n  \"parentId\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "070acc20-0c5c-441d-8d01-33807132da7a",
+          "name": "Get goal by ID",
+          "request": {
+            "name": "Get goal by ID",
+            "description": {
+              "content": "Returns a goal with the given id. If cannot find goal, returns a 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goal",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The goal identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bef3022-211f-469f-bfeb-e13bc677fa6b",
+              "name": "Goal object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The goal identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"name\": \"string\",\n  \"state\": \"<string>\",\n  \"status\": \"OnTrack\",\n  \"goalType\": \"Group\",\n  \"okrType\": \"<string>\",\n  \"isPrivate\": false,\n  \"owners\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"childGoals\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"tags\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"createdAt\": 4053,\n  \"updatedAt\": 1350,\n  \"description\": \"string\",\n  \"priority\": 9684,\n  \"amountType\": \"Digit\",\n  \"startingAmount\": 1714.300150028668,\n  \"endingAmount\": 9983.033823226455,\n  \"currentAmount\": 8293.380397268029,\n  \"startDate\": \"2013-06-18\",\n  \"dueDate\": \"1962-12-10\",\n  \"publishedAt\": 3167,\n  \"completedAt\": 9343,\n  \"archivedAt\": 4202,\n  \"department\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"parentGoal\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cda318b9-3f5b-48ee-a8d5-11905af1cdd5",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The goal identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2dcca7f1-3deb-4d59-9e47-7f19fb68602d",
+              "name": "Could not find the requested resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The goal identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e2f6dcb-d65a-466a-aaf7-87a18fc485aa",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The goal identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "762aad29-dfce-46c7-9aa8-3fe403913374",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goal",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The goal identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de046c25-af5e-4293-97dc-0c431c02b78e",
+          "name": "Update goal",
+          "request": {
+            "name": "Update goal",
+            "description": {
+              "content": "Updates an existing goal with the provided information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "goals",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the goal to update"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "90cae9ed-3302-4e96-a773-67a8c7f042a9",
+              "name": "Updated goal object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the goal to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"name\": \"string\",\n  \"state\": \"<string>\",\n  \"status\": \"OnTrack\",\n  \"goalType\": \"Group\",\n  \"okrType\": \"<string>\",\n  \"isPrivate\": false,\n  \"owners\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"childGoals\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"tags\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"createdAt\": 4053,\n  \"updatedAt\": 1350,\n  \"description\": \"string\",\n  \"priority\": 9684,\n  \"amountType\": \"Digit\",\n  \"startingAmount\": 1714.300150028668,\n  \"endingAmount\": 9983.033823226455,\n  \"currentAmount\": 8293.380397268029,\n  \"startDate\": \"2013-06-18\",\n  \"dueDate\": \"1962-12-10\",\n  \"publishedAt\": 3167,\n  \"completedAt\": 9343,\n  \"archivedAt\": 4202,\n  \"department\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"parentGoal\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25f3cf78-2e56-4397-bc42-464274724358",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the goal to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00bf4d30-2e60-49fc-870e-8c96d592905a",
+              "name": "Could not find the requested resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the goal to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b811491-c63d-4c22-895e-d47306685d4a",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the goal to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b90a5bba-66b6-43bd-b8b6-aa866d4847f3",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "goals",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the goal to update"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amountType\": \"<string>\",\n  \"companyGoal\": false,\n  \"departmentId\": \"<uuid>\",\n  \"departmentsVisibleToIds\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"description\": \"<string>\",\n  \"dueDate\": \"<date>\",\n  \"goalAmount\": \"<number>\",\n  \"goalCycleId\": \"<uuid>\",\n  \"isDraft\": false,\n  \"name\": \"<string>\",\n  \"okrType\": \"<string>\",\n  \"ownerIds\": [\n    \"<uuid>\"\n  ],\n  \"parentId\": \"<uuid>\",\n  \"priority\": \"<number>\",\n  \"private\": false,\n  \"startDate\": \"<date>\",\n  \"startingAmount\": \"<number>\",\n  \"tagNames\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f57aa8bf-679a-4ba4-a8a5-13bdaa038c7f",
+          "name": "List goals for a user",
+          "request": {
+            "name": "List goals for a user",
+            "description": {
+              "content": "Returns a paginated list of goals for a specific user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "user",
+                ":id",
+                "goals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "startingAfter",
+                  "value": "<string>",
+                  "description": "Cursor for fetching the next page of results"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The user identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "648570c0-7d35-4487-be47-9db57f52b562",
+              "name": "Paginated list of goals",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The user identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"<string>\",\n      \"status\": \"OnTrack\",\n      \"goalType\": \"Department\",\n      \"okrType\": \"<string>\",\n      \"isPrivate\": false,\n      \"owners\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"childGoals\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"tags\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"createdAt\": 743,\n      \"updatedAt\": 2647,\n      \"description\": \"string\",\n      \"priority\": 1634,\n      \"amountType\": \"Dollar\",\n      \"startingAmount\": 4801.53776726917,\n      \"endingAmount\": 8719.183323898591,\n      \"currentAmount\": 5830.982782109418,\n      \"startDate\": \"2021-10-05\",\n      \"dueDate\": \"2010-07-15\",\n      \"publishedAt\": 8327,\n      \"completedAt\": 1939,\n      \"archivedAt\": 1264,\n      \"department\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"parentGoal\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"state\": \"<string>\",\n      \"status\": \"OffTrack\",\n      \"goalType\": \"Individual\",\n      \"okrType\": \"<string>\",\n      \"isPrivate\": true,\n      \"owners\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"childGoals\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"tags\": {\n        \"object\": \"list\",\n        \"url\": \"string\"\n      },\n      \"createdAt\": 7312,\n      \"updatedAt\": 6186,\n      \"description\": \"string\",\n      \"priority\": 2469,\n      \"amountType\": \"Dollar\",\n      \"startingAmount\": 8052.10586774225,\n      \"endingAmount\": 1315.2047108257393,\n      \"currentAmount\": 7174.403057430192,\n      \"startDate\": \"1973-02-18\",\n      \"dueDate\": \"2023-08-30\",\n      \"publishedAt\": 1812,\n      \"completedAt\": 4159,\n      \"archivedAt\": 9223,\n      \"department\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"parentGoal\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    }\n  ],\n  \"hasMore\": false,\n  \"object\": \"list\",\n  \"endingCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88ed9d8c-14b4-478a-8566-b42e82b2d887",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The user identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4a54a0b-966e-489f-b238-80468ea8f779",
+              "name": "Could not find the requested resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The user identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60b08d6c-31bd-4775-8243-b6fad8cc2238",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The user identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e319b466-4b46-404c-bf76-a91e64a83c6a",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id",
+                    "goals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The user identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.latticehq.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4657ad93-aaf4-4b1c-a142-d468c187669d",
+    "name": "Lattice HRIS Competencies Goals API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API (v2) for Lattice's HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.\n\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,623 @@
+{
+  "item": [
+    {
+      "id": "613c0de4-1b5f-4e6d-a8d8-eb8da90f2d2d",
+      "name": "Feedbacks",
+      "description": {
+        "content": "Retrieve continuous feedback",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b0b9ce7-84eb-4f9b-9f20-f18411db9989",
+          "name": "List feedbacks",
+          "request": {
+            "name": "List feedbacks",
+            "description": {
+              "content": "Returns a paginated list of all continuous feedback in Lattice. Newest feedback will be returned first.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feedbacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to return per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "startingAfter",
+                  "value": "<string>",
+                  "description": "Cursor for fetching the next page of results"
+                },
+                {
+                  "disabled": false,
+                  "key": "onlyPublic",
+                  "value": "<boolean>",
+                  "description": "Filter to public feedback only"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa185661-526e-4df7-be6f-5eb18e10cf1e",
+              "name": "Paginated list of feedback",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPublic",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"author\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"targets\": {},\n      \"body\": \"string\",\n      \"visibility\": \"string\",\n      \"isPublic\": true,\n      \"createdAt\": 496,\n      \"associatedValues\": {},\n      \"feedbackRequest\": {},\n      \"competency\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"author\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      },\n      \"targets\": {},\n      \"body\": \"string\",\n      \"visibility\": \"string\",\n      \"isPublic\": true,\n      \"createdAt\": 7482,\n      \"associatedValues\": {},\n      \"feedbackRequest\": {},\n      \"competency\": {\n        \"id\": \"string\",\n        \"object\": \"string\",\n        \"url\": \"string\"\n      }\n    }\n  ],\n  \"hasMore\": false,\n  \"object\": \"list\",\n  \"endingCursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb769a4f-471f-4402-b3b6-415394f4b07a",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPublic",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be633223-cc77-4b07-8e05-3dd4acd882c1",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPublic",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec09e75a-b195-467a-ba69-2648b4d1ccc0",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "onlyPublic",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17f1f400-0bf4-4e43-a2a3-96f90afed512",
+          "name": "Get feedback by ID",
+          "request": {
+            "name": "Get feedback by ID",
+            "description": {
+              "content": "Returns a feedback with the given id. If cannot find feedback, returns a 404.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "feedback",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The feedback identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4c9a871-1f3d-499b-938d-411ea836cac5",
+              "name": "Feedback object",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The feedback identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"author\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"targets\": {},\n  \"body\": \"string\",\n  \"visibility\": \"string\",\n  \"isPublic\": true,\n  \"createdAt\": 2010,\n  \"associatedValues\": {},\n  \"feedbackRequest\": {},\n  \"competency\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8560f3f-4480-4762-9ce9-6e70de180b80",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The feedback identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3eebe29b-81cb-4802-8515-8469654de9b3",
+              "name": "Could not find the requested resource",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The feedback identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3601df1b-df27-42ba-8515-8580a1d0eb6f",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The feedback identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d1e6e7c-a7c3-444d-8d9b-f667d3ab90dd",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "feedback",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The feedback identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.latticehq.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "96f5d9ed-1b65-40b7-a5c0-6a0875d0f20a",
+    "name": "Lattice HRIS Competencies Feedbacks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API (v2) for Lattice's HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.\n\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+      "type": "text/plain"
+    }
+  }
+}

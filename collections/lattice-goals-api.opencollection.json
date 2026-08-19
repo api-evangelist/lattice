@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lattice HRIS Competencies Goals API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Goals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List goals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/goals",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by goal state"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of goals in Lattice."
+        },
+        {
+          "info": {
+            "name": "Create goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.latticehq.com/v2/goals",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new goal in Lattice."
+        },
+        {
+          "info": {
+            "name": "Get goal by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/goal/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The goal identifier"
+              }
+            ]
+          },
+          "docs": "Returns a goal with the given id. If cannot find goal, returns a 404."
+        },
+        {
+          "info": {
+            "name": "Update goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.latticehq.com/v2/goals/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the goal to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing goal with the provided information."
+        },
+        {
+          "info": {
+            "name": "List goals for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/user/:id/goals",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The user identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of goals for a specific user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

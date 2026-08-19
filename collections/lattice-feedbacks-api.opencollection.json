@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lattice HRIS Competencies Feedbacks API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feedbacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List feedbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/feedbacks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              },
+              {
+                "name": "onlyPublic",
+                "value": "",
+                "type": "query",
+                "description": "Filter to public feedback only"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all continuous feedback in Lattice. Newest feedback will be returned first."
+        },
+        {
+          "info": {
+            "name": "Get feedback by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/feedback/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The feedback identifier"
+              }
+            ]
+          },
+          "docs": "Returns a feedback with the given id. If cannot find feedback, returns a 404."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

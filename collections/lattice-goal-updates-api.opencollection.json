@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lattice HRIS Competencies Goal Updates API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Goal Updates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List goal updates for a goal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/goal/:id/updates",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The goal identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns paginated progress updates for a specific goal."
+        },
+        {
+          "info": {
+            "name": "Create goal update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.latticehq.com/v2/goal/:id/updates",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The goal identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a progress update for a specific goal."
+        },
+        {
+          "info": {
+            "name": "List all goal updates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/goalUpdates",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of all goal updates across all goals."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

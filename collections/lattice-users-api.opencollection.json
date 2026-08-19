@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lattice HRIS Competencies Users API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user status; NULL returns all users."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of users in Lattice. By default, returns active users. A status parameter of NULL will retrieve all users regardless of status.\n"
+        },
+        {
+          "info": {
+            "name": "Get user by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/user/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The user identifier"
+              }
+            ]
+          },
+          "docs": "Returns a user with the given id. If cannot find user, returns a 404."
+        },
+        {
+          "info": {
+            "name": "List direct reports for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/user/:id/directReports",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The user identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of direct reports for a specific user."
+        },
+        {
+          "info": {
+            "name": "List tasks for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/user/:id/tasks",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The user identifier"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to return per page"
+              },
+              {
+                "name": "startingAfter",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for fetching the next page of results"
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of tasks for a specific user."
+        },
+        {
+          "info": {
+            "name": "List custom attributes for a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.latticehq.com/v2/user/:id/customAttributes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The user identifier"
+              }
+            ]
+          },
+          "docs": "Returns custom attribute values for a specific user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
