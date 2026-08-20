@@ -208,6 +208,8 @@ apis:
   humanURL: https://developers.lattice.com/reference/introduction
   baseURL: https://api.latticehq.com/v1
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
