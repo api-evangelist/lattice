@@ -1,10 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lattice HRIS Competencies Goal Updates API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
-
-    '
-  version: v2
+  title: Lattice Talent Goal Updates API
+  description: REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.
+  version: v1
   contact:
     name: Lattice Developer Support
     email: customercare@lattice.com
@@ -14,8 +12,8 @@ info:
     name: Proprietary
     url: https://lattice.com/legal/terms-of-service
 servers:
-- url: https://api.latticehq.com/v2
-  description: Lattice HRIS API v2 production server
+- url: https://api.latticehq.com/v1
+  description: Lattice Talent API v1 production server
 security:
 - BearerAuth: []
 tags:
@@ -109,24 +107,40 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    PaginatedList:
+    ErrorResponse:
       type: object
       properties:
-        object:
+        error:
           type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type: string
-          nullable: true
-          description: The cursor to use to get the next set of items in the list
+          description: Human-readable error message
       required:
-      - object
-      - hasMore
+      - error
     GoalUpdateList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -138,28 +152,6 @@ components:
               $ref: '#/components/schemas/GoalUpdateItem'
         required:
         - data
-    GoalUpdateCreate:
-      type: object
-      properties:
-        comment:
-          type: string
-        currentAmount:
-          type: number
-          nullable: true
-    ObjectReference:
-      type: object
-      description: A lightweight reference to another Lattice object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - object
-      - url
     GoalUpdateItem:
       type: object
       description: A progress update for a goal
@@ -175,12 +167,14 @@ components:
         author:
           $ref: '#/components/schemas/ObjectReference'
         comment:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         currentAmount:
-          type: number
+          type:
+          - number
+          - 'null'
           format: float
-          nullable: true
         createdAt:
           type: integer
           description: Unix timestamp
@@ -191,22 +185,48 @@ components:
       - goal
       - author
       - createdAt
-    ErrorResponse:
+    PaginatedList:
       type: object
       properties:
-        error:
+        object:
           type: string
-          description: Human-readable error message
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
       required:
-      - error
+      - object
+      - hasMore
+    GoalUpdateCreate:
+      type: object
+      properties:
+        comment:
+          type: string
+        currentAmount:
+          type:
+          - number
+          - 'null'
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
   parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
     limit:
       name: limit
       in: query
@@ -215,35 +235,17 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
-  responses:
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+      description: 'API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
 
         '

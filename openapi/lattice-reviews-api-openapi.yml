@@ -1,21 +1,21 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lattice HRIS Competencies Reviews API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
-
-    '
-  version: v2
+  title: Lattice Reviews API
   contact:
     name: Lattice Developer Support
     email: customercare@lattice.com
     url: https://developers.lattice.com
-  termsOfService: https://lattice.com/legal/terms-of-service
   license:
     name: Proprietary
     url: https://lattice.com/legal/terms-of-service
+  termsOfService: https://lattice.com/legal/terms-of-service
+  version: '1.0'
+  description: 'Operations tagged Reviews across 2 of this provider''s published API definitions: lattice-hris-openapi.yml, lattice-talent-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.latticehq.com/v2
   description: Lattice HRIS API v2 production server
+- url: https://api.latticehq.com/v1
+  description: Lattice Talent API v1 production server
 security:
 - BearerAuth: []
 tags:
@@ -28,9 +28,7 @@ paths:
       operationId: createDraftReview
       tags:
       - Reviews
-      description: 'Saves initial responses for a review as a draft. The review must exist and the caller must have permission to complete it.
-
-        '
+      description: Saves initial responses for a review as a draft. The review must exist and the caller must have permission to complete it.
       requestBody:
         required: true
         content:
@@ -54,15 +52,16 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+    servers:
+    - url: https://api.latticehq.com/v2
+      description: Lattice HRIS API v2 production server
   /reviews/{id}/submit:
     post:
       summary: Submit a review
       operationId: submitReview
       tags:
       - Reviews
-      description: 'Submits a drafted review. The review must be in drafted state and all required questions must have valid responses.
-
-        '
+      description: Submits a drafted review. The review must be in drafted state and all required questions must have valid responses.
       parameters:
       - name: id
         in: path
@@ -88,15 +87,16 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+    servers:
+    - url: https://api.latticehq.com/v2
+      description: Lattice HRIS API v2 production server
   /reviews/{id}/draft:
     put:
       summary: Update a draft review
       operationId: updateDraftReview
       tags:
       - Reviews
-      description: 'Updates existing draft responses for a review. The review must be in drafted state.
-
-        '
+      description: Updates existing draft responses for a review. The review must be in drafted state.
       parameters:
       - name: id
         in: path
@@ -128,6 +128,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         '500':
           $ref: '#/components/responses/ServerError'
+    servers:
+    - url: https://api.latticehq.com/v2
+      description: Lattice HRIS API v2 production server
   /reviewCycle/{id}/reviews:
     get:
       summary: List reviews in a review cycle
@@ -157,6 +160,9 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '500':
           $ref: '#/components/responses/ServerError_2'
+    servers:
+    - url: https://api.latticehq.com/v1
+      description: Lattice Talent API v1 production server
   /reviewee/{id}/reviews:
     get:
       summary: List reviews for a reviewee
@@ -186,10 +192,13 @@ paths:
           $ref: '#/components/responses/UnprocessableEntity'
         '500':
           $ref: '#/components/responses/ServerError_2'
+    servers:
+    - url: https://api.latticehq.com/v1
+      description: Lattice Talent API v1 production server
 components:
   responses:
-    BadRequest:
-      description: Bad request - validation failed
+    ServerError:
+      description: Internal server error
       content:
         application/json:
           schema:
@@ -200,24 +209,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseDto'
-    ServerError:
-      description: Internal server error
+    BadRequest:
+      description: Bad request - validation failed
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseDto'
-    BadRequest_2:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ServerError_2:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized - missing or invalid bearer token
       content:
@@ -230,37 +227,52 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponseDto'
+    ServerError_2:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     UnprocessableEntity:
       description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
   schemas:
-    ErrorResponse:
+    ReviewResponseItem:
       type: object
+      description: A single answer to a review question
       properties:
-        error:
+        questionRevisionId:
           type: string
-          description: Human-readable error message
+          format: uuid
+          description: The entity ID of the question revision being answered
+        comment:
+          type:
+          - string
+          - 'null'
+          description: Free-form text response for free-text questions
+        rating:
+          type:
+          - string
+          - 'null'
+          description: Rating value for rated questions
+        choices:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: Selected choices for multiple-select questions
       required:
-      - error
+      - questionRevisionId
     DraftReviewResponseDto:
       type: object
       description: Review data returned after creating or updating a draft
@@ -304,9 +316,10 @@ components:
           format: date-time
           description: ISO 8601 UTC timestamp of last update
         submittedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           description: ISO 8601 UTC timestamp of submission
       required:
       - id
@@ -316,91 +329,6 @@ components:
       - state
       - responses
       - updatedAt
-    CreateDraftReviewRequest:
-      type: object
-      properties:
-        reviewId:
-          type: string
-          format: uuid
-          description: The entity ID of the review (review request)
-        responses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewResponseItem'
-          minItems: 1
-          description: Collection of review answers
-      required:
-      - reviewId
-      - responses
-    SavedReviewResponse:
-      type: object
-      properties:
-        questionRevisionId:
-          type: string
-          format: uuid
-        comment:
-          type: string
-          nullable: true
-        rating:
-          type: string
-          nullable: true
-        choices:
-          type: array
-          items:
-            type: string
-          nullable: true
-      required:
-      - questionRevisionId
-    Review:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-        revieweeId:
-          type: string
-          format: uuid
-        cycleId:
-          type: string
-          format: uuid
-        direction:
-          $ref: '#/components/schemas/ReviewDirectionEnum'
-        state:
-          $ref: '#/components/schemas/ReviewStateEnum'
-        updatedAt:
-          type: string
-          format: date-time
-        submittedAt:
-          type: string
-          format: date-time
-          nullable: true
-      required:
-      - id
-      - revieweeId
-      - cycleId
-      - direction
-      - state
-      - updatedAt
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type: string
-          nullable: true
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
     UpdateDraftReviewRequest:
       type: object
       properties:
@@ -426,14 +354,65 @@ components:
           $ref: '#/components/schemas/DraftReviewResponseDto'
       required:
       - data
-    ReviewStateEnum:
-      type: string
-      enum:
-      - unstarted
-      - drafted
-      - submitted
-      - rejected
-      - shared
+    ErrorResponseDto:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP status code
+        title:
+          type: string
+          description: Short error summary
+        detail:
+          type: string
+          description: Specific explanation of the error
+        errors:
+          type: array
+          items:
+            type: string
+          description: Optional array of field-level validation errors
+      required:
+      - status
+      - title
+      - detail
+    SavedReviewResponse:
+      type: object
+      properties:
+        questionRevisionId:
+          type: string
+          format: uuid
+        comment:
+          type:
+          - string
+          - 'null'
+        rating:
+          type:
+          - string
+          - 'null'
+        choices:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      required:
+      - questionRevisionId
+    CreateDraftReviewRequest:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          format: uuid
+          description: The entity ID of the review (review request)
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewResponseItem'
+          minItems: 1
+          description: Collection of review answers
+      required:
+      - reviewId
+      - responses
     SubmitReviewData:
       type: object
       properties:
@@ -477,30 +456,40 @@ components:
       - state
       - updatedAt
       - submittedAt
-    ReviewResponseItem:
+    ErrorResponse:
       type: object
-      description: A single answer to a review question
       properties:
-        questionRevisionId:
+        error:
           type: string
-          format: uuid
-          description: The entity ID of the question revision being answered
-        comment:
-          type: string
-          nullable: true
-          description: Free-form text response for free-text questions
-        rating:
-          type: string
-          nullable: true
-          description: Rating value for rated questions
-        choices:
-          type: array
-          items:
-            type: string
-          nullable: true
-          description: Selected choices for multiple-select questions
+          description: Human-readable error message
       required:
-      - questionRevisionId
+      - error
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    ReviewStateEnum:
+      type: string
+      enum:
+      - unstarted
+      - drafted
+      - submitted
+      - rejected
+      - shared
     ReviewList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -512,6 +501,40 @@ components:
               $ref: '#/components/schemas/Review'
         required:
         - data
+    Review:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        revieweeId:
+          type: string
+          format: uuid
+        cycleId:
+          type: string
+          format: uuid
+        direction:
+          $ref: '#/components/schemas/ReviewDirectionEnum'
+        state:
+          $ref: '#/components/schemas/ReviewStateEnum'
+        updatedAt:
+          type: string
+          format: date-time
+        submittedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      required:
+      - id
+      - revieweeId
+      - cycleId
+      - direction
+      - state
+      - updatedAt
     ReviewDirectionEnum:
       type: string
       enum:
@@ -519,27 +542,22 @@ components:
       - self
       - peer
       - upward
-    ErrorResponseDto:
-      type: object
-      properties:
-        status:
-          type: integer
-          description: HTTP status code
-        title:
-          type: string
-          description: Short error summary
-        detail:
-          type: string
-          description: Specific explanation of the error
-        errors:
-          type: array
-          items:
-            type: string
-          description: Optional array of field-level validation errors
-      required:
-      - status
-      - title
-      - detail
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   securitySchemes:
     BearerAuth:
       type: http
@@ -547,3 +565,6 @@ components:
       description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
 
         '
+x-refined-from:
+- lattice-hris-openapi.yml
+- lattice-talent-openapi.yml

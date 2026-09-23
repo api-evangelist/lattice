@@ -1,10 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lattice HRIS Competencies Departments API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
-
-    '
-  version: v2
+  title: Lattice Talent Departments API
+  description: REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.
+  version: v1
   contact:
     name: Lattice Developer Support
     email: customercare@lattice.com
@@ -14,8 +12,8 @@ info:
     name: Proprietary
     url: https://lattice.com/legal/terms-of-service
 servers:
-- url: https://api.latticehq.com/v2
-  description: Lattice HRIS API v2 production server
+- url: https://api.latticehq.com/v1
+  description: Lattice Talent API v1 production server
 security:
 - BearerAuth: []
 tags:
@@ -76,23 +74,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type: string
-          nullable: true
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
     Department:
       type: object
       properties:
@@ -105,8 +86,9 @@ components:
         name:
           type: string
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: Markdown-formatted description
         createdAt:
           type: integer
@@ -117,6 +99,14 @@ components:
       - url
       - name
       - createdAt
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     DepartmentList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -128,39 +118,27 @@ components:
               $ref: '#/components/schemas/Department'
         required:
         - data
-    ErrorResponse:
+    PaginatedList:
       type: object
       properties:
-        error:
+        object:
           type: string
-          description: Human-readable error message
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
       required:
-      - error
-  parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
+      - object
+      - hasMore
   responses:
     ServerError:
       description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
       content:
         application/json:
           schema:
@@ -171,16 +149,38 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     UnprocessableEntity:
       description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+      description: 'API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
 
         '

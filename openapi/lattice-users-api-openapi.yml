@@ -1,10 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lattice HRIS Competencies Users API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
-
-    '
-  version: v2
+  title: Lattice Talent Users API
+  description: REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.
+  version: v1
   contact:
     name: Lattice Developer Support
     email: customercare@lattice.com
@@ -14,8 +12,8 @@ info:
     name: Proprietary
     url: https://lattice.com/legal/terms-of-service
 servers:
-- url: https://api.latticehq.com/v2
-  description: Lattice HRIS API v2 production server
+- url: https://api.latticehq.com/v1
+  description: Lattice Talent API v1 production server
 security:
 - BearerAuth: []
 tags:
@@ -28,9 +26,7 @@ paths:
       operationId: listUsers
       tags:
       - Users
-      description: 'Returns a paginated list of users in Lattice. By default, returns active users. A status parameter of NULL will retrieve all users regardless of status.
-
-        '
+      description: Returns a paginated list of users in Lattice. By default, returns active users. A status parameter of NULL will retrieve all users regardless of status.
       parameters:
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/startingAfter'
@@ -180,57 +176,51 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    PaginatedList:
+    ErrorResponse:
       type: object
       properties:
-        object:
+        error:
           type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type: string
-          nullable: true
-          description: The cursor to use to get the next set of items in the list
+          description: Human-readable error message
       required:
-      - object
-      - hasMore
-    CustomAttribute:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-          nullable: true
-        type:
-          type: string
-      required:
-      - id
-      - object
-      - name
-      - type
-    ObjectReference:
-      type: object
-      description: A lightweight reference to another Lattice object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - object
-      - url
+      - error
+    TaskList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+        required:
+        - data
     Task:
       type: object
       properties:
@@ -243,15 +233,18 @@ components:
         name:
           type: string
         description:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         dueDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
         completedAt:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           description: Unix timestamp
         createdAt:
           type: integer
@@ -266,6 +259,74 @@ components:
       - name
       - createdAt
       - updatedAt
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+    CustomAttributeValue:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        attribute:
+          $ref: '#/components/schemas/CustomAttribute'
+        value:
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - object
+      - attribute
+    CustomAttribute:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+      required:
+      - id
+      - object
+      - name
+      - type
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
     CustomAttributeValueList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -275,36 +336,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/CustomAttributeValue'
-        required:
-        - data
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
-    UserList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-        required:
-        - data
-    TaskList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/Task'
         required:
         - data
     User:
@@ -317,17 +348,20 @@ components:
         url:
           type: string
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         preferredName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         email:
           type: string
           format: email
         title:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         status:
           type: string
           enum:
@@ -338,14 +372,13 @@ components:
         isAdmin:
           type: boolean
         externalUserId:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         manager:
           $ref: '#/components/schemas/ObjectReference'
-          nullable: true
         department:
           $ref: '#/components/schemas/ObjectReference'
-          nullable: true
         directReports:
           $ref: '#/components/schemas/ListReference'
         tasks:
@@ -353,28 +386,35 @@ components:
         customAttributes:
           $ref: '#/components/schemas/ListReference'
         timezone:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         startDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
         birthDate:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
         gender:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         jobFunction:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         jobLevel:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         jobType:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         createdAt:
           type: integer
           description: Unix timestamp
@@ -391,43 +431,32 @@ components:
       - directReports
       - tasks
       - customAttributes
-    CustomAttributeValue:
+    ObjectReference:
       type: object
+      description: A lightweight reference to another Lattice object
       properties:
         id:
           type: string
         object:
           type: string
-        attribute:
-          $ref: '#/components/schemas/CustomAttribute'
-        value:
-          type: string
-          nullable: true
-      required:
-      - id
-      - object
-      - attribute
-    ListReference:
-      type: object
-      description: A reference to a paginated list of related objects
-      properties:
-        object:
-          type: string
-          enum:
-          - list
         url:
           type: string
       required:
+      - id
       - object
       - url
+    UserList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+        required:
+        - data
   parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
     limit:
       name: limit
       in: query
@@ -436,35 +465,17 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
-  responses:
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+      description: 'API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
 
         '

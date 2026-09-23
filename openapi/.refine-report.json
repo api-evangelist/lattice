@@ -1,19 +1,11 @@
 {
   "provider": "lattice",
   "sources": [
-    "lattice-competencies-api-openapi.yml",
-    "lattice-departments-api-openapi.yml",
-    "lattice-feedbacks-api-openapi.yml",
-    "lattice-goal-updates-api-openapi.yml",
-    "lattice-goals-api-openapi.yml",
-    "lattice-me-api-openapi.yml",
-    "lattice-review-cycles-api-openapi.yml",
-    "lattice-reviewees-api-openapi.yml",
-    "lattice-reviews-api-openapi.yml",
-    "lattice-tags-api-openapi.yml",
-    "lattice-users-api-openapi.yml"
+    "_original/lattice-hris-openapi.yml",
+    "_original/lattice-talent-openapi.yml"
   ],
   "outputs": [
+    "lattice-reviews-api-openapi.yml",
     "lattice-competencies-api-openapi.yml",
     "lattice-departments-api-openapi.yml",
     "lattice-feedbacks-api-openapi.yml",
@@ -22,13 +14,30 @@
     "lattice-me-api-openapi.yml",
     "lattice-review-cycles-api-openapi.yml",
     "lattice-reviewees-api-openapi.yml",
-    "lattice-reviews-api-openapi.yml",
     "lattice-tags-api-openapi.yml",
     "lattice-users-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "lattice-hris-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "lattice-talent-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "tag 'Reviews' spans 2 source specs (lattice-hris-openapi.yml, lattice-talent-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "lattice-competencies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-departments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-feedbacks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-goal-updates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-goals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-me-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-review-cycles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-reviewees-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-reviews-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "lattice-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,10 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Lattice HRIS Competencies Reviewees API
-  description: 'REST API (v2) for Lattice''s HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.
-
-    '
-  version: v2
+  title: Lattice Talent Reviewees API
+  description: REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.
+  version: v1
   contact:
     name: Lattice Developer Support
     email: customercare@lattice.com
@@ -14,8 +12,8 @@ info:
     name: Proprietary
     url: https://lattice.com/legal/terms-of-service
 servers:
-- url: https://api.latticehq.com/v2
-  description: Lattice HRIS API v2 production server
+- url: https://api.latticehq.com/v1
+  description: Lattice Talent API v1 production server
 security:
 - BearerAuth: []
 tags:
@@ -52,151 +50,6 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  schemas:
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type: string
-          nullable: true
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
-    ObjectReference:
-      type: object
-      description: A lightweight reference to another Lattice object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - object
-      - url
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
-    WeightedScore:
-      type: object
-      properties:
-        manual:
-          type: number
-          format: float
-          nullable: true
-        autoCalculated:
-          type: number
-          format: float
-          nullable: true
-    Reviewee:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-        externalUserId:
-          type: string
-          nullable: true
-        reviewCycle:
-          $ref: '#/components/schemas/ObjectReference'
-        user:
-          $ref: '#/components/schemas/ObjectReference'
-        reviews:
-          $ref: '#/components/schemas/ListReference'
-        revieweeFacingPDFUrl:
-          type: string
-          nullable: true
-        managerFacingPDFUrl:
-          type: string
-          nullable: true
-        closedAt:
-          type: integer
-          nullable: true
-          description: Unix timestamp when closed
-        esignatureGivenAt:
-          type: integer
-          nullable: true
-          description: Unix timestamp of e-signature
-        responsesReleasedAt:
-          type: integer
-          nullable: true
-          description: Unix timestamp when responses were released
-        weightedScore:
-          $ref: '#/components/schemas/WeightedScore'
-          nullable: true
-        createdAt:
-          type: integer
-          description: Unix timestamp
-        updatedAt:
-          type: integer
-          description: Unix timestamp
-      required:
-      - id
-      - object
-      - url
-      - reviewCycle
-      - user
-      - reviews
-      - createdAt
-      - updatedAt
-    RevieweeList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/Reviewee'
-        required:
-        - data
-    ListReference:
-      type: object
-      description: A reference to a paginated list of related objects
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        url:
-          type: string
-      required:
-      - object
-      - url
-  parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
   responses:
     ServerError:
       description: Server error while processing request
@@ -216,10 +69,163 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    RevieweeList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Reviewee'
+        required:
+        - data
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    WeightedScore:
+      type: object
+      properties:
+        manual:
+          type:
+          - number
+          - 'null'
+          format: float
+        autoCalculated:
+          type:
+          - number
+          - 'null'
+          format: float
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    Reviewee:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        externalUserId:
+          type:
+          - string
+          - 'null'
+        reviewCycle:
+          $ref: '#/components/schemas/ObjectReference'
+        user:
+          $ref: '#/components/schemas/ObjectReference'
+        reviews:
+          $ref: '#/components/schemas/ListReference'
+        revieweeFacingPDFUrl:
+          type:
+          - string
+          - 'null'
+        managerFacingPDFUrl:
+          type:
+          - string
+          - 'null'
+        closedAt:
+          type:
+          - integer
+          - 'null'
+          description: Unix timestamp when closed
+        esignatureGivenAt:
+          type:
+          - integer
+          - 'null'
+          description: Unix timestamp of e-signature
+        responsesReleasedAt:
+          type:
+          - integer
+          - 'null'
+          description: Unix timestamp when responses were released
+        weightedScore:
+          $ref: '#/components/schemas/WeightedScore'
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
+      required:
+      - id
+      - object
+      - url
+      - reviewCycle
+      - user
+      - reviews
+      - createdAt
+      - updatedAt
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   securitySchemes:
     BearerAuth:
       type: http
       scheme: bearer
-      description: 'Service account API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
+      description: 'API key passed as a Bearer token in the Authorization header. Example: Authorization: Bearer <your-api-key>
 
         '
