@@ -77,8 +77,6 @@ apis:
     url: openapi/lattice-competencies-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-departments-api
@@ -93,8 +91,6 @@ apis:
     url: openapi/lattice-departments-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-feedbacks-api
@@ -109,8 +105,6 @@ apis:
     url: openapi/lattice-feedbacks-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-goal-updates-api
@@ -125,8 +119,6 @@ apis:
     url: openapi/lattice-goal-updates-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-goals-api
@@ -141,8 +133,6 @@ apis:
     url: openapi/lattice-goals-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-me-api
@@ -157,8 +147,6 @@ apis:
     url: openapi/lattice-me-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-review-cycles-api
@@ -173,8 +161,6 @@ apis:
     url: openapi/lattice-review-cycles-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-reviewees-api
@@ -189,8 +175,6 @@ apis:
     url: openapi/lattice-reviewees-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-reviews-api
@@ -205,8 +189,6 @@ apis:
     url: openapi/lattice-reviews-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-tags-api
@@ -221,8 +203,6 @@ apis:
     url: openapi/lattice-tags-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 - aid: lattice:lattice-users-api
@@ -239,8 +219,6 @@ apis:
     url: openapi/lattice-users-api-openapi.yml
   - type: Documentation
     url: https://developers.lattice.com/reference/introduction
-  - type: GraphQL
-    url: graphql/lattice-graphql.md
   - type: Documentation
     url: https://developers.lattice.com
 common:
