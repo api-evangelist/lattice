@@ -196,56 +196,50 @@ paths:
     - url: https://api.latticehq.com/v1
       description: Lattice Talent API v1 production server
 components:
-  responses:
-    ServerError:
-      description: Internal server error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseDto'
-    NotFound:
-      description: Not found - the requested resource does not exist
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseDto'
-    BadRequest:
-      description: Bad request - validation failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseDto'
-    Unauthorized:
-      description: Unauthorized - missing or invalid bearer token
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseDto'
-    Forbidden:
-      description: Forbidden - caller lacks required permissions
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseDto'
-    ServerError_2:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest_2:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    SubmitReviewData:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Review UUID
+        revieweeId:
+          type: string
+          format: uuid
+          description: Employee UUID
+        cycleId:
+          type: string
+          format: uuid
+          description: Cycle UUID
+        direction:
+          type: string
+          enum:
+          - downward
+          - self
+          - peer
+          - upward
+        state:
+          type: string
+          enum:
+          - submitted
+          description: Always "submitted" after successful submission
+        updatedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp
+        submittedAt:
+          type: string
+          format: date-time
+          description: ISO 8601 UTC timestamp
+      required:
+      - id
+      - revieweeId
+      - cycleId
+      - direction
+      - state
+      - updatedAt
+      - submittedAt
     ReviewResponseItem:
       type: object
       description: A single answer to a review question
@@ -273,6 +267,13 @@ components:
           description: Selected choices for multiple-select questions
       required:
       - questionRevisionId
+    DraftReviewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/DraftReviewResponseDto'
+      required:
+      - data
     DraftReviewResponseDto:
       type: object
       description: Review data returned after creating or updating a draft
@@ -340,20 +341,6 @@ components:
           description: Updated collection of review answers
       required:
       - responses
-    SubmitReviewResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/SubmitReviewData'
-      required:
-      - data
-    DraftReviewResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/DraftReviewResponseDto'
-      required:
-      - data
     ErrorResponseDto:
       type: object
       properties:
@@ -375,6 +362,29 @@ components:
       - status
       - title
       - detail
+    SubmitReviewResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/SubmitReviewData'
+      required:
+      - data
+    CreateDraftReviewRequest:
+      type: object
+      properties:
+        reviewId:
+          type: string
+          format: uuid
+          description: The entity ID of the review (review request)
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReviewResponseItem'
+          minItems: 1
+          description: Collection of review answers
+      required:
+      - reviewId
+      - responses
     SavedReviewResponse:
       type: object
       properties:
@@ -397,73 +407,17 @@ components:
             type: string
       required:
       - questionRevisionId
-    CreateDraftReviewRequest:
-      type: object
-      properties:
-        reviewId:
-          type: string
-          format: uuid
-          description: The entity ID of the review (review request)
-        responses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReviewResponseItem'
-          minItems: 1
-          description: Collection of review answers
-      required:
-      - reviewId
-      - responses
-    SubmitReviewData:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Review UUID
-        revieweeId:
-          type: string
-          format: uuid
-          description: Employee UUID
-        cycleId:
-          type: string
-          format: uuid
-          description: Cycle UUID
-        direction:
-          type: string
-          enum:
-          - downward
-          - self
-          - peer
-          - upward
-        state:
-          type: string
-          enum:
-          - submitted
-          description: Always "submitted" after successful submission
-        updatedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp
-        submittedAt:
-          type: string
-          format: date-time
-          description: ISO 8601 UTC timestamp
-      required:
-      - id
-      - revieweeId
-      - cycleId
-      - direction
-      - state
-      - updatedAt
-      - submittedAt
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
+    ReviewList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Review'
+        required:
+        - data
     PaginatedList:
       type: object
       properties:
@@ -482,6 +436,14 @@ components:
       required:
       - object
       - hasMore
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     ReviewStateEnum:
       type: string
       enum:
@@ -490,17 +452,13 @@ components:
       - submitted
       - rejected
       - shared
-    ReviewList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/Review'
-        required:
-        - data
+    ReviewDirectionEnum:
+      type: string
+      enum:
+      - downward
+      - self
+      - peer
+      - upward
     Review:
       type: object
       properties:
@@ -535,13 +493,55 @@ components:
       - direction
       - state
       - updatedAt
-    ReviewDirectionEnum:
-      type: string
-      enum:
-      - downward
-      - self
-      - peer
-      - upward
+  responses:
+    Forbidden:
+      description: Forbidden - caller lacks required permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    Unauthorized:
+      description: Unauthorized - missing or invalid bearer token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    BadRequest:
+      description: Bad request - validation failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    NotFound:
+      description: Not found - the requested resource does not exist
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseDto'
+    ServerError_2:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest_2:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     limit:
       name: limit

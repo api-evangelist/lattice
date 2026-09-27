@@ -51,6 +51,12 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     ServerError:
       description: Server error while processing request
       content:
@@ -65,12 +71,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:

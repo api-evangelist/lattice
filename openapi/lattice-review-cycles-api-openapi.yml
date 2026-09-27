@@ -73,31 +73,22 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   schemas:
     ReviewCycleStageEnum:
       type: string
@@ -109,14 +100,6 @@ components:
       - CollectingReviews
       - Calibration
       - Ended
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
     ListReference:
       type: object
       description: A reference to a paginated list of related objects
@@ -130,6 +113,17 @@ components:
       required:
       - object
       - url
+    ReviewCycleList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/ReviewCycle'
+        required:
+        - data
     PaginatedList:
       type: object
       properties:
@@ -148,31 +142,14 @@ components:
       required:
       - object
       - hasMore
-    ReviewCycleList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/ReviewCycle'
-        required:
-        - data
-    ObjectReference:
+    ErrorResponse:
       type: object
-      description: A lightweight reference to another Lattice object
       properties:
-        id:
+        error:
           type: string
-        object:
-          type: string
-        url:
-          type: string
+          description: Human-readable error message
       required:
-      - id
-      - object
-      - url
+      - error
     ReviewCycle:
       type: object
       properties:
@@ -243,22 +220,45 @@ components:
       - autocalculatedWeightedScoresEnabled
       - createdAt
       - updatedAt
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+  responses:
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

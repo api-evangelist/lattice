@@ -172,6 +172,33 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+    GoalStatusEnum:
+      type: string
+      enum:
+      - NotUpdated
+      - OnTrack
+      - Progressing
+      - OffTrack
+    GoalTypeEnum:
+      type: string
+      enum:
+      - Company
+      - Department
+      - Group
+      - Individual
     AmountTypeEnum:
       type: string
       enum:
@@ -190,18 +217,100 @@ components:
               $ref: '#/components/schemas/Goal'
         required:
         - data
-    OkrTypeEnum:
-      type: string
-      enum:
-      - objective
-      - key_result
-    GoalStatusEnum:
-      type: string
-      enum:
-      - NotUpdated
-      - OnTrack
-      - Progressing
-      - OffTrack
+    GoalUpdate:
+      allOf:
+      - $ref: '#/components/schemas/GoalCreate'
+      - type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          startDate:
+            type: string
+            format: date
+          dueDate:
+            type: string
+            format: date
+          priority:
+            type: number
+            minimum: 1
+            maximum: 10
+          private:
+            type: boolean
+          ownerIds:
+            type: array
+            items:
+              type: string
+              format: uuid
+            minItems: 1
+          okrType:
+            $ref: '#/components/schemas/OkrTypeEnum'
+          amountType:
+            type:
+            - string
+            - 'null'
+            enum:
+            - percent
+            - dollar
+            - digit
+            - binary
+          startingAmount:
+            type:
+            - number
+            - 'null'
+          goalAmount:
+            type:
+            - number
+            - 'null'
+          companyGoal:
+            type: boolean
+          departmentId:
+            type:
+            - string
+            - 'null'
+            format: uuid
+          departmentsVisibleToIds:
+            type: array
+            items:
+              type: string
+              format: uuid
+          goalCycleId:
+            type:
+            - string
+            - 'null'
+            format: uuid
+          tagNames:
+            type: array
+            items:
+              type: string
+            maxItems: 5
+          isDraft:
+            type: boolean
+          parentId:
+            type:
+            - string
+            - 'null'
+            format: uuid
+        required:
+        - name
+        - description
+        - startDate
+        - dueDate
+        - priority
+        - private
+        - ownerIds
+        - okrType
+        - amountType
+        - startingAmount
+        - goalAmount
+        - companyGoal
+        - departmentId
+        - departmentsVisibleToIds
+        - goalCycleId
+        - tagNames
+        - isDraft
+        - parentId
     Goal:
       type: object
       properties:
@@ -305,6 +414,27 @@ components:
       - tags
       - createdAt
       - updatedAt
+    ObjectReference:
+      type: object
+      description: A lightweight reference to another Lattice object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+      required:
+      - id
+      - object
+      - url
+    GoalStateEnum:
+      type: string
+      enum:
+      - Draft
+      - Active
+      - Ended
+      - Archived
     GoalCreate:
       type: object
       properties:
@@ -386,120 +516,6 @@ components:
       - startDate
       - dueDate
       - ownerIds
-    GoalTypeEnum:
-      type: string
-      enum:
-      - Company
-      - Department
-      - Group
-      - Individual
-    GoalUpdate:
-      allOf:
-      - $ref: '#/components/schemas/GoalCreate'
-      - type: object
-        properties:
-          name:
-            type: string
-          description:
-            type: string
-          startDate:
-            type: string
-            format: date
-          dueDate:
-            type: string
-            format: date
-          priority:
-            type: number
-            minimum: 1
-            maximum: 10
-          private:
-            type: boolean
-          ownerIds:
-            type: array
-            items:
-              type: string
-              format: uuid
-            minItems: 1
-          okrType:
-            $ref: '#/components/schemas/OkrTypeEnum'
-          amountType:
-            type:
-            - string
-            - 'null'
-            enum:
-            - percent
-            - dollar
-            - digit
-            - binary
-          startingAmount:
-            type:
-            - number
-            - 'null'
-          goalAmount:
-            type:
-            - number
-            - 'null'
-          companyGoal:
-            type: boolean
-          departmentId:
-            type:
-            - string
-            - 'null'
-            format: uuid
-          departmentsVisibleToIds:
-            type: array
-            items:
-              type: string
-              format: uuid
-          goalCycleId:
-            type:
-            - string
-            - 'null'
-            format: uuid
-          tagNames:
-            type: array
-            items:
-              type: string
-            maxItems: 5
-          isDraft:
-            type: boolean
-          parentId:
-            type:
-            - string
-            - 'null'
-            format: uuid
-        required:
-        - name
-        - description
-        - startDate
-        - dueDate
-        - priority
-        - private
-        - ownerIds
-        - okrType
-        - amountType
-        - startingAmount
-        - goalAmount
-        - companyGoal
-        - departmentId
-        - departmentsVisibleToIds
-        - goalCycleId
-        - tagNames
-        - isDraft
-        - parentId
-    ListReference:
-      type: object
-      description: A reference to a paginated list of related objects
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        url:
-          type: string
-      required:
-      - object
-      - url
     PaginatedList:
       type: object
       properties:
@@ -518,27 +534,6 @@ components:
       required:
       - object
       - hasMore
-    GoalStateEnum:
-      type: string
-      enum:
-      - Draft
-      - Active
-      - Ended
-      - Archived
-    ObjectReference:
-      type: object
-      description: A lightweight reference to another Lattice object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - object
-      - url
     ErrorResponse:
       type: object
       properties:
@@ -547,27 +542,32 @@ components:
           description: Human-readable error message
       required:
       - error
+    OkrTypeEnum:
+      type: string
+      enum:
+      - objective
+      - key_result
   responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     ServerError:
       description: Server error while processing request
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:

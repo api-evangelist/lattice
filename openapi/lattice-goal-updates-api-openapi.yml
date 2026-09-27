@@ -107,40 +107,23 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
     GoalUpdateList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -152,6 +135,41 @@ components:
               $ref: '#/components/schemas/GoalUpdateItem'
         required:
         - data
+    GoalUpdateCreate:
+      type: object
+      properties:
+        comment:
+          type: string
+        currentAmount:
+          type:
+          - number
+          - 'null'
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     GoalUpdateItem:
       type: object
       description: A progress update for a goal
@@ -185,33 +203,6 @@ components:
       - goal
       - author
       - createdAt
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type:
-          - string
-          - 'null'
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
-    GoalUpdateCreate:
-      type: object
-      properties:
-        comment:
-          type: string
-        currentAmount:
-          type:
-          - number
-          - 'null'
     ObjectReference:
       type: object
       description: A lightweight reference to another Lattice object
@@ -226,22 +217,31 @@ components:
       - id
       - object
       - url
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
+  responses:
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http
