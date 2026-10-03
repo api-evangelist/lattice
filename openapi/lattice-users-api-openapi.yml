@@ -213,6 +213,122 @@ components:
       - object
       - name
       - type
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    CustomAttributeValueList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomAttributeValue'
+        required:
+        - data
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+    CustomAttributeValue:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        attribute:
+          $ref: '#/components/schemas/CustomAttribute'
+        value:
+          type:
+          - string
+          - 'null'
+      required:
+      - id
+      - object
+      - attribute
+    UserList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+        required:
+        - data
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        url:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        dueDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        completedAt:
+          type:
+          - integer
+          - 'null'
+          description: Unix timestamp
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
+      required:
+      - id
+      - object
+      - url
+      - name
+      - createdAt
+      - updatedAt
     User:
       type: object
       properties:
@@ -306,19 +422,6 @@ components:
       - directReports
       - tasks
       - customAttributes
-    ListReference:
-      type: object
-      description: A reference to a paginated list of related objects
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        url:
-          type: string
-      required:
-      - object
-      - url
     TaskList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -344,122 +447,7 @@ components:
       - id
       - object
       - url
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type:
-          - string
-          - 'null'
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
-    Task:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        dueDate:
-          type:
-          - string
-          - 'null'
-          format: date
-        completedAt:
-          type:
-          - integer
-          - 'null'
-          description: Unix timestamp
-        createdAt:
-          type: integer
-          description: Unix timestamp
-        updatedAt:
-          type: integer
-          description: Unix timestamp
-      required:
-      - id
-      - object
-      - url
-      - name
-      - createdAt
-      - updatedAt
-    CustomAttributeValue:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        attribute:
-          $ref: '#/components/schemas/CustomAttribute'
-        value:
-          type:
-          - string
-          - 'null'
-      required:
-      - id
-      - object
-      - attribute
-    UserList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-        required:
-        - data
-    CustomAttributeValueList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/CustomAttributeValue'
-        required:
-        - data
   responses:
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     BadRequest:
       description: Invalid request parameters
       content:
@@ -468,6 +456,18 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:
