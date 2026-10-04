@@ -42,14 +42,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
     ListReference:
       type: object
       description: A reference to a paginated list of related objects
@@ -170,6 +162,14 @@ components:
       - id
       - object
       - url
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
   responses:
     NotFound:
       description: Could not find the requested resource
@@ -177,14 +177,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ServerError:
-      description: Server error while processing request
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
+    ServerError:
+      description: Server error while processing request
       content:
         application/json:
           schema:

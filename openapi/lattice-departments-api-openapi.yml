@@ -74,25 +74,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    DepartmentList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/Department'
-        required:
-        - data
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
     PaginatedList:
       type: object
       properties:
@@ -111,6 +92,14 @@ components:
       required:
       - object
       - hasMore
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     Department:
       type: object
       properties:
@@ -136,7 +125,25 @@ components:
       - url
       - name
       - createdAt
+    DepartmentList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Department'
+        required:
+        - data
   parameters:
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
     limit:
       name: limit
       in: query
@@ -145,34 +152,27 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
   responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Could not find the requested resource
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    ServerError:
-      description: Server error while processing request
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
     UnprocessableEntity:
       description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
       content:
         application/json:
           schema:

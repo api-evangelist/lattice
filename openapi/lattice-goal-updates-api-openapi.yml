@@ -107,31 +107,7 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  parameters:
-    limit:
-      name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        format: int32
-      description: Maximum number of items to return per page
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message
-      required:
-      - error
     PaginatedList:
       type: object
       properties:
@@ -150,17 +126,23 @@ components:
       required:
       - object
       - hasMore
-    GoalUpdateList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/GoalUpdateItem'
-        required:
-        - data
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
+    GoalUpdateCreate:
+      type: object
+      properties:
+        comment:
+          type: string
+        currentAmount:
+          type:
+          - number
+          - 'null'
     GoalUpdateItem:
       type: object
       description: A progress update for a goal
@@ -208,22 +190,34 @@ components:
       - id
       - object
       - url
-    GoalUpdateCreate:
-      type: object
-      properties:
-        comment:
-          type: string
-        currentAmount:
-          type:
-          - number
-          - 'null'
+    GoalUpdateList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/GoalUpdateItem'
+        required:
+        - data
+  parameters:
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
+    limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        format: int32
+      description: Maximum number of items to return per page
   responses:
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Could not find the requested resource
       content:
@@ -232,6 +226,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     ServerError:
       description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
       content:
         application/json:
           schema:
