@@ -42,6 +42,9 @@ description: 'Lattice is a people management platform used by over 5,000 compani
   for identity management.
 
   '
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-10-03
 tags:
 - Human Resources
 - People Management
@@ -222,6 +225,9 @@ apis:
   - type: Documentation
     url: https://developers.lattice.com
 common:
+- type: CapabilityMap
+  url: capabilities/lattice-capability-edges.yml
+  name: Lattice Business Capability Map
 - type: AgenticAccess
   url: agentic-access/lattice-agentic-access.yml
 - type: TrustCenter
