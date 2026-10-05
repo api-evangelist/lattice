@@ -1,0 +1,74 @@
+slug: lattice
+provider: Lattice
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Review Cycles
+  spec_file: lattice-review-cycles-api-openapi.yml
+  capability_id: BC-300.20
+  capability_id_l1: BC-300
+  capability_name: Talent Management
+  confidence: 0.9
+  evidence: GET /reviewCycles  listReviewCycles  List review cycles; schema ReviewCycleStageEnum — "performance
+    review cycles"
+  reason: Performance review cycle data in a people management platform realises Talent Management (performance
+    management) within Human Capital Management.
+- tag: Reviews
+  spec_file: lattice-reviews-api-openapi.yml
+  capability_id: BC-300.20
+  capability_id_l1: BC-300
+  capability_name: Talent Management
+  confidence: 0.9
+  evidence: POST /reviews/draft  createDraftReview  Create a draft review; POST /reviews/{id}/submit  submitReview
+  reason: Authoring and submitting performance reviews is core performance management, an HCM Talent Management
+    capability.
+- tag: Reviewees
+  spec_file: lattice-reviewees-api-openapi.yml
+  capability_id: BC-300.20
+  capability_id_l1: BC-300
+  capability_name: Talent Management
+  confidence: 0.85
+  evidence: GET /reviewCycle/{id}/reviewees  listReviewCycleReviewees  List reviewees in a review cycle;
+    schemas Reviewee, WeightedScore
+  reason: Reviewees and their weighted scores within a performance review cycle are part of performance/talent
+    management.
+- tag: Feedbacks
+  spec_file: lattice-feedbacks-api-openapi.yml
+  capability_id: BC-300.20
+  capability_id_l1: BC-300
+  capability_name: Talent Management
+  confidence: 0.78
+  evidence: GET /feedbacks  listFeedbacks; spec description names "continuous feedback"
+  reason: Continuous employee feedback tied to performance reviews is part of performance and development
+    management — Talent Management.
+- tag: Competencies
+  spec_file: lattice-competencies-api-openapi.yml
+  capability_id: BC-300.20
+  capability_id_l1: BC-300
+  capability_name: Talent Management
+  confidence: 0.75
+  evidence: GET /competency/{id}  getCompetency  Get competency by ID; spec covers "performance review
+    cycles, reviewees, reviews, continuous feedback, competencies"
+  reason: Competency records in Lattice's Talent/performance suite are performance and career-development
+    constructs — Talent Management. Single read-only endpoint keeps confidence moderate.
+- tag: Users
+  spec_file: lattice-users-api-openapi.yml
+  capability_id: BC-300.70
+  capability_id_l1: BC-300
+  capability_name: HR Operations Management
+  confidence: 0.7
+  evidence: GET /user/{id}/directReports  listUserDirectReports  List direct reports for a user; schemas
+    User, CustomAttribute, Task
+  reason: Employee records with reporting hierarchy and custom attributes in a people management platform
+    correspond to HR Operations (employee records); some ambiguity as it could be read as generic identity,
+    but the vendor context is HRIS/talent.
