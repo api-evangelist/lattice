@@ -196,3 +196,46 @@ plans:
       - type: boolean
         name: SSO / SAML
         value: true
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Performance Management
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Goals and OKRs
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Engagement
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Compensation
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: HRIS
+    access: paid
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: enterprise
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
