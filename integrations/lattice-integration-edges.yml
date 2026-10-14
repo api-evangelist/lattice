@@ -1,0 +1,74 @@
+generated: '2026-10-14'
+method: searched
+checked:
+- adp/integrations/adp-integration-edges.yml
+- bamboohr/integrations/bamboohr-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
+source:
+- adp/integrations/adp-integration-edges.yml
+- bamboohr/integrations/bamboohr-integration-edges.yml
+- okta/integrations/okta-integration-edges.yml
+edges:
+- partner_name: ADP (own)
+  partner: adp
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.adp.com/apps/311191/lattice-performance-connector-for-adp-workforce-now
+  mirror_of: adp/integrations/adp-integration-edges.yml
+  apps:
+  - Lattice Performance Connector for ADP Workforce Now®
+  - Lattice
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: EeT
+- partner_name: BambooHR (own)
+  partner: bamboohr
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.bamboohr.com/integrations/listings/lattice
+  mirror_of: bamboohr/integrations/bamboohr-integration-edges.yml
+  apps:
+  - Lattice
+  - Lattice Engagement
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Performance
+- partner_name: Okta (own)
+  partner: okta
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.okta.com/integrations/lattice/
+  mirror_of: okta/integrations/okta-integration-edges.yml
+  apps:
+  - Lattice
+  - Lattice HRIS
+  listing_count: 2
+  detected: '2026-10-14'
+  detected_by: mirror-platform-listings.py
+  category: Single Sign-On
+  badges:
+  - OKTA_VERIFIED
+  features:
+  - CREATE
+  - DEACTIVATE
+  - SAML
+  - UPDATE
+  - ATTRIBUTE_SOURCING
+  - IDENTITY_SECURITY_POSTURE_MANAGEMENT
