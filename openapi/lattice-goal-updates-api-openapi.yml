@@ -108,32 +108,20 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    PaginatedList:
+    ObjectReference:
       type: object
+      description: A lightweight reference to another Lattice object
       properties:
+        id:
+          type: string
         object:
           type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type:
-          - string
-          - 'null'
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
-    ErrorResponse:
-      type: object
-      properties:
-        error:
+        url:
           type: string
-          description: Human-readable error message
       required:
-      - error
+      - id
+      - object
+      - url
     GoalUpdateCreate:
       type: object
       properties:
@@ -143,6 +131,17 @@ components:
           type:
           - number
           - 'null'
+    GoalUpdateList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/GoalUpdateItem'
+        required:
+        - data
     GoalUpdateItem:
       type: object
       description: A progress update for a goal
@@ -176,39 +175,33 @@ components:
       - goal
       - author
       - createdAt
-    ObjectReference:
+    ErrorResponse:
       type: object
-      description: A lightweight reference to another Lattice object
       properties:
-        id:
+        error:
           type: string
+          description: Human-readable error message
+      required:
+      - error
+    PaginatedList:
+      type: object
+      properties:
         object:
           type: string
-        url:
-          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
       required:
-      - id
       - object
-      - url
-    GoalUpdateList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/GoalUpdateItem'
-        required:
-        - data
+      - hasMore
   parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
     limit:
       name: limit
       in: query
@@ -217,9 +210,16 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   responses:
-    NotFound:
-      description: Could not find the requested resource
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
       content:
         application/json:
           schema:
@@ -236,8 +236,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
+    NotFound:
+      description: Could not find the requested resource
       content:
         application/json:
           schema:

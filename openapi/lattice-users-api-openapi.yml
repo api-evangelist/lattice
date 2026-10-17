@@ -177,70 +177,9 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    ListReference:
+    ObjectReference:
       type: object
-      description: A reference to a paginated list of related objects
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        url:
-          type: string
-      required:
-      - object
-      - url
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type:
-          - string
-          - 'null'
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
-    CustomAttributeValueList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/CustomAttributeValue'
-        required:
-        - data
-    CustomAttribute:
-      type: object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        type:
-          type: string
-      required:
-      - id
-      - object
-      - name
-      - type
-    Task:
-      type: object
+      description: A lightweight reference to another Lattice object
       properties:
         id:
           type: string
@@ -248,35 +187,10 @@ components:
           type: string
         url:
           type: string
-        name:
-          type: string
-        description:
-          type:
-          - string
-          - 'null'
-        dueDate:
-          type:
-          - string
-          - 'null'
-          format: date
-        completedAt:
-          type:
-          - integer
-          - 'null'
-          description: Unix timestamp
-        createdAt:
-          type: integer
-          description: Unix timestamp
-        updatedAt:
-          type: integer
-          description: Unix timestamp
       required:
       - id
       - object
       - url
-      - name
-      - createdAt
-      - updatedAt
     User:
       type: object
       properties:
@@ -370,31 +284,8 @@ components:
       - directReports
       - tasks
       - customAttributes
-    UserList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/User'
-        required:
-        - data
-    TaskList:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          data:
-            type: array
-            items:
-              $ref: '#/components/schemas/Task'
-        required:
-        - data
-    ObjectReference:
+    Task:
       type: object
-      description: A lightweight reference to another Lattice object
       properties:
         id:
           type: string
@@ -402,10 +293,43 @@ components:
           type: string
         url:
           type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        dueDate:
+          type:
+          - string
+          - 'null'
+          format: date
+        completedAt:
+          type:
+          - integer
+          - 'null'
+          description: Unix timestamp
+        createdAt:
+          type: integer
+          description: Unix timestamp
+        updatedAt:
+          type: integer
+          description: Unix timestamp
       required:
       - id
       - object
       - url
+      - name
+      - createdAt
+      - updatedAt
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     CustomAttributeValue:
       type: object
       properties:
@@ -423,14 +347,115 @@ components:
       - id
       - object
       - attribute
-    ErrorResponse:
+    CustomAttribute:
       type: object
       properties:
-        error:
+        id:
           type: string
-          description: Human-readable error message
+        object:
+          type: string
+        name:
+          type: string
+        description:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
       required:
-      - error
+      - id
+      - object
+      - name
+      - type
+    PaginatedList:
+      type: object
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
+      required:
+      - object
+      - hasMore
+    TaskList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/Task'
+        required:
+        - data
+    UserList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+        required:
+        - data
+    CustomAttributeValueList:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          data:
+            type: array
+            items:
+              $ref: '#/components/schemas/CustomAttributeValue'
+        required:
+        - data
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
+  responses:
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     startingAfter:
       name: startingAfter
@@ -447,31 +472,6 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
-  responses:
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    BadRequest:
-      description: Invalid request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ServerError:
-      description: Server error while processing request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     BearerAuth:
       type: http

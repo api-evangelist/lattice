@@ -80,24 +80,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    PaginatedList:
-      type: object
-      properties:
-        object:
-          type: string
-          enum:
-          - list
-        hasMore:
-          type: boolean
-          description: Whether or not there are more elements available after this set
-        endingCursor:
-          type:
-          - string
-          - 'null'
-          description: The cursor to use to get the next set of items in the list
-      required:
-      - object
-      - hasMore
     FeedbackList:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -123,6 +105,14 @@ components:
       - id
       - object
       - url
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+      required:
+      - error
     Feedback:
       type: object
       properties:
@@ -171,22 +161,25 @@ components:
       - visibility
       - isPublic
       - createdAt
-    ErrorResponse:
+    PaginatedList:
       type: object
       properties:
-        error:
+        object:
           type: string
-          description: Human-readable error message
+          enum:
+          - list
+        hasMore:
+          type: boolean
+          description: Whether or not there are more elements available after this set
+        endingCursor:
+          type:
+          - string
+          - 'null'
+          description: The cursor to use to get the next set of items in the list
       required:
-      - error
+      - object
+      - hasMore
   parameters:
-    startingAfter:
-      name: startingAfter
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Cursor for fetching the next page of results
     limit:
       name: limit
       in: query
@@ -195,9 +188,22 @@ components:
         type: integer
         format: int32
       description: Maximum number of items to return per page
+    startingAfter:
+      name: startingAfter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Cursor for fetching the next page of results
   responses:
-    NotFound:
-      description: Could not find the requested resource
+    UnprocessableEntity:
+      description: Unprocessable - request is syntactically valid but cannot be processed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server error while processing request
       content:
         application/json:
           schema:
@@ -208,14 +214,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    UnprocessableEntity:
-      description: Unprocessable - request is syntactically valid but cannot be processed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    ServerError:
-      description: Server error while processing request
+    NotFound:
+      description: Could not find the requested resource
       content:
         application/json:
           schema:

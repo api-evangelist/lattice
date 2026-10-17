@@ -42,17 +42,18 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    ListReference:
+    ObjectReference:
       type: object
-      description: A reference to a paginated list of related objects
+      description: A lightweight reference to another Lattice object
       properties:
+        id:
+          type: string
         object:
           type: string
-          enum:
-          - list
         url:
           type: string
       required:
+      - id
       - object
       - url
     User:
@@ -148,20 +149,6 @@ components:
       - directReports
       - tasks
       - customAttributes
-    ObjectReference:
-      type: object
-      description: A lightweight reference to another Lattice object
-      properties:
-        id:
-          type: string
-        object:
-          type: string
-        url:
-          type: string
-      required:
-      - id
-      - object
-      - url
     ErrorResponse:
       type: object
       properties:
@@ -170,13 +157,20 @@ components:
           description: Human-readable error message
       required:
       - error
+    ListReference:
+      type: object
+      description: A reference to a paginated list of related objects
+      properties:
+        object:
+          type: string
+          enum:
+          - list
+        url:
+          type: string
+      required:
+      - object
+      - url
   responses:
-    NotFound:
-      description: Could not find the requested resource
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     UnprocessableEntity:
       description: Unprocessable - request is syntactically valid but cannot be processed
       content:
@@ -185,6 +179,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     ServerError:
       description: Server error while processing request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Could not find the requested resource
       content:
         application/json:
           schema:
