@@ -66,7 +66,7 @@
     - connectors/applications/lattice
     vendor_link: https://www.lattice.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: lattice-microsoft-teams-own
   label: Microsoft Teams (own)
