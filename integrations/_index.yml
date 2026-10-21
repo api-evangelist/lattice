@@ -42,6 +42,32 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: lattice-microsoft-teams-own
+  label: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_name: Microsoft Teams (own)
+  category: Microsoft Teams app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200002208
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: lattice-slack-own
+  label: Slack (own)
+  partner: slack
+  partner_name: Slack (own)
+  category: Slack app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://slack.com/marketplace/A0HUMK35J-lattice
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
 - slug: lattice-fivetran
   label: Fivetran
   partner: fivetran
@@ -68,29 +94,33 @@
     builder: Fivetran
   status: not-a-workflow
   arazzo: null
-- slug: lattice-microsoft-teams-own
-  label: Microsoft Teams (own)
-  partner: microsoft-teams
-  partner_name: Microsoft Teams (own)
-  category: Microsoft Teams app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://appsource.microsoft.com/en-us/product/office/WA200002208
+- slug: lattice-y-combinator
+  label: Y Combinator
+  partner: y-combinator
+  partner_name: Y Combinator
+  category: accelerator portfolio participation
+  type: register
+  channel: standard-directory
+  evidence: https://www.ycombinator.com/companies/lattice
   source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: lattice-slack-own
-  label: Slack (own)
-  partner: slack
-  partner_name: Slack (own)
-  category: Slack app
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://slack.com/marketplace/A0HUMK35J-lattice
-  source: edge
-  relationship: platform-app
+  relationship: standard-participant
+  contract_reference:
+    register: Y Combinator company directory (ycombinator.com/companies/<slug>)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: Lattice
+    register_id: https://www.ycombinator.com/companies/lattice
+    register_country: US
+    register_website: https://lattice.com
+    matched_domain: lattice.com
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    batch: Winter 2016
+    year: '2015'
+    status: Active
   status: not-a-workflow
   arazzo: null
