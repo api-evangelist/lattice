@@ -1,583 +1,580 @@
 {
+  "info": {
+    "_postman_id": "d5dbccae-42e1-4348-9dbc-e497904a0b4b",
+    "name": "Lattice Talent Departments API",
+    "description": "REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:13:40.000Z",
+    "updatedAt": "2026-10-21T20:13:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d5dbccae-42e1-4348-9dbc-e497904a0b4b"
+  },
   "item": [
     {
-      "id": "356d73a8-0315-4c99-85ff-565706d177e9",
-      "name": "Departments",
-      "description": {
-        "content": "Manage and retrieve department records",
-        "type": "text/plain"
-      },
+      "name": "departments",
       "item": [
         {
-          "id": "b52e3a4e-ad9d-43ff-b2db-97d40e4df0eb",
           "name": "List departments",
+          "id": "fec5adbe-7db2-4be9-b167-103209dc49e7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "List departments",
-            "description": {
-              "content": "Returns a paginated list of all departments in Lattice.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
             "url": {
+              "raw": "{{baseUrl}}/departments?limit=<integer>&startingAfter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "departments"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Maximum number of items to return per page",
                   "key": "limit",
-                  "value": "<integer>",
-                  "description": "Maximum number of items to return per page"
+                  "value": "<integer>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Cursor for fetching the next page of results",
                   "key": "startingAfter",
-                  "value": "<string>",
-                  "description": "Cursor for fetching the next page of results"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8db2a120-203a-47e1-9a3f-4659d751be82",
-              "name": "Paginated list of departments",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "departments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "startingAfter",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": 488,\n      \"description\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"object\": \"string\",\n      \"url\": \"string\",\n      \"name\": \"string\",\n      \"createdAt\": 1398,\n      \"description\": \"string\"\n    }\n  ],\n  \"hasMore\": false,\n  \"object\": \"list\",\n  \"endingCursor\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d130fb31-4173-400e-9f3b-c043aa90ba69",
-              "name": "Invalid request parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "departments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "startingAfter",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6a2dee99-7e7b-4c8e-bcca-35a78a796469",
-              "name": "Unprocessable - request is syntactically valid but cannot be processed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "departments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "startingAfter",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fe2ee8df-5cf3-4b61-952d-29ad5b87dfca",
-              "name": "Server error while processing request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "departments"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "startingAfter",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bb6c88a0-cc4d-4bcf-905e-c64da799faf6",
-          "name": "Get department by ID",
-          "request": {
-            "name": "Get department by ID",
-            "description": {
-              "content": "Returns a department with the given id. If cannot find department, returns a 404.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "department",
-                ":id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "id",
-                  "description": "(Required) The department identifier"
+                  "value": "<string>"
                 }
               ]
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
+            "description": "Returns a paginated list of all departments in Lattice."
           },
           "response": [
             {
-              "id": "bf7458a4-4750-48d5-9dc5-5d8ed8b3b218",
-              "name": "Department object",
+              "id": "5fff1f35-7149-4e44-a5d8-ec5b7afc2d07",
+              "name": "Paginated list of departments",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "department",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) The department identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/departments?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "departments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"name\": \"string\",\n  \"createdAt\": 6940,\n  \"description\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"description\": \"<string,null>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"createdAt\": \"<integer>\",\n      \"description\": \"<string,null>\"\n    }\n  ],\n  \"hasMore\": \"<boolean>\",\n  \"object\": \"list\",\n  \"endingCursor\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-21T20:13:40.000Z",
+              "updatedAt": "2026-10-21T20:13:40.000Z",
+              "uid": "35240-5fff1f35-7149-4e44-a5d8-ec5b7afc2d07"
             },
             {
-              "id": "3cc9a0ab-ba5c-429e-a6dd-e7d6ba696685",
+              "id": "ffc9b423-2758-45b9-837b-b399638c2a4e",
               "name": "Invalid request parameters",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "department",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) The department identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/departments?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "departments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:13:40.000Z",
+              "updatedAt": "2026-10-21T20:13:40.000Z",
+              "uid": "35240-ffc9b423-2758-45b9-837b-b399638c2a4e"
             },
             {
-              "id": "4e9ed0c3-e9e3-4bf5-95f0-390930b0f667",
-              "name": "Could not find the requested resource",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "department",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) The department identifier"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2ba30d8f-2285-4f7e-9201-428b10f13950",
+              "id": "94ab92c9-e241-4f87-a046-64319d7d48b2",
               "name": "Unprocessable - request is syntactically valid but cannot be processed",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "department",
-                    ":id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) The department identifier"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/departments?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "departments"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
               "code": 422,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:13:40.000Z",
+              "updatedAt": "2026-10-21T20:13:40.000Z",
+              "uid": "35240-94ab92c9-e241-4f87-a046-64319d7d48b2"
             },
             {
-              "id": "687d8224-13e3-4b14-a195-078f6faf6d44",
+              "id": "fc015025-7f82-4fdf-b6da-dead6ca61746",
               "name": "Server error while processing request",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "department",
-                    ":id"
-                  ],
+                  "raw": "{{baseUrl}}/departments?limit=<integer>&startingAfter=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
+                  "path": [
+                    "departments"
+                  ],
+                  "query": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "id",
-                      "description": "(Required) The department identifier"
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
                     }
                   ]
-                },
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:13:40.000Z",
+              "updatedAt": "2026-10-21T20:13:40.000Z",
+              "uid": "35240-fc015025-7f82-4fdf-b6da-dead6ca61746"
+            }
+          ],
+          "createdAt": "2026-10-21T20:13:40.000Z",
+          "updatedAt": "2026-10-21T20:13:40.000Z",
+          "uid": "35240-fec5adbe-7db2-4be9-b167-103209dc49e7"
+        }
+      ],
+      "id": "f52a7738-997c-476c-b3b0-354acbf765ba",
+      "createdAt": "2026-10-21T20:13:40.000Z",
+      "updatedAt": "2026-10-21T20:13:40.000Z",
+      "uid": "35240-f52a7738-997c-476c-b3b0-354acbf765ba"
+    },
+    {
+      "name": "department",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get department by ID",
+              "id": "13cafa4c-fcb6-43da-a6fb-80cee6e1179f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/department/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "department",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "de20a8c5-d3bc-48f1-91dc-0c27b747b2aa",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The department identifier"
+                    }
+                  ]
+                },
+                "description": "Returns a department with the given id. If cannot find department, returns a 404."
               },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "396228d7-6c80-400a-90a5-428d73ca492a",
+                  "name": "Department object",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/department/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "department",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"url\": \"<string>\",\n  \"name\": \"<string>\",\n  \"createdAt\": \"<integer>\",\n  \"description\": \"<string,null>\"\n}",
+                  "createdAt": "2026-10-21T20:13:40.000Z",
+                  "updatedAt": "2026-10-21T20:13:40.000Z",
+                  "uid": "35240-396228d7-6c80-400a-90a5-428d73ca492a"
+                },
+                {
+                  "id": "290b8201-10a9-4673-9cf2-7708ba1bbea1",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/department/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "department",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:13:40.000Z",
+                  "updatedAt": "2026-10-21T20:13:40.000Z",
+                  "uid": "35240-290b8201-10a9-4673-9cf2-7708ba1bbea1"
+                },
+                {
+                  "id": "173e668d-5fa6-452f-aa65-b81a5ef55a78",
+                  "name": "Could not find the requested resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/department/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "department",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:13:40.000Z",
+                  "updatedAt": "2026-10-21T20:13:40.000Z",
+                  "uid": "35240-173e668d-5fa6-452f-aa65-b81a5ef55a78"
+                },
+                {
+                  "id": "50094978-9abf-4455-844b-034622c3374a",
+                  "name": "Unprocessable - request is syntactically valid but cannot be processed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/department/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "department",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:13:40.000Z",
+                  "updatedAt": "2026-10-21T20:13:40.000Z",
+                  "uid": "35240-50094978-9abf-4455-844b-034622c3374a"
+                },
+                {
+                  "id": "8608b1d7-877f-45ff-9acc-0df56aaae8c6",
+                  "name": "Server error while processing request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/department/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "department",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:13:40.000Z",
+                  "updatedAt": "2026-10-21T20:13:40.000Z",
+                  "uid": "35240-8608b1d7-877f-45ff-9acc-0df56aaae8c6"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:13:40.000Z",
+              "updatedAt": "2026-10-21T20:13:40.000Z",
+              "uid": "35240-13cafa4c-fcb6-43da-a6fb-80cee6e1179f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "8ba8eb43-2ca2-4678-be71-e6ab7caccdb8",
+          "createdAt": "2026-10-21T20:13:40.000Z",
+          "updatedAt": "2026-10-21T20:13:40.000Z",
+          "uid": "35240-8ba8eb43-2ca2-4678-be71-e6ab7caccdb8"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.latticehq.com/v2",
-      "key": "baseUrl"
+      "id": "096cfbcb-c663-4645-a82f-ceed73e5471d",
+      "createdAt": "2026-10-21T20:13:40.000Z",
+      "updatedAt": "2026-10-21T20:13:40.000Z",
+      "uid": "35240-096cfbcb-c663-4645-a82f-ceed73e5471d"
     }
   ],
   "auth": {
@@ -585,17 +582,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "4100360d-8eac-42cf-b162-1adcd47632e2",
-    "name": "Lattice HRIS Competencies Departments API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API (v2) for Lattice's HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.\n\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.latticehq.com/v1"
     }
-  }
+  ]
 }

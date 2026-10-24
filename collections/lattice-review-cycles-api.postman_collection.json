@@ -1,0 +1,596 @@
+{
+  "info": {
+    "_postman_id": "9afbabba-f0fe-4a89-b0ec-5f9d1fbec38c",
+    "name": "Lattice Talent Review Cycles API",
+    "description": "REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:14:06.000Z",
+    "updatedAt": "2026-10-21T20:14:06.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9afbabba-f0fe-4a89-b0ec-5f9d1fbec38c"
+  },
+  "item": [
+    {
+      "name": "reviewCycles",
+      "item": [
+        {
+          "name": "List review cycles",
+          "id": "d6b2cee5-6fd2-4127-b574-d4873217ca4f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reviewCycles?limit=<integer>&startingAfter=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviewCycles"
+              ],
+              "query": [
+                {
+                  "description": "Maximum number of items to return per page",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Cursor for fetching the next page of results",
+                  "key": "startingAfter",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of all review cycles in Lattice."
+          },
+          "response": [
+            {
+              "id": "4fb97c79-970e-49a2-bafa-ebd635d61b72",
+              "name": "Paginated list of review cycles",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviewCycles?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviewCycles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"stage\": \"Launching\",\n      \"creator\": {\n        \"id\": \"<string>\",\n        \"object\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"reviewees\": {\n        \"object\": \"list\",\n        \"url\": \"<string>\"\n      },\n      \"reviews\": {\n        \"object\": \"list\",\n        \"url\": \"<string>\"\n      },\n      \"calibrationEnabled\": \"<boolean>\",\n      \"weightedScoresEnabled\": \"<boolean>\",\n      \"autocalculatedWeightedScoresEnabled\": \"<boolean>\",\n      \"createdAt\": \"<integer>\",\n      \"updatedAt\": \"<integer>\",\n      \"peerSelectionStartedAt\": \"<integer,null>\",\n      \"reviewsStartedAt\": \"<integer,null>\",\n      \"reviewsEndedAt\": \"<integer,null>\",\n      \"calibrationEndedAt\": \"<integer,null>\",\n      \"weightedScoresEndedAt\": \"<integer,null>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"name\": \"<string>\",\n      \"stage\": \"PreLaunch\",\n      \"creator\": {\n        \"id\": \"<string>\",\n        \"object\": \"<string>\",\n        \"url\": \"<string>\"\n      },\n      \"reviewees\": {\n        \"object\": \"list\",\n        \"url\": \"<string>\"\n      },\n      \"reviews\": {\n        \"object\": \"list\",\n        \"url\": \"<string>\"\n      },\n      \"calibrationEnabled\": \"<boolean>\",\n      \"weightedScoresEnabled\": \"<boolean>\",\n      \"autocalculatedWeightedScoresEnabled\": \"<boolean>\",\n      \"createdAt\": \"<integer>\",\n      \"updatedAt\": \"<integer>\",\n      \"peerSelectionStartedAt\": \"<integer,null>\",\n      \"reviewsStartedAt\": \"<integer,null>\",\n      \"reviewsEndedAt\": \"<integer,null>\",\n      \"calibrationEndedAt\": \"<integer,null>\",\n      \"weightedScoresEndedAt\": \"<integer,null>\"\n    }\n  ],\n  \"hasMore\": \"<boolean>\",\n  \"object\": \"list\",\n  \"endingCursor\": \"<string,null>\"\n}",
+              "createdAt": "2026-10-21T20:14:06.000Z",
+              "updatedAt": "2026-10-21T20:14:06.000Z",
+              "uid": "35240-4fb97c79-970e-49a2-bafa-ebd635d61b72"
+            },
+            {
+              "id": "f4e631f8-0976-40fd-9e75-1e01d8181267",
+              "name": "Invalid request parameters",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviewCycles?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviewCycles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:06.000Z",
+              "updatedAt": "2026-10-21T20:14:06.000Z",
+              "uid": "35240-f4e631f8-0976-40fd-9e75-1e01d8181267"
+            },
+            {
+              "id": "3cce30e2-71c7-460e-855e-d4a6265ae8be",
+              "name": "Unprocessable - request is syntactically valid but cannot be processed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviewCycles?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviewCycles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:06.000Z",
+              "updatedAt": "2026-10-21T20:14:06.000Z",
+              "uid": "35240-3cce30e2-71c7-460e-855e-d4a6265ae8be"
+            },
+            {
+              "id": "c32b1cbe-dc27-4fa9-a37c-dc96a3f6a5b6",
+              "name": "Server error while processing request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviewCycles?limit=<integer>&startingAfter=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviewCycles"
+                  ],
+                  "query": [
+                    {
+                      "description": "Maximum number of items to return per page",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Cursor for fetching the next page of results",
+                      "key": "startingAfter",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:06.000Z",
+              "updatedAt": "2026-10-21T20:14:06.000Z",
+              "uid": "35240-c32b1cbe-dc27-4fa9-a37c-dc96a3f6a5b6"
+            }
+          ],
+          "createdAt": "2026-10-21T20:14:06.000Z",
+          "updatedAt": "2026-10-21T20:14:06.000Z",
+          "uid": "35240-d6b2cee5-6fd2-4127-b574-d4873217ca4f"
+        }
+      ],
+      "id": "08c40c6f-73c8-4225-b2ca-50df5a4672d2",
+      "createdAt": "2026-10-21T20:14:06.000Z",
+      "updatedAt": "2026-10-21T20:14:06.000Z",
+      "uid": "35240-08c40c6f-73c8-4225-b2ca-50df5a4672d2"
+    },
+    {
+      "name": "reviewCycle",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get review cycle by ID",
+              "id": "8a98d04d-5ffd-415a-8533-c8fe88714da0",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviewCycle/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviewCycle",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "6406fc8a-eeee-4483-bf0d-3f90c128d6b0",
+                      "key": "id",
+                      "value": "<string>",
+                      "description": "(Required) The review cycle identifier"
+                    }
+                  ]
+                },
+                "description": "Returns a review cycle with the given id. If cannot find review cycle, returns a 404."
+              },
+              "response": [
+                {
+                  "id": "441a0641-ed53-4244-a04a-f775c34bbb4e",
+                  "name": "Review cycle object",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"url\": \"<string>\",\n  \"name\": \"<string>\",\n  \"stage\": \"Launching\",\n  \"creator\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"reviewees\": {\n    \"object\": \"list\",\n    \"url\": \"<string>\"\n  },\n  \"reviews\": {\n    \"object\": \"list\",\n    \"url\": \"<string>\"\n  },\n  \"calibrationEnabled\": \"<boolean>\",\n  \"weightedScoresEnabled\": \"<boolean>\",\n  \"autocalculatedWeightedScoresEnabled\": \"<boolean>\",\n  \"createdAt\": \"<integer>\",\n  \"updatedAt\": \"<integer>\",\n  \"peerSelectionStartedAt\": \"<integer,null>\",\n  \"reviewsStartedAt\": \"<integer,null>\",\n  \"reviewsEndedAt\": \"<integer,null>\",\n  \"calibrationEndedAt\": \"<integer,null>\",\n  \"weightedScoresEndedAt\": \"<integer,null>\"\n}",
+                  "createdAt": "2026-10-21T20:14:06.000Z",
+                  "updatedAt": "2026-10-21T20:14:06.000Z",
+                  "uid": "35240-441a0641-ed53-4244-a04a-f775c34bbb4e"
+                },
+                {
+                  "id": "aa6955e1-02e2-4653-a34d-40673009a49d",
+                  "name": "Invalid request parameters",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:14:06.000Z",
+                  "updatedAt": "2026-10-21T20:14:06.000Z",
+                  "uid": "35240-aa6955e1-02e2-4653-a34d-40673009a49d"
+                },
+                {
+                  "id": "aae7f225-3f84-4edd-a4f9-301343c4e6a0",
+                  "name": "Could not find the requested resource",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:14:06.000Z",
+                  "updatedAt": "2026-10-21T20:14:06.000Z",
+                  "uid": "35240-aae7f225-3f84-4edd-a4f9-301343c4e6a0"
+                },
+                {
+                  "id": "5b815dba-910e-4821-abca-41150e4b1b36",
+                  "name": "Unprocessable - request is syntactically valid but cannot be processed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:14:06.000Z",
+                  "updatedAt": "2026-10-21T20:14:06.000Z",
+                  "uid": "35240-5b815dba-910e-4821-abca-41150e4b1b36"
+                },
+                {
+                  "id": "590a28c5-a58c-4d53-bd1d-4a63b4ab0abf",
+                  "name": "Server error while processing request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:14:06.000Z",
+                  "updatedAt": "2026-10-21T20:14:06.000Z",
+                  "uid": "35240-590a28c5-a58c-4d53-bd1d-4a63b4ab0abf"
+                }
+              ],
+              "createdAt": "2026-10-21T20:14:06.000Z",
+              "updatedAt": "2026-10-21T20:14:06.000Z",
+              "uid": "35240-8a98d04d-5ffd-415a-8533-c8fe88714da0"
+            }
+          ],
+          "id": "671d5fa6-df1c-45fb-bf62-da08911ce00a",
+          "createdAt": "2026-10-21T20:14:06.000Z",
+          "updatedAt": "2026-10-21T20:14:06.000Z",
+          "uid": "35240-671d5fa6-df1c-45fb-bf62-da08911ce00a"
+        }
+      ],
+      "id": "9cf75f02-3302-401e-86e8-874cd70fbe35",
+      "createdAt": "2026-10-21T20:14:06.000Z",
+      "updatedAt": "2026-10-21T20:14:06.000Z",
+      "uid": "35240-9cf75f02-3302-401e-86e8-874cd70fbe35"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.latticehq.com/v1"
+    }
+  ]
+}

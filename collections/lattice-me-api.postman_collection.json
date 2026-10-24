@@ -1,230 +1,222 @@
 {
+  "info": {
+    "_postman_id": "6d0983fe-d29e-4fcf-94fe-5aa628261cda",
+    "name": "Lattice Talent Me API",
+    "description": "REST API for Lattice's Talent product suite covering users, departments, goals, OKRs, performance review cycles, reviewees, reviews, continuous feedback, competencies, and tags. Uses cursor-based pagination and Bearer token authentication.\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:14:00.000Z",
+    "updatedAt": "2026-10-21T20:14:01.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6d0983fe-d29e-4fcf-94fe-5aa628261cda"
+  },
   "item": [
     {
-      "id": "fd707c50-9aaf-4aef-8812-e7c8f97b9630",
-      "name": "Me",
-      "description": {
-        "content": "Retrieve information about the authenticated user",
-        "type": "text/plain"
-      },
+      "name": "me",
       "item": [
         {
-          "id": "c547053c-423f-4fc5-859e-9fbb3719068f",
           "name": "Get authenticated user",
+          "id": "67c48274-b3da-403e-9892-04fd0b46fe00",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get authenticated user",
-            "description": {
-              "content": "Returns information about the current user associated with the provided API token.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "me"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "Returns information about the current user associated with the provided API token."
           },
           "response": [
             {
-              "id": "6ce90c4e-9986-467b-8803-80bcaefdee6a",
+              "id": "ef98cf8c-f7e4-44b7-baea-8b37ff404876",
               "name": "Authenticated user object",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"string\",\n  \"object\": \"string\",\n  \"url\": \"string\",\n  \"email\": \"5Az@wkSVWoWINOYJGMmnygkjUkTlFpAW.ejxw\",\n  \"status\": \"ACTIVE\",\n  \"isAdmin\": true,\n  \"directReports\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"tasks\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"customAttributes\": {\n    \"object\": \"list\",\n    \"url\": \"string\"\n  },\n  \"name\": \"string\",\n  \"preferredName\": \"string\",\n  \"title\": \"string\",\n  \"externalUserId\": \"string\",\n  \"manager\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"department\": {\n    \"id\": \"string\",\n    \"object\": \"string\",\n    \"url\": \"string\"\n  },\n  \"timezone\": \"string\",\n  \"startDate\": \"1998-05-17\",\n  \"birthDate\": \"1961-04-21\",\n  \"gender\": \"string\",\n  \"jobFunction\": \"string\",\n  \"jobLevel\": \"string\",\n  \"jobType\": \"string\",\n  \"createdAt\": 202,\n  \"updatedAt\": 7010\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"url\": \"<string>\",\n  \"email\": \"<email>\",\n  \"status\": \"CREATED\",\n  \"isAdmin\": \"<boolean>\",\n  \"directReports\": {\n    \"object\": \"list\",\n    \"url\": \"<string>\"\n  },\n  \"tasks\": {\n    \"object\": \"list\",\n    \"url\": \"<string>\"\n  },\n  \"customAttributes\": {\n    \"object\": \"list\",\n    \"url\": \"<string>\"\n  },\n  \"name\": \"<string,null>\",\n  \"preferredName\": \"<string,null>\",\n  \"title\": \"<string,null>\",\n  \"externalUserId\": \"<string,null>\",\n  \"manager\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"department\": {\n    \"id\": \"<string>\",\n    \"object\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"timezone\": \"<string,null>\",\n  \"startDate\": \"<string,null-date>\",\n  \"birthDate\": \"<string,null-date>\",\n  \"gender\": \"<string,null>\",\n  \"jobFunction\": \"<string,null>\",\n  \"jobLevel\": \"<string,null>\",\n  \"jobType\": \"<string,null>\",\n  \"createdAt\": \"<integer>\",\n  \"updatedAt\": \"<integer>\"\n}",
+              "createdAt": "2026-10-21T20:14:01.000Z",
+              "updatedAt": "2026-10-21T20:14:01.000Z",
+              "uid": "35240-ef98cf8c-f7e4-44b7-baea-8b37ff404876"
             },
             {
-              "id": "a4d79d94-d4c7-4756-a286-68034928b70c",
+              "id": "117ad0a7-dd12-48b6-93b2-145effa13138",
               "name": "Could not find the requested resource",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:01.000Z",
+              "updatedAt": "2026-10-21T20:14:01.000Z",
+              "uid": "35240-117ad0a7-dd12-48b6-93b2-145effa13138"
             },
             {
-              "id": "47ce4417-c78b-49d4-b8b3-5566ee264cfb",
+              "id": "7315fee1-025e-4486-aa6e-7a3e5bccdcf1",
               "name": "Unprocessable - request is syntactically valid but cannot be processed",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
               "code": 422,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:01.000Z",
+              "updatedAt": "2026-10-21T20:14:01.000Z",
+              "uid": "35240-7315fee1-025e-4486-aa6e-7a3e5bccdcf1"
             },
             {
-              "id": "be01cc2c-81e9-4b51-93e3-11298811a144",
+              "id": "c1959fd2-b69b-4292-a916-06dc942313a6",
               "name": "Server error while processing request",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "me"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "me"
+                  ]
+                }
               },
               "status": "Internal Server Error",
               "code": 500,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:14:01.000Z",
+              "updatedAt": "2026-10-21T20:14:01.000Z",
+              "uid": "35240-c1959fd2-b69b-4292-a916-06dc942313a6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:14:01.000Z",
+          "updatedAt": "2026-10-21T20:14:01.000Z",
+          "uid": "35240-67c48274-b3da-403e-9892-04fd0b46fe00"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://api.latticehq.com/v2",
-      "key": "baseUrl"
+      "id": "a39d274c-d405-43a7-921e-a0d76dc50c40",
+      "createdAt": "2026-10-21T20:14:01.000Z",
+      "updatedAt": "2026-10-21T20:14:01.000Z",
+      "uid": "35240-a39d274c-d405-43a7-921e-a0d76dc50c40"
     }
   ],
   "auth": {
@@ -232,17 +224,15 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{bearerToken}}"
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "392e599f-9609-4d9e-912a-8632b3bd318f",
-    "name": "Lattice HRIS Competencies Me API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "REST API (v2) for Lattice's HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account Bearer token authentication and is designed for HR system integrations including Okta SCIM provisioning. Also exposes v2 review submission endpoints shared with the Talent API.\n\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.latticehq.com/v1"
     }
-  }
+  ]
 }

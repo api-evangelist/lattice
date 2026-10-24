@@ -1,0 +1,1879 @@
+{
+  "info": {
+    "_postman_id": "77b70eee-5c34-44fc-80bd-a90034ea6407",
+    "name": "Lattice Reviews API",
+    "description": "Operations tagged Reviews across 2 of this provider's published API definitions: lattice-hris-openapi.yml, lattice-talent-openapi.yml. Each path carries the servers of the definition it was published in.\n\nContact Support:\n Name: Lattice Developer Support\n Email: customercare@lattice.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:14:16.000Z",
+    "updatedAt": "2026-10-21T20:14:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-77b70eee-5c34-44fc-80bd-a90034ea6407"
+  },
+  "item": [
+    {
+      "name": "reviews",
+      "item": [
+        {
+          "name": "draft",
+          "item": [
+            {
+              "name": "Create a draft review",
+              "id": "a71749d1-1b3f-4ec1-b117-201845258472",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/draft",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reviews",
+                    "draft"
+                  ]
+                },
+                "description": "Saves initial responses for a review as a draft. The review must exist and the caller must have permission to complete it."
+              },
+              "response": [
+                {
+                  "id": "7dba0add-5abc-4d5c-a63d-5291fe72953b",
+                  "name": "Draft review created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"revieweeId\": \"<uuid>\",\n    \"cycleId\": \"<uuid>\",\n    \"direction\": \"downward\",\n    \"state\": \"shared\",\n    \"responses\": [\n      {\n        \"questionRevisionId\": \"<uuid>\",\n        \"comment\": \"<string,null>\",\n        \"rating\": \"<string,null>\",\n        \"choices\": \"<array,null>\"\n      },\n      {\n        \"questionRevisionId\": \"<uuid>\",\n        \"comment\": \"<string,null>\",\n        \"rating\": \"<string,null>\",\n        \"choices\": \"<array,null>\"\n      }\n    ],\n    \"updatedAt\": \"<dateTime>\",\n    \"submittedAt\": \"<string,null-date-time>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-7dba0add-5abc-4d5c-a63d-5291fe72953b"
+                },
+                {
+                  "id": "305ea070-f2ee-4b6a-b161-eba32c2b9390",
+                  "name": "Bad request - validation failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-305ea070-f2ee-4b6a-b161-eba32c2b9390"
+                },
+                {
+                  "id": "70d602f1-00bf-4773-91fb-d736453ca44d",
+                  "name": "Unauthorized - missing or invalid bearer token",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-70d602f1-00bf-4773-91fb-d736453ca44d"
+                },
+                {
+                  "id": "a1ede0cb-afef-4e5d-baaf-02caace36abe",
+                  "name": "Forbidden - caller lacks required permissions",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-a1ede0cb-afef-4e5d-baaf-02caace36abe"
+                },
+                {
+                  "id": "916f5f85-21f6-4c42-aff9-977f4097d726",
+                  "name": "Not found - the requested resource does not exist",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-916f5f85-21f6-4c42-aff9-977f4097d726"
+                },
+                {
+                  "id": "3dc2d33c-9787-4d15-a15a-7f6fdfe07198",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"reviewId\": \"<uuid>\",\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        "draft"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-3dc2d33c-9787-4d15-a15a-7f6fdfe07198"
+                }
+              ],
+              "createdAt": "2026-10-21T20:14:17.000Z",
+              "updatedAt": "2026-10-21T20:14:17.000Z",
+              "uid": "35240-a71749d1-1b3f-4ec1-b117-201845258472"
+            }
+          ],
+          "id": "218d2149-6c87-4b33-8531-1cf9be731f61",
+          "createdAt": "2026-10-21T20:14:17.000Z",
+          "updatedAt": "2026-10-21T20:14:17.000Z",
+          "uid": "35240-218d2149-6c87-4b33-8531-1cf9be731f61"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "submit",
+              "item": [
+                {
+                  "name": "Submit a review",
+                  "id": "2b127312-dcde-47e3-96f8-9be86d9f26dc",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/:id/submit",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        ":id",
+                        "submit"
+                      ],
+                      "variable": [
+                        {
+                          "id": "87575405-e09d-484c-ac03-b20343b63f05",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The review entity ID"
+                        }
+                      ]
+                    },
+                    "description": "Submits a drafted review. The review must be in drafted state and all required questions must have valid responses."
+                  },
+                  "response": [
+                    {
+                      "id": "ecf68998-e03b-403f-bf30-d5bc63ddac14",
+                      "name": "Review submitted successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"revieweeId\": \"<uuid>\",\n    \"cycleId\": \"<uuid>\",\n    \"direction\": \"upward\",\n    \"state\": \"submitted\",\n    \"updatedAt\": \"<dateTime>\",\n    \"submittedAt\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-ecf68998-e03b-403f-bf30-d5bc63ddac14"
+                    },
+                    {
+                      "id": "dbb8f49b-08cd-4d21-b7eb-43a4540989b1",
+                      "name": "Bad request - validation failed",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-dbb8f49b-08cd-4d21-b7eb-43a4540989b1"
+                    },
+                    {
+                      "id": "4b75861b-0c1b-4d34-98af-abdf82d02da0",
+                      "name": "Unauthorized - missing or invalid bearer token",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-4b75861b-0c1b-4d34-98af-abdf82d02da0"
+                    },
+                    {
+                      "id": "32e488a6-838a-42d7-8282-20e19af14df0",
+                      "name": "Forbidden - caller lacks required permissions",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-32e488a6-838a-42d7-8282-20e19af14df0"
+                    },
+                    {
+                      "id": "e00ff0a8-2f04-4fc4-b050-9ee2ee59f916",
+                      "name": "Not found - the requested resource does not exist",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-e00ff0a8-2f04-4fc4-b050-9ee2ee59f916"
+                    },
+                    {
+                      "id": "04ec6a40-8a33-48ee-9302-85ff40298504",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-04ec6a40-8a33-48ee-9302-85ff40298504"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-2b127312-dcde-47e3-96f8-9be86d9f26dc"
+                }
+              ],
+              "id": "7b96b328-f48b-420f-baa1-fb165aaff66e",
+              "createdAt": "2026-10-21T20:14:17.000Z",
+              "updatedAt": "2026-10-21T20:14:17.000Z",
+              "uid": "35240-7b96b328-f48b-420f-baa1-fb165aaff66e"
+            },
+            {
+              "name": "draft",
+              "item": [
+                {
+                  "name": "Update a draft review",
+                  "id": "a80b1c7c-81d8-4fbb-aec4-07636ba4205c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/reviews/:id/draft",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviews",
+                        ":id",
+                        "draft"
+                      ],
+                      "variable": [
+                        {
+                          "id": "603bba0f-d309-4da1-b4bc-06bcc323bc7a",
+                          "key": "id",
+                          "value": "<uuid>",
+                          "description": "(Required) The review entity ID"
+                        }
+                      ]
+                    },
+                    "description": "Updates existing draft responses for a review. The review must be in drafted state."
+                  },
+                  "response": [
+                    {
+                      "id": "bc784e23-d5c4-4a0c-ad9d-de21363e97ef",
+                      "name": "Draft review updated successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<uuid>\",\n    \"revieweeId\": \"<uuid>\",\n    \"cycleId\": \"<uuid>\",\n    \"direction\": \"downward\",\n    \"state\": \"shared\",\n    \"responses\": [\n      {\n        \"questionRevisionId\": \"<uuid>\",\n        \"comment\": \"<string,null>\",\n        \"rating\": \"<string,null>\",\n        \"choices\": \"<array,null>\"\n      },\n      {\n        \"questionRevisionId\": \"<uuid>\",\n        \"comment\": \"<string,null>\",\n        \"rating\": \"<string,null>\",\n        \"choices\": \"<array,null>\"\n      }\n    ],\n    \"updatedAt\": \"<dateTime>\",\n    \"submittedAt\": \"<string,null-date-time>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-bc784e23-d5c4-4a0c-ad9d-de21363e97ef"
+                    },
+                    {
+                      "id": "d68436df-8826-4a8e-a0c6-0548f40d89e2",
+                      "name": "Bad request - validation failed",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-d68436df-8826-4a8e-a0c6-0548f40d89e2"
+                    },
+                    {
+                      "id": "3ab63061-fad0-4ae3-a34d-f3fdd65f7794",
+                      "name": "Unauthorized - missing or invalid bearer token",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-3ab63061-fad0-4ae3-a34d-f3fdd65f7794"
+                    },
+                    {
+                      "id": "cdf939db-78af-4d26-895e-af814d24725c",
+                      "name": "Forbidden - caller lacks required permissions",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-cdf939db-78af-4d26-895e-af814d24725c"
+                    },
+                    {
+                      "id": "59aa0317-db1b-439d-a56b-f94c76bacad4",
+                      "name": "Not found - the requested resource does not exist",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-59aa0317-db1b-439d-a56b-f94c76bacad4"
+                    },
+                    {
+                      "id": "ca5b7ee4-cbab-4ebd-b9d1-391e067fec49",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"responses\": [\n    {\n      \"questionRevisionId\": \"<uuid>\",\n      \"comment\": \"<string,null>\",\n      \"rating\": \"<string,null>\",\n      \"choices\": \"<array,null>\"\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/reviews/:id/draft",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviews",
+                            ":id",
+                            "draft"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<integer>\",\n  \"title\": \"<string>\",\n  \"detail\": \"<string>\",\n  \"errors\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-ca5b7ee4-cbab-4ebd-b9d1-391e067fec49"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-a80b1c7c-81d8-4fbb-aec4-07636ba4205c"
+                }
+              ],
+              "id": "abb55183-533e-452d-8b74-fbf89a179dd6",
+              "createdAt": "2026-10-21T20:14:17.000Z",
+              "updatedAt": "2026-10-21T20:14:17.000Z",
+              "uid": "35240-abb55183-533e-452d-8b74-fbf89a179dd6"
+            }
+          ],
+          "id": "3949f5a3-88d8-4d8e-8115-4f0b4c3bc940",
+          "createdAt": "2026-10-21T20:14:17.000Z",
+          "updatedAt": "2026-10-21T20:14:17.000Z",
+          "uid": "35240-3949f5a3-88d8-4d8e-8115-4f0b4c3bc940"
+        }
+      ],
+      "id": "b0ef3ef6-3ca3-4288-bb26-ed291634b0dd",
+      "createdAt": "2026-10-21T20:14:17.000Z",
+      "updatedAt": "2026-10-21T20:14:17.000Z",
+      "uid": "35240-b0ef3ef6-3ca3-4288-bb26-ed291634b0dd"
+    },
+    {
+      "name": "reviewCycle",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "reviews",
+              "item": [
+                {
+                  "name": "List reviews in a review cycle",
+                  "id": "2ce54592-90e3-4e21-8796-532535b2da3f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewCycle/:id/reviews?limit=<integer>&startingAfter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewCycle",
+                        ":id",
+                        "reviews"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of items to return per page",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Cursor for fetching the next page of results",
+                          "key": "startingAfter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "38ec96b0-a82f-4a12-9eb2-9fe5aef8b34b",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) The review cycle identifier"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of all reviews in a review cycle."
+                  },
+                  "response": [
+                    {
+                      "id": "8b2f7409-8d73-4276-83a2-6a789277579c",
+                      "name": "Paginated list of reviews",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewCycle/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewCycle",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"revieweeId\": \"<uuid>\",\n      \"cycleId\": \"<uuid>\",\n      \"direction\": \"downward\",\n      \"state\": \"shared\",\n      \"updatedAt\": \"<dateTime>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"submittedAt\": \"<string,null-date-time>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"revieweeId\": \"<uuid>\",\n      \"cycleId\": \"<uuid>\",\n      \"direction\": \"self\",\n      \"state\": \"drafted\",\n      \"updatedAt\": \"<dateTime>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"submittedAt\": \"<string,null-date-time>\"\n    }\n  ],\n  \"hasMore\": \"<boolean>\",\n  \"object\": \"list\",\n  \"endingCursor\": \"<string,null>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-8b2f7409-8d73-4276-83a2-6a789277579c"
+                    },
+                    {
+                      "id": "095bc358-2dcc-47a1-9166-01d9ead49c47",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewCycle/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewCycle",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-095bc358-2dcc-47a1-9166-01d9ead49c47"
+                    },
+                    {
+                      "id": "44ba36cc-bfe1-4a9e-8f71-4c78c1472278",
+                      "name": "Unprocessable - request is syntactically valid but cannot be processed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewCycle/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewCycle",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-44ba36cc-bfe1-4a9e-8f71-4c78c1472278"
+                    },
+                    {
+                      "id": "c8091155-4f4e-4dd8-9891-458b1283bb18",
+                      "name": "Server error while processing request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewCycle/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewCycle",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-c8091155-4f4e-4dd8-9891-458b1283bb18"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-2ce54592-90e3-4e21-8796-532535b2da3f"
+                }
+              ],
+              "id": "47f98cc5-770a-4fb1-aca2-335363342952",
+              "createdAt": "2026-10-21T20:14:17.000Z",
+              "updatedAt": "2026-10-21T20:14:17.000Z",
+              "uid": "35240-47f98cc5-770a-4fb1-aca2-335363342952"
+            }
+          ],
+          "id": "0b48cc1c-3306-4580-9b15-add1ca289a8a",
+          "createdAt": "2026-10-21T20:14:17.000Z",
+          "updatedAt": "2026-10-21T20:14:17.000Z",
+          "uid": "35240-0b48cc1c-3306-4580-9b15-add1ca289a8a"
+        }
+      ],
+      "id": "d0339a0e-d1b2-4786-acc6-be0a71605928",
+      "createdAt": "2026-10-21T20:14:17.000Z",
+      "updatedAt": "2026-10-21T20:14:17.000Z",
+      "uid": "35240-d0339a0e-d1b2-4786-acc6-be0a71605928"
+    },
+    {
+      "name": "reviewee",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "reviews",
+              "item": [
+                {
+                  "name": "List reviews for a reviewee",
+                  "id": "f27e2f7a-5141-4b0b-b969-612016c5ff00",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reviewee/:id/reviews?limit=<integer>&startingAfter=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reviewee",
+                        ":id",
+                        "reviews"
+                      ],
+                      "query": [
+                        {
+                          "description": "Maximum number of items to return per page",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Cursor for fetching the next page of results",
+                          "key": "startingAfter",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "2829c904-03b2-4cc9-8910-8d04675b2f68",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) The reviewee identifier"
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of all reviews for a specific reviewee."
+                  },
+                  "response": [
+                    {
+                      "id": "fc0d551b-9a47-4f98-b778-567ea2d86b51",
+                      "name": "Paginated list of reviews",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewee/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewee",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"revieweeId\": \"<uuid>\",\n      \"cycleId\": \"<uuid>\",\n      \"direction\": \"downward\",\n      \"state\": \"shared\",\n      \"updatedAt\": \"<dateTime>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"submittedAt\": \"<string,null-date-time>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"revieweeId\": \"<uuid>\",\n      \"cycleId\": \"<uuid>\",\n      \"direction\": \"self\",\n      \"state\": \"drafted\",\n      \"updatedAt\": \"<dateTime>\",\n      \"object\": \"<string>\",\n      \"url\": \"<string>\",\n      \"submittedAt\": \"<string,null-date-time>\"\n    }\n  ],\n  \"hasMore\": \"<boolean>\",\n  \"object\": \"list\",\n  \"endingCursor\": \"<string,null>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-fc0d551b-9a47-4f98-b778-567ea2d86b51"
+                    },
+                    {
+                      "id": "8b0b134f-8bf9-441e-ac0b-a4640b0b5bc2",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewee/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewee",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-8b0b134f-8bf9-441e-ac0b-a4640b0b5bc2"
+                    },
+                    {
+                      "id": "9302557d-2d88-46ae-b835-7f40edf000e3",
+                      "name": "Unprocessable - request is syntactically valid but cannot be processed",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewee/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewee",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-9302557d-2d88-46ae-b835-7f40edf000e3"
+                    },
+                    {
+                      "id": "f8950e59-cc38-4b2a-9e99-1c9a64c09b95",
+                      "name": "Server error while processing request",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reviewee/:id/reviews?limit=<integer>&startingAfter=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reviewee",
+                            ":id",
+                            "reviews"
+                          ],
+                          "query": [
+                            {
+                              "description": "Maximum number of items to return per page",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Cursor for fetching the next page of results",
+                              "key": "startingAfter",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:14:17.000Z",
+                      "updatedAt": "2026-10-21T20:14:17.000Z",
+                      "uid": "35240-f8950e59-cc38-4b2a-9e99-1c9a64c09b95"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:14:17.000Z",
+                  "updatedAt": "2026-10-21T20:14:17.000Z",
+                  "uid": "35240-f27e2f7a-5141-4b0b-b969-612016c5ff00"
+                }
+              ],
+              "id": "ebccc94c-ad8a-4909-b8e7-e8563f22cad7",
+              "createdAt": "2026-10-21T20:14:17.000Z",
+              "updatedAt": "2026-10-21T20:14:17.000Z",
+              "uid": "35240-ebccc94c-ad8a-4909-b8e7-e8563f22cad7"
+            }
+          ],
+          "id": "b4c1e23e-6208-45e7-bd9b-7790a5129b9d",
+          "createdAt": "2026-10-21T20:14:17.000Z",
+          "updatedAt": "2026-10-21T20:14:17.000Z",
+          "uid": "35240-b4c1e23e-6208-45e7-bd9b-7790a5129b9d"
+        }
+      ],
+      "id": "7e9b4ec8-9b61-4cfe-89ff-a06837e3c59f",
+      "createdAt": "2026-10-21T20:14:17.000Z",
+      "updatedAt": "2026-10-21T20:14:17.000Z",
+      "uid": "35240-7e9b4ec8-9b61-4cfe-89ff-a06837e3c59f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.latticehq.com/v2"
+    }
+  ]
+}
