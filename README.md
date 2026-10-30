@@ -1,4 +1,4 @@
-# Lattice (lattice)
+# Lattice
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,68 +64,176 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Lattice is a people management platform used by over 5,000 companies to run performance reviews, track OKRs and goals, collect employee engagement survey data, manage compensation, and handle core HR (HRIS) workflows. The platform exposes two public REST APIs: the Lattice Talent API (v1) for performance, goals, feedback, and review data, and the Lattice HRIS API (v2) for employee records and organizational data. Both APIs use API-key authentication and are documented on the Lattice Developer Hub at developers.lattice.com.
+Lattice is a people management platform used by over 5,000 companies to run performance reviews, track OKRs and goals, collect employee engagement survey data, manage compensation, and handle core HR (HRIS) workflows. The platform exposes two public REST APIs: the Lattice Talent API (v1) for performance, goals, feedback, and review data, and the Lattice HRIS API (v2) for employee records and organizational data. Both APIs use API-key authentication and are documented on the Lattice Developer Hub at developers.lattice.com. Lattice integrates with Slack, Gmail, Microsoft Teams, Salesforce, BambooHR, Okta, and other enterprise tools, and supports SCIM provisioning for identity management.
 
-APIs.json: https://raw.githubusercontent.com/api-evangelist/lattice/refs/heads/main/apis.yml
+**Areas:** Human Resources · People Management · Performance Management · OKRs · Goals · Employee Engagement · HRIS · Compensation · Feedback · Surveys
 
-Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=lattice-api-evangelist&utm_content=repo
+## Lattice on APIs.io
 
-## Tags
+Everything profiled for Lattice is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lattice/](https://apis.io/providers/lattice/)** — or go straight to one of the APIs or properties below.
 
-- HR
-- People Management
-- Performance Management
-- OKRs
-- Goals
-- Employee Engagement
-- HRIS
-- Compensation
-- Feedback
-- Surveys
+### APIs (11)
 
-## APIs
+- [Lattice Competencies API](https://apis.io/apis/lattice/lattice-competencies-api/) — Retrieve competencies
+- [Lattice Departments API](https://apis.io/apis/lattice/lattice-departments-api/) — Manage and retrieve department records
+- [Lattice Feedbacks API](https://apis.io/apis/lattice/lattice-feedbacks-api/) — Retrieve continuous feedback
+- [Lattice Goal Updates API](https://apis.io/apis/lattice/lattice-goal-updates-api/) — Create and retrieve goal progress updates
+- [Lattice Goals API](https://apis.io/apis/lattice/lattice-goals-api/) — Create, read, and update goals and OKRs
+- [Lattice Me API](https://apis.io/apis/lattice/lattice-me-api/) — Retrieve information about the authenticated user
+- [Lattice Review Cycles API](https://apis.io/apis/lattice/lattice-review-cycles-api/) — Manage performance review cycles
+- [Lattice Reviewees API](https://apis.io/apis/lattice/lattice-reviewees-api/) — Manage reviewees within a review cycle
+- [Lattice Reviews API](https://apis.io/apis/lattice/lattice-reviews-api/) — Create, update, and submit performance reviews (v2)
+- [Lattice Tags API](https://apis.io/apis/lattice/lattice-tags-api/) — Retrieve tags used across goals and feedback
+- [Lattice Users API](https://apis.io/apis/lattice/lattice-users-api/) — Manage and retrieve user records
 
-### Lattice Talent API
+### Published properties
 
-REST API for Lattice's Talent product suite covering users, goals, OKRs, performance review cycles, continuous feedback, competencies, tasks, and organizational departments. Uses cursor-based pagination and API key authentication.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Documentation: https://developers.lattice.com/reference/introduction
-- Base URL: https://api.latticehq.com/v1
+#### GraphQL (1)
 
-### Lattice HRIS API
+GraphQL schemas.
 
-REST API (v2) for Lattice's HRIS product covering employee records, organizational hierarchy, and HR core data. Supports service account authentication and is designed for HR system integrations including Okta SCIM provisioning.
+- [Moved to /providers/lattice/](https://apis.io/graphqls/lattice/lattice-graphql/)
 
-- Documentation: https://developers.lattice.com
-- Base URL: https://api.latticehq.com/v2
+#### Agentic access (1)
 
-## Plans / Rate Limits / FinOps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-| Resource | File |
+- [Lattice Agentic Access](https://apis.io/agentic-access/lattice/lattice-agentic-access/)
+
+#### JSON Schema (3)
+
+The data models the API reads and writes.
+
+- [Goal](https://apis.io/schemas/lattice/lattice-goal/)
+- [ReviewCycle](https://apis.io/schemas/lattice/lattice-review-cycle/)
+- [User](https://apis.io/schemas/lattice/lattice-user/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Lattice Context](https://apis.io/jsonld/lattice/lattice-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Lattice API Vocabulary](https://apis.io/vocabularies/lattice/lattice-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Lattice Create Draft Review Example](https://apis.io/examples/lattice/lattice-create-draft-review-example/)
+- [Lattice Create Goal Example](https://apis.io/examples/lattice/lattice-create-goal-example/)
+- [Lattice List Goals Example](https://apis.io/examples/lattice/lattice-list-goals-example/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [Lattice HRIS Competencies API](https://apis.io/collections/lattice/open-lattice-competencies-api/)
+- [Lattice HRIS Competencies Departments API](https://apis.io/collections/lattice/open-lattice-departments-api/)
+- [Lattice HRIS Competencies Feedbacks API](https://apis.io/collections/lattice/open-lattice-feedbacks-api/)
+- [Lattice HRIS Competencies Goal Updates API](https://apis.io/collections/lattice/open-lattice-goal-updates-api/)
+- [Lattice HRIS Competencies Goals API](https://apis.io/collections/lattice/open-lattice-goals-api/)
+- [Lattice HRIS Competencies Me API](https://apis.io/collections/lattice/open-lattice-me-api/)
+- [Lattice HRIS Competencies Tags API](https://apis.io/collections/lattice/open-lattice-tags-api/)
+- [Lattice HRIS Competencies Users API](https://apis.io/collections/lattice/open-lattice-users-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Lattice — jsonschema rules](https://apis.io/rules/lattice/lattice-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Lattice Authentication](https://apis.io/security/lattice/lattice-authentication/)
+- [Lattice Domain Security](https://apis.io/security/lattice/lattice-domain-security/)
+- [Lattice Trust Center](https://apis.io/security/lattice/lattice-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Lattice Plans Pricing](https://apis.io/plans/lattice/lattice-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Lattice Rate Limits](https://apis.io/rate-limits/lattice/lattice-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Lattice Finops](https://apis.io/finops/lattice/lattice-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://lattice.com)
+- [Documentation](https://developers.lattice.com)
+- [Pricing](https://lattice.com/pricing)
+- [Blog](https://lattice.com/blog)
+- [Status](https://status.latticehq.com)
+
+## API Evangelist rating
+
+**Kin Score 35.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| Plans & Pricing | [plans/lattice-plans-pricing.yml](plans/lattice-plans-pricing.yml) |
-| Rate Limits | [rate-limits/lattice-rate-limits.yml](rate-limits/lattice-rate-limits.yml) |
-| FinOps | [finops/lattice-finops.yml](finops/lattice-finops.yml) |
+| Discoverability | 66.1 |
+| Contract quality | 62.2 |
+| Contract governance | 23.5 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 26.3 |
 
-Lattice uses a modular per-employee-per-month (PEPM) pricing model billed annually with a minimum contract of approximately $4,000. Performance Management starts around $11-14 PEPM; HRIS around $10-16 PEPM. API access is bundled with the corresponding product module — no separate API usage charges. Rate limits are enforced per API key (~100 RPM for Talent API, ~60 RPM for HRIS API); 429 responses include a Retry-After header.
+**Agent readiness 19.2** — agent-aware
 
-## Timestamps
-
-- Created: 2026-06-12
-- Modified: 2026-06-12
-
-## Common Properties
-
-| Type | URL |
+| Agent-readiness dimension | Result |
 |---|---|
-| Website | https://lattice.com |
-| Documentation | https://developers.lattice.com |
-| LinkedIn | https://www.linkedin.com/company/lattice-hq |
-| X | https://x.com/latticehq |
-| Blog | https://lattice.com/blog |
-| Pricing | https://lattice.com/pricing |
-| Status Page | https://status.latticehq.com |
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-## Maintainers
+**Regulatory alignment 21.6** — Employment & Payroll
 
-- Kin Lane / kin@apievangelist.com
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lattice/](https://apis.io/providers/lattice/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lattice: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lattice/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
